@@ -18,9 +18,9 @@ import path from 'path';
 
 import { SerializedFS } from '@utils/serializedFS';
 import { Artifact } from '../artifact';
+import { APIRequestContext } from '../fetch';
 import { HarTracer } from './harTracer';
 
-import type { APIRequestContext } from '../fetch';
 import type { BrowserContext } from '../browserContext';
 import type { HarTracerDelegate } from './harTracer';
 import type { Page } from '../page';
@@ -52,6 +52,7 @@ export class HarRecorder implements HarTracerDelegate {
     const content = options.content || 'embed';
     this._tracer = new HarTracer(context, page, this, {
       content,
+      includeAPIRequests: context instanceof APIRequestContext,
       slimMode: options.mode === 'minimal',
       includeTraceInfo: false,
       recordRequestOverrides: true,

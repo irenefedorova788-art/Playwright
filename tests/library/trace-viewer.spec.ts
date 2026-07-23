@@ -490,6 +490,73 @@ test('should have network requests', async ({ showTraceViewer }) => {
   await expect(traceViewer.networkRequests.filter({ hasText: '404GET404text' })).toHaveCSS('background-color', 'rgb(242, 222, 222)');
 });
 
+test('should show context API request details', async ({ page, runAndTrace, server }) => {
+  server.setRoute('/api-details', (_, response) => {
+    setTimeout(() => {
+      response.writeHead(200, {
+        'Content-Type': 'application/json',
+        'X-Response': 'response-value',
+      });
+      response.end(JSON.stringify({ result: 'ok' }));
+    }, 50);
+  });
+  const traceViewer = await runAndTrace(async () => {
+    await page.request.post(server.PREFIX + '/api-details', {
+      headers: {
+        'cookie': 'token=abc=xyz; other=val',
+        'x-request': 'request-value',
+      },
+      data: { foo: 'bar' },
+    });
+  });
+  await traceViewer.selectAction('POST "/api-details"');
+  await traceViewer.showNetworkTab();
+  const request = traceViewer.networkRequests.filter({ hasText: 'api-details' });
+  await expect(request).toHaveCount(1);
+  await expect(request.locator('.grid-view-column-method')).toHaveText('POST');
+  await expect(request.locator('.grid-view-column-status')).toHaveText('200');
+  await expect(request.locator('.grid-view-column-route')).toHaveText('api');
+  expect(parseMillis(await request.locator('.grid-view-column-duration').innerText())).toBeGreaterThan(0);
+
+  await request.click();
+  const headersPanel = traceViewer.networkTab.getByRole('tabpanel', { name: 'Headers' });
+  await expect(headersPanel.getByRole('region', { name: 'General' })).toContainText(server.PREFIX + '/api-details');
+  await expect(headersPanel.getByRole('region', { name: 'General' })).toContainText(/MethodPOST/);
+  await expect(headersPanel.getByRole('region', { name: 'General' })).toContainText(/Status Code\s*200 OK/);
+  await expect(headersPanel.getByRole('region', { name: 'General' })).toContainText(/Duration\d+ms/);
+  const requestHeaders = headersPanel.getByRole('region', { name: /Request Headers/ });
+  await expect(requestHeaders.getByText('token=abc=xyz; other=val')).toBeVisible();
+  await expect(requestHeaders.getByText('request-value')).toBeVisible();
+  await expect(requestHeaders.getByText('application/json', { exact: true })).toBeVisible();
+  await expect(headersPanel.getByRole('region', { name: /Response Headers/ }).getByText('response-value')).toBeVisible();
+
+  await traceViewer.networkTab.getByRole('tab', { name: 'Payload' }).click();
+  const payloadPanel = traceViewer.networkTab.getByRole('tabpanel', { name: 'Payload' });
+  await expect(payloadPanel).toContainText('foo');
+  await expect(payloadPanel).toContainText('bar');
+
+  await traceViewer.networkTab.getByRole('tab', { name: 'Response' }).click();
+  const responsePanel = traceViewer.networkTab.getByRole('tabpanel', { name: 'Response' });
+  await expect(responsePanel).toContainText('result');
+  await expect(responsePanel).toContainText('ok');
+});
+
+test('should show context API request redirects', async ({ page, runAndTrace, server }) => {
+  server.setRedirect('/api-redirect', '/simple.json');
+  const traceViewer = await runAndTrace(async () => {
+    await page.request.get(server.PREFIX + '/api-redirect');
+  });
+  await traceViewer.selectAction('GET "/api-redirect"');
+  await traceViewer.showNetworkTab();
+  await expect(traceViewer.networkRequests).toHaveCount(2);
+  const redirect = traceViewer.networkRequests.filter({ hasText: 'api-redirect' });
+  await expect(redirect.locator('.grid-view-column-status')).toHaveText('302');
+  await expect(redirect.locator('.grid-view-column-route')).toHaveText('api');
+  const response = traceViewer.networkRequests.filter({ hasText: 'simple.json' });
+  await expect(response.locator('.grid-view-column-status')).toHaveText('200');
+  await expect(response.locator('.grid-view-column-route')).toHaveText('api');
+});
+
 test('should highlight network request on timeline on hover', async ({ showTraceViewer }) => {
   const traceViewer = await showTraceViewer(traceFile);
   await traceViewer.selectAction('Navigate');
