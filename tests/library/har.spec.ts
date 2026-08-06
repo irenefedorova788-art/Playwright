@@ -642,7 +642,6 @@ it('should have security details', async ({ contextFactory, httpsServer, browser
 
   const { page, getLog } = await pageWithHar(contextFactory, testInfo);
   await page.goto(httpsServer.EMPTY_PAGE);
-  await page.request.get(httpsServer.EMPTY_PAGE);
   const log = await getLog();
   const { serverIPAddress, _serverPort: port, _securityDetails: securityDetails } = log.entries[0];
   expect(serverIPAddress).toMatch(/^127\.0\.0\.1|\[::1\]/);
@@ -651,8 +650,6 @@ it('should have security details', async ({ contextFactory, httpsServer, browser
     expect(securityDetails).toEqual({ protocol: 'TLS 1.3', subjectName: 'playwright-test', validFrom: 1691708270, validTo: 2007068270 });
   else
     expect(securityDetails).toEqual({ issuer: 'playwright-test', protocol: 'TLS 1.3', subjectName: 'playwright-test', validFrom: 1691708270, validTo: 2007068270 });
-
-  expect(log.entries[1]._securityDetails).toEqual({ issuer: 'playwright-test', protocol: 'TLSv1.3', subjectName: 'playwright-test', validFrom: 1691708270, validTo: 2007068270 });
 });
 
 it('should have connection details for redirects', async ({ contextFactory, server, browserName, mode }, testInfo) => {
@@ -811,103 +808,12 @@ it('should have different hars for concurrent contexts', async ({ contextFactory
   }
 });
 
-it('should include API request', async ({ contextFactory, server }, testInfo) => {
+it('should exclude API requests', async ({ contextFactory, server }, testInfo) => {
   const { page, getLog } = await pageWithHar(contextFactory, testInfo);
-  const url = server.PREFIX + '/simple.json';
-  const response = await page.request.post(url, {
-    headers: { cookie: 'a=b; c=d' },
-    data: { foo: 'bar' }
-  });
-  const responseBody = await response.body();
+  await page.goto(server.EMPTY_PAGE);
+  await page.request.get(server.PREFIX + '/simple.json');
   const log = await getLog();
-  expect(log.entries.length).toBe(1);
-  const entry = log.entries[0];
-  expect(entry.request.url).toBe(url);
-  expect(entry.request.method).toBe('POST');
-  expect(entry.request.httpVersion).toBe('HTTP/1.1');
-  expect(entry.request.cookies).toEqual([
-    {
-      'name': 'a',
-      'value': 'b'
-    },
-    {
-      'name': 'c',
-      'value': 'd'
-    }
-  ]);
-  expect(entry.request.headers.length).toBeGreaterThan(1);
-  expect(entry.request.headers.find(h => h.name.toLowerCase() === 'user-agent')).toBeTruthy();
-  expect(entry.request.headers.find(h => h.name.toLowerCase() === 'content-type')?.value).toBe('application/json');
-  expect(entry.request.headers.find(h => h.name.toLowerCase() === 'content-length')?.value).toBe('13');
-  expect(entry.request.bodySize).toBe(13);
-
-  expect(entry.response.status).toBe(200);
-  expect(entry.response.headers.find(h => h.name.toLowerCase() === 'content-type')?.value).toContain('application/json');
-  expect(entry.response.content.size).toBe(15);
-  expect(entry.response.content.text).toBe(responseBody.toString());
-  expect(entry.response.bodySize).toBe(15);
-
-  expect(entry.time).toBeGreaterThan(0);
-  expect(entry.timings).toEqual(expect.objectContaining({
-    blocked: -1,
-    connect: expect.any(Number),
-    dns: expect.any(Number),
-    receive: expect.any(Number),
-    send: expect.any(Number),
-    ssl: expect.any(Number),
-    wait: expect.any(Number),
-  }));
-
-  expect(entry.serverIPAddress).toBeDefined();
-  expect(entry._serverPort).toEqual(server.PORT);
-});
-
-it('should correctly record API request cookies with equals sign in value', async ({ contextFactory, server }, testInfo) => {
-  const { page, getLog } = await pageWithHar(contextFactory, testInfo);
-  const url = server.PREFIX + '/simple.json';
-  await page.request.get(url, {
-    headers: { cookie: 'token=abc=xyz; other=val' },
-  });
-  const log = await getLog();
-  expect(log.entries[0].request.cookies).toEqual([
-    { name: 'token', value: 'abc=xyz' },
-    { name: 'other', value: 'val' },
-  ]);
-});
-
-it('should respect minimal mode for API Requests', async ({ contextFactory, server }, testInfo) => {
-  const { page, getLog } = await pageWithHar(contextFactory, testInfo, { mode: 'minimal' });
-  const url = server.PREFIX + '/simple.json';
-  await page.request.post(url, {
-    headers: { cookie: 'a=b; c=d' },
-    data: { foo: 'bar' }
-  });
-  const { entries } = await getLog();
-  expect(entries).toHaveLength(1);
-  const [entry] = entries;
-  expect(entry.timings).toEqual({ receive: -1, send: -1, wait: -1 });
-  expect(entry.serverIPAddress).toBeUndefined();
-  expect(entry._serverPort).toBeUndefined();
-  expect(entry.request.cookies).toEqual([]);
-  expect(entry.request.bodySize).toBe(-1);
-  expect(entry.response.bodySize).toBe(-1);
-});
-
-it('should include redirects from API request', async ({ contextFactory, server }, testInfo) => {
-  server.setRedirect('/redirect-me', '/simple.json');
-  const { page, getLog } = await pageWithHar(contextFactory, testInfo);
-  await page.request.post(server.PREFIX + '/redirect-me', {
-    headers: { cookie: 'a=b; c=d' },
-    data: { foo: 'bar' }
-  });
-  const log = await getLog();
-  expect(log.entries.length).toBe(2);
-  const [redirect, json] = log.entries;
-  expect(redirect.request.url).toBe(server.PREFIX + '/redirect-me');
-  expect(json.request.url).toBe(server.PREFIX + '/simple.json');
-
-  expect(redirect.timings).toBeDefined();
-  expect(json.timings).toBeDefined();
+  expect(log.entries.map(entry => entry.request.url)).toEqual([server.EMPTY_PAGE]);
 });
 
 it('should not hang on resources served from cache', async ({ contextFactory, server, browserName, isBidi }, testInfo) => {
@@ -965,13 +871,14 @@ it('should not hang on slow chunked response', async ({ browserName, browser, co
   expect(log.browser!.version).toBe(browser.version());
 });
 
-it('should support HAR larger than 512MB', async ({ contextFactory, server, browserName }, testInfo) => {
+it('should support HAR larger than 512MB', async ({ playwright, server, browserName }, testInfo) => {
   it.skip(browserName !== 'chromium', 'serializer is browser-agnostic; one browser is enough');
   it.slow();
   it.info().annotations.push({ type: 'issue', description: 'https://github.com/microsoft/playwright/issues/36707' });
 
   const harPath = testInfo.outputPath('test.har');
-  const context = await contextFactory({ recordHar: { path: harPath } });
+  const request = await playwright.request.newContext();
+  await request.tracing.startHar(harPath);
 
   // 30 x 20MB textual responses push the HAR JSON past V8's ~512MB max
   // string length. Each body still fits in a single string; only the
@@ -982,8 +889,9 @@ it('should support HAR larger than 512MB', async ({ contextFactory, server, brow
     res.end(body);
   });
   for (let i = 0; i < 30; i++)
-    await context.request.get(`${server.PREFIX}/large`);
-  await context.close();
+    await request.get(`${server.PREFIX}/large`);
+  await request.tracing.stopHar();
+  await request.dispose();
 
   const stats = fs.statSync(harPath);
   expect(stats.size).toBeGreaterThan(512 * 1024 * 1024);
@@ -1057,12 +965,13 @@ it('should record resource type', async ({ contextFactory, server, asset }, test
 });
 
 it.describe('tracing.startHar', () => {
-  it('should record a HAR with options', async ({ contextFactory, server }, testInfo) => {
+  it('should record a HAR with options and exclude API requests', async ({ contextFactory, server }, testInfo) => {
     const context = await contextFactory();
     const harPath = testInfo.outputPath('tracing.har');
     await context.tracing.startHar(harPath, { mode: 'minimal', urlFilter: '**/one-style.css' });
     const page = await context.newPage();
     await page.goto(server.PREFIX + '/one-style.html');
+    await context.request.get(server.PREFIX + '/one-style.css?FAIL_IF_CAPTURED');
     await context.tracing.stopHar();
     await context.close();
 
