@@ -1,0 +1,969 @@
+<title>От идеи до первых продаж</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,85..100,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+
+<style>
+/* ---------- tokens: light is the base, both dark states re-declare ---------- */
+:root {
+  --paper:      #FBFAF6;
+  --surface:    #FFFFFF;
+  --surface-2:  #F4F2EC;
+  --ink:        #101A2E;
+  --ink-2:      #4A5770;
+  --ink-3:      #7C8AA0;
+  --rule:       #E4E1D8;
+  --rule-soft:  #EEEBE3;
+  --blue:       #2748E8;
+  --blue-wash:  #E9EDFF;
+  --pink:       #FF3D57;
+  --pink-wash:  #FFE8EB;
+  --dot:        rgba(16,26,46,.07);
+  --shadow:     0 1px 2px rgba(16,26,46,.05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:      #0D1421;
+    --surface:    #141D2E;
+    --surface-2:  #1A2438;
+    --ink:        #EDF1F7;
+    --ink-2:      #A2AEC2;
+    --ink-3:      #6C7A90;
+    --rule:       #26314A;
+    --rule-soft:  #1E2840;
+    --blue:       #8098FF;
+    --blue-wash:  #1B2440;
+    --pink:       #FF6E7E;
+    --pink-wash:  #331E27;
+    --dot:        rgba(237,241,247,.06);
+    --shadow:     0 1px 2px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"] {
+  --paper:      #0D1421;
+  --surface:    #141D2E;
+  --surface-2:  #1A2438;
+  --ink:        #EDF1F7;
+  --ink-2:      #A2AEC2;
+  --ink-3:      #6C7A90;
+  --rule:       #26314A;
+  --rule-soft:  #1E2840;
+  --blue:       #8098FF;
+  --blue-wash:  #1B2440;
+  --pink:       #FF6E7E;
+  --pink-wash:  #331E27;
+  --dot:        rgba(237,241,247,.06);
+  --shadow:     0 1px 2px rgba(0,0,0,.3);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--ink);
+  font-family: "Public Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mono {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 28px 96px;
+}
+
+/* ---------- masthead ---------- */
+.masthead {
+  padding: 68px 0 40px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 22px;
+}
+.masthead h1 {
+  font-family: "Bricolage Grotesque", "Public Sans", sans-serif;
+  font-variation-settings: "wdth" 92;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 7.5vw, 5.4rem);
+  line-height: .94;
+  letter-spacing: -.03em;
+  margin: 0 0 26px;
+  max-width: 14ch;
+  text-wrap: balance;
+  color: var(--ink);
+  text-shadow: .05em .05em 0 var(--pink);
+}
+.lede {
+  font-size: 1.125rem;
+  color: var(--ink-2);
+  max-width: 62ch;
+  margin: 0 0 30px;
+}
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.fact {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 11.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 6px 10px;
+}
+.fact b { color: var(--ink); font-weight: 600; }
+
+/* ---------- shell ---------- */
+.shell {
+  display: grid;
+  grid-template-columns: 244px minmax(0, 1fr);
+  gap: 72px;
+  align-items: start;
+  padding-top: 44px;
+}
+
+/* ---------- rail ---------- */
+.rail { position: sticky; top: 28px; }
+
+.meter-num {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-variation-settings: "wdth" 88;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  font-size: 3.4rem;
+  line-height: 1;
+  letter-spacing: -.04em;
+  display: block;
+}
+.meter-num span { font-size: 1.4rem; color: var(--ink-3); }
+.meter-sub {
+  font-family: "IBM Plex Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 11.5px;
+  color: var(--ink-3);
+  letter-spacing: .05em;
+  margin: 8px 0 14px;
+}
+.track {
+  height: 6px;
+  background: var(--rule-soft);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+.track-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--blue);
+  border-right: 3px solid var(--pink);
+  transition: width .35s ease;
+}
+
+.rail-nav { margin: 30px 0 26px; border-top: 1px solid var(--rule); }
+.nav-act {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 18px 0 7px;
+}
+.nav-link {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+  text-decoration: none;
+  color: var(--ink-2);
+  font-size: 14px;
+  padding: 5px 0;
+  border-left: 2px solid transparent;
+  padding-left: 10px;
+  margin-left: -12px;
+}
+.nav-link:hover { color: var(--ink); }
+.nav-link.is-active { color: var(--ink); font-weight: 600; border-left-color: var(--pink); }
+.nav-link .n {
+  font-family: "IBM Plex Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+.nav-link.is-done .n { color: var(--blue); }
+
+.controls { display: flex; flex-direction: column; gap: 9px; align-items: flex-start; border-top: 1px solid var(--rule); padding-top: 18px; }
+.ctl {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  background: none;
+  border: 0;
+  padding: 3px 0;
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px solid var(--rule);
+}
+.ctl:hover { color: var(--ink); border-bottom-color: var(--pink); }
+.ctl[aria-pressed="true"] { color: var(--blue); border-bottom-color: var(--blue); }
+
+/* ---------- acts & phases ---------- */
+.act {
+  margin: 0 0 40px;
+  padding-top: 12px;
+}
+.act:not(:first-child) { margin-top: 76px; }
+.act-num {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--pink);
+  display: block;
+  margin-bottom: 10px;
+}
+.act h2 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-variation-settings: "wdth" 90;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 3.4vw, 2.15rem);
+  letter-spacing: -.025em;
+  line-height: 1.05;
+  margin: 0 0 10px;
+}
+.act p { margin: 0; color: var(--ink-2); max-width: 58ch; }
+
+.phase {
+  border-top: 1px solid var(--rule);
+  padding: 28px 0 34px;
+  scroll-margin-top: 24px;
+}
+.phase-head {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  gap: 0 16px;
+  align-items: baseline;
+}
+.phase-index {
+  font-family: "IBM Plex Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pink);
+  letter-spacing: .04em;
+}
+.phase h3 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-variation-settings: "wdth" 94;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+.phase-when {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: .05em;
+  margin: 5px 0 0;
+  text-transform: uppercase;
+}
+.phase-count {
+  font-family: "IBM Plex Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+.phase-count.is-done { color: var(--blue); font-weight: 600; }
+
+.dod {
+  grid-column: 2 / -1;
+  margin: 16px 0 4px 70px;
+  padding: 10px 0 10px 14px;
+  border-left: 2px solid var(--pink);
+  color: var(--ink-2);
+  font-size: 14.5px;
+  max-width: 60ch;
+}
+.dod-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--pink);
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* ---------- checklist ---------- */
+.checks { list-style: none; margin: 20px 0 0 70px; padding: 0; display: flex; flex-direction: column; }
+.checks li { border-bottom: 1px solid var(--rule-soft); }
+.checks li:first-child { border-top: 1px solid var(--rule-soft); }
+
+.checks label {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  padding: 11px 6px 11px 0;
+  cursor: pointer;
+}
+.checks label:hover { background: var(--surface); }
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 3px 0 0;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--ink-3);
+  border-radius: 3px;
+  background: var(--surface);
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  flex: none;
+  transition: background .12s ease, border-color .12s ease;
+}
+input[type="checkbox"]::after {
+  content: "";
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid var(--surface);
+  border-bottom: 2px solid var(--surface);
+  transform: rotate(-45deg) translate(1px, -1px);
+  opacity: 0;
+}
+input[type="checkbox"]:checked { background: var(--blue); border-color: var(--blue); }
+input[type="checkbox"]:checked::after { opacity: 1; }
+input[type="checkbox"]:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+
+.checks .txt { font-size: 15.5px; line-height: 1.55; color: var(--ink-2); }
+.checks .txt b { color: var(--ink); font-weight: 600; }
+.checks input:checked ~ .txt { color: var(--ink-3); }
+.checks input:checked ~ .txt b { color: var(--ink-3); font-weight: 500; text-decoration: line-through; text-decoration-thickness: 1px; }
+
+body.hide-done .checks li.done { display: none; }
+
+/* ---------- tables ---------- */
+.table-wrap {
+  margin: 22px 0 0 70px;
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--surface);
+}
+table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 14px; }
+caption {
+  text-align: left;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface-2);
+}
+th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+thead th {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+tbody th { font-weight: 600; color: var(--ink); }
+td { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+.fill { color: var(--ink-3); font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+
+/* ---------- gates ---------- */
+.gates { list-style: none; counter-reset: g; margin: 24px 0 0; padding: 0; display: grid; gap: 0; }
+.gates li {
+  counter-increment: g;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  color: var(--ink);
+  font-size: 15.5px;
+}
+.gates li::before {
+  content: counter(g, decimal-leading-zero);
+  font-family: "IBM Plex Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: var(--blue);
+  padding-top: 3px;
+}
+
+.closing {
+  margin-top: 78px;
+  border-top: 1.5px solid var(--ink);
+  padding-top: 28px;
+}
+.closing h2 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-variation-settings: "wdth" 90;
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: -.025em;
+  margin: 0 0 8px;
+}
+.closing > p { color: var(--ink-2); margin: 0; max-width: 58ch; }
+
+footer {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: .05em;
+  color: var(--ink-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 940px) {
+  .shell { grid-template-columns: 1fr; gap: 34px; }
+  .rail {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0 18px;
+  }
+  .meter-num { font-size: 2rem; }
+  .meter-sub { margin: 2px 0 0; }
+  .rail-nav { display: none; }
+  .controls { grid-column: 1 / -1; flex-direction: row; border-top: 0; padding-top: 12px; gap: 18px; }
+  .track { grid-column: 2; }
+  .meter { grid-column: 1; grid-row: 1 / span 2; }
+  .dod, .checks, .table-wrap { margin-left: 0; }
+  .phase-head { grid-template-columns: 44px minmax(0, 1fr) auto; }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 0 18px 72px; }
+  .masthead { padding-top: 44px; }
+  .phase-head { grid-template-columns: minmax(0, 1fr) auto; }
+  .phase-index { grid-column: 1 / -1; margin-bottom: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  .rail, footer { display: none; }
+  .shell { display: block; }
+  body { background: #fff; color: #000; }
+  .dod, .checks, .table-wrap { margin-left: 0; }
+  .phase { page-break-inside: avoid; }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Чек-лист запуска · Digital-агентство · Бренд-стратегия и перформанс</p>
+    <h1>От идеи до первых продаж</h1>
+    <p class="lede">Восемь этапов фундамента и три параллельных канальных трека — сайт, Instagram, Telegram. Каждый этап заканчивается конкретным результатом, а не «проработкой». Отмечайте пункты: прогресс сохраняется в этом браузере.</p>
+    <div class="facts">
+      <span class="fact">Горизонт: <b>≈16 недель</b></span>
+      <span class="fact">Пунктов: <b id="totalCount">—</b></span>
+      <span class="fact">Цель: <b>3 клиента на ретейнере</b></span>
+      <span class="fact">Контроль: <b>раз в неделю, 30 минут</b></span>
+    </div>
+  </header>
+
+  <div class="shell">
+
+    <aside class="rail">
+      <div class="meter">
+        <span class="meter-num mono" id="pct">0<span>%</span></span>
+        <p class="meter-sub" id="ratio">0 из 0 выполнено</p>
+      </div>
+      <div class="track"><div class="track-fill" id="bar"></div></div>
+
+      <nav class="rail-nav" id="nav" aria-label="Разделы чек-листа"></nav>
+
+      <div class="controls">
+        <button class="ctl" id="toggleDone" aria-pressed="false" type="button">Скрыть выполненные</button>
+        <button class="ctl" id="reset" type="button">Сбросить прогресс</button>
+      </div>
+    </aside>
+
+    <main>
+
+      <!-- ============ ЧАСТЬ 1 ============ -->
+      <div class="act" id="act1">
+        <span class="act-num">Часть 1 · Недели 1–6</span>
+        <h2>Фундамент</h2>
+        <p>Всё, что нельзя переделать дёшево: кому продаёте, что именно продаёте, по какой цене и на каком основании выставляете счёт. Каналы без этого превращаются в дорогой способ говорить в пустоту.</p>
+      </div>
+
+      <section class="phase" id="p01" data-title="Позиционирование и ниша" data-act="Фундамент">
+        <div class="phase-head">
+          <div class="phase-index">01</div>
+          <div>
+            <h3>Позиционирование и ниша</h3>
+            <p class="phase-when">Неделя 1</p>
+          </div>
+          <div class="phase-count mono" data-count></div>
+        </div>
+        <p class="dod"><span class="dod-label">Результат этапа</span> Одна страница текста: ниша, портрет клиента, боли, оффер, отличие. Её можно отправить любому человеку, и он поймёт, чем вы занимаетесь.</p>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span class="txt"><b>Выбрать узкую нишу и 1–2 услуги на старте.</b> Например: бренд-стратегия + запуск перформанс-кампаний для e-commerce или локального сервиса. Широкий «полный цикл» на старте не продаётся.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Сформулировать позиционирование в одну строку:</b> для кого вы, какую боль решаете, чем отличаетесь.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Описать 3–5 конкретных болей клиента,</b> которые вы закрываете лучше конкурентов — словами клиента, а не терминами агентства.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Составить портрет идеального клиента (ICP):</b> отрасль, размер, выручка, кто принимает решение, текущий бюджет на маркетинг, что уже пробовали.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Проверить УТП на копируемость.</b> Если конкурент может дословно повторить вашу фразу на своём сайте — это не УТП, переписывайте.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Зафиксировать анти-ЦА:</b> с кем вы не работаете и почему. Стоп-лист экономит недели переписок и нервов.</span></label></li>
+        </ul>
+      </section>
+
+      <section class="phase" id="p02" data-title="Исследование рынка и спроса" data-act="Фундамент">
+        <div class="phase-head">
+          <div class="phase-index">02</div>
+          <div>
+            <h3>Исследование рынка и спроса</h3>
+            <p class="phase-when">Недели 1–3</p>
+          </div>
+          <div class="phase-count mono" data-count></div>
+        </div>
+        <p class="dod"><span class="dod-label">Результат этапа</span> Подтверждённая готовность платить, разбор конкурентов в таблице, финмодель на год и список из 100+ компаний по ICP.</p>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span class="txt"><b>Оценить рынок (TAM/SAM):</b> отчёты, вакансии в нише, частотность поисковых запросов, количество компаний нужного размера в вашем городе или сегменте.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Посчитать реалистичный SOM:</b> сколько клиентов вы физически потянете за 12 месяцев при текущей мощности. Это и есть ваш план продаж.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Разобрать 10–15 прямых конкурентов:</b> офферы, цены, кейсы, каналы привлечения, тон коммуникации, скорость ответа на заявку.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Свести конкурентов в таблицу и найти пустое место</b> — обещание, которого не даёт никто. Там ваше позиционирование.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Провести 10–15 CustDev-интервью.</b> Проверяете три вещи: проблема существует, за неё платят деньгами, есть понятные критерии выбора подрядчика.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Спросить на каждом интервью: «как вы искали прошлого подрядчика».</b> Ответы — это готовая карта ваших каналов привлечения.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Провести опрос в профильных сообществах.</b> 2–3 недели полезного контента, затем вопрос «какая проблема в маркетинге сильнее всего бьёт по вашей выручке?». Цель — 50+ ответов.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Собрать возражения и формулировки клиентов дословно.</b> Это будущие заголовки на сайте и темы постов — не придумывайте свои.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Посчитать финансовую модель на первый год:</b> постоянные и переменные расходы, точка безубыточности, сколько ретейнеров закрывают минимум.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Отложить подушку на 3–4 месяца</b> личных и операционных расходов. Без неё вы будете соглашаться на плохих клиентов.</span></label></li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <caption>Шаблон расходной части — заполните своими цифрами</caption>
+            <thead><tr><th scope="col">Статья</th><th scope="col">Тип</th><th scope="col">В месяц</th><th scope="col">За год</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Домен, хостинг, почта</th><td>постоянная</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">Сервисы: CRM, аналитика, дизайн, планировщик</th><td>постоянная</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">Подрядчики: дизайн, монтаж, копирайт</th><td>переменная</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">Реклама и тесты каналов</th><td>переменная</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">Налоги и взносы</th><td>переменная</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">Обучение, софт, нетворкинг</th><td>постоянная</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">Личные расходы (минимум)</th><td>постоянная</td><td class="fill">—</td><td class="fill">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="phase" id="p03" data-title="Продуктизация услуг" data-act="Фундамент">
+        <div class="phase-head">
+          <div class="phase-index">03</div>
+          <div>
+            <h3>Продуктизация услуг</h3>
+            <p class="phase-when">Недели 3–4</p>
+          </div>
+          <div class="phase-count mono" data-count></div>
+        </div>
+        <p class="dod"><span class="dod-label">Результат этапа</span> Три пакета с фиксированным объёмом, сроком, ценой и границами. Клиент выбирает из вариантов, а не спрашивает «а сколько это стоит?».</p>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span class="txt"><b>Собрать три пакета:</b> «Аудит» — разовый вход и способ познакомиться; «Ретейнер» — ежемесячное ведение; «Комплекс» — стратегия плюс запуск.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Прописать вход и выход бренд-стратегии.</b> Вход: аудит текущего состояния, ЦА, конкуренты. Выход: позиционирование, дорожная карта на 3–12 месяцев, медиаплан, список согласованных гипотез.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Для каждого пакета зафиксировать границы:</b> что входит, что не входит, срок, количество правок, формат сдачи.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Заложить целевую маржу ~40%.</b> Считайте от себестоимости часа и количества часов на пакет, а не «как у конкурентов минус десять процентов».</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Прописать SLA:</b> время ответа, сроки согласований, что происходит, если клиент задерживает материалы или доступы.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Заранее договориться, как измеряется результат:</b> какие метрики, с какого дня, чей источник данных считается истиной.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Сделать шаблон коммерческого предложения:</b> три пакета на одной странице, сроки, условия оплаты, следующий шаг.</span></label></li>
+        </ul>
+      </section>
+
+      <section class="phase" id="p04" data-title="Юридическая и операционная база" data-act="Фундамент">
+        <div class="phase-head">
+          <div class="phase-index">04</div>
+          <div>
+            <h3>Юридическая и операционная база</h3>
+            <p class="phase-when">Недели 3–5</p>
+          </div>
+          <div class="phase-count mono" data-count></div>
+        </div>
+        <p class="dod"><span class="dod-label">Результат этапа</span> Вы можете легально подписать договор, выставить счёт и получить деньги — сегодня, а не «когда появится клиент».</p>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span class="txt"><b>Выбрать форму:</b> самозанятость, ИП или ООО — по обороту, планам на найм и требованиям ваших будущих клиентов (крупные компании часто не работают с самозанятыми).</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Открыть отдельный счёт</b> и не смешивать деньги бизнеса с личными. Иначе вы никогда не узнаете свою реальную маржу.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Настроить учёт и налоги:</b> календарь платежей, кто ведёт бухгалтерию, где хранятся документы.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Подготовить рамочный договор (MSA):</b> объём работ, порядок и сроки оплаты, предоплата, права на результат, конфиденциальность, порядок расторжения и возврата.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Сделать приложение к договору</b> — бриф или ТЗ под конкретный пакет, чтобы объём работ не «расползался».</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Настроить счета и закрывающие документы:</b> шаблон счёта, акта, реквизиты, порядок подписания.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Собрать минимальный стек:</b> CRM или таблица сделок, таск-трекер, GA4/Метрика, конструктор отчётов, шаблон презентации.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Завести общий диск со структурой папок:</b> клиенты / шаблоны / кейсы / финансы / доступы.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Закрыть вопрос персональных данных:</b> политика конфиденциальности на сайте, согласие в формах, порядок хранения контактов.</span></label></li>
+        </ul>
+      </section>
+
+      <section class="phase" id="p05" data-title="Упаковка оффера" data-act="Фундамент">
+        <div class="phase-head">
+          <div class="phase-index">05</div>
+          <div>
+            <h3>Упаковка оффера</h3>
+            <p class="phase-when">Недели 4–6</p>
+          </div>
+          <div class="phase-count mono" data-count></div>
+        </div>
+        <p class="dod"><span class="dod-label">Результат этапа</span> Есть что показать до того, как включатся каналы: оффер, доказательства, лид-магнит и запас контента на месяц вперёд.</p>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span class="txt"><b>Оформить оффер на одной странице:</b> боль → решение → пакеты → доказательства → следующий шаг.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Собрать 1–2 пилотных кейса с метриками:</b> было / стало / срок / что именно сделали и почему.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Если кейсов нет — сделайте их.</b> Публичный разбор чужого бренда или бесплатный аудит знакомому бизнесу, оформленные как полноценный кейс, работают почти так же.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Подготовить лид-магнит:</b> чек-лист или мини-аудит по вашей нише — то, что человек применит за 20 минут и получит результат.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Написать контент-план на 30–60 дней:</b> кейсы, чек-листы, разборы чужих ошибок, короткие видео.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Определить 5–7 рубрик,</b> которые можно повторять бесконечно. Без рубрик контент останавливается на третьей неделе.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Сделать визуальный минимум:</b> логотип, два шрифта, два цвета, шаблоны обложек, сторис и слайдов презентации.</span></label></li>
+        </ul>
+      </section>
+
+      <!-- ============ ЧАСТЬ 2 ============ -->
+      <div class="act" id="act2">
+        <span class="act-num">Часть 2 · Недели 5–9 · три трека параллельно</span>
+        <h2>Каналы: сайт, Instagram, Telegram</h2>
+        <p>Треки идут одновременно и делят одни материалы: кейсы, лид-магнит, контент-план. У каждого своя работа — сайт закрывает сделку, Instagram приводит незнакомых людей, Telegram превращает их в тёплую аудиторию. Не запускайте канал, пока он не проходит свой критерий готовности.</p>
+      </div>
+
+      <section class="phase" id="pA" data-title="Трек A · Сайт" data-act="Каналы">
+        <div class="phase-head">
+          <div class="phase-index">A</div>
+          <div>
+            <h3>Сайт — закрывает сделку</h3>
+            <p class="phase-when">Недели 5–7 · площадка доверия</p>
+          </div>
+          <div class="phase-count mono" data-count></div>
+        </div>
+        <p class="dod"><span class="dod-label">Готов к запуску, когда</span> Пять страниц опубликованы, заявка из формы падает в CRM и в уведомления, аналитика считает цели, страница цен отсекает нецелевые обращения.</p>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span class="txt"><b>Купить домен и настроить почту на домене.</b> Личный gmail в подписи коммерческого предложения стоит вам части сделок.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Собрать пять страниц:</b> Услуги · Кейсы и подход · Цены и пакеты · О нас · Контакты.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Первый экран говорит конкретику:</b> кому + что делаете + какой результат + кнопка. Никаких «комплексных решений» и «синергии».</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Опубликовать цены или вилки.</b> Страница цен экономит десятки часов на переписке с теми, кому вы не по бюджету.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Поставить форму заявки и запись в календарь</b> — слот на 30 минут, чтобы человек мог выбрать время без переписки.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Подключить GA4 или Метрику,</b> настроить цели на отправку формы и запись, включить вебвизор.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Утвердить единый шаблон UTM-меток</b> и записать его в общий документ — иначе через два месяца источники будут кашей.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Закрыть базовое SEO:</b> title и description на каждой странице, один H1, alt у картинок, sitemap, robots, LCP меньше 2,5 секунды.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Проверить всё с телефона:</b> формы, кнопки, скорость, читаемость. Большая часть трафика из Instagram и Telegram — мобильная.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Разместить юридический минимум:</b> политика конфиденциальности, согласие на обработку данных, реквизиты.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Настроить уведомления о заявках</b> в Telegram или на почту и держать правило: ответ в течение 15 минут в рабочее время.</span></label></li>
+        </ul>
+      </section>
+
+      <section class="phase" id="pB" data-title="Трек B · Instagram" data-act="Каналы">
+        <div class="phase-head">
+          <div class="phase-index">B</div>
+          <div>
+            <h3>Instagram — приводит незнакомых</h3>
+            <p class="phase-when">Недели 5–9 · охват и знакомство</p>
+          </div>
+          <div class="phase-count mono" data-count></div>
+        </div>
+        <p class="dod"><span class="dod-label">Готов к запуску, когда</span> Профиль объясняет оффер за пять секунд, в ленте девять содержательных постов, актуальные закрывают вопросы «что» и «почём», заявки из директа фиксируются в CRM.</p>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span class="txt"><b>Имя профиля = ниша плюс услуга.</b> Поиск внутри платформы работает по имени, а не по нику: «бренд-стратегия для e-commerce» находят, «irina_digital» — нет.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Шапка по формуле:</b> для кого · что делаете · какой результат · призыв. Ссылка на сайт или мультиссылку с одним главным действием.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Оформить актуальные:</b> Кейсы · Услуги и цены · Отзывы · Как работаем · Обо мне.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Подготовить девять постов до старта продвижения.</b> Пустой профиль обнуляет любой охват: человек зашёл, не увидел смысла, ушёл.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Зафиксировать рубрики:</b> разбор чужого проекта, ошибка недели, кейс с цифрами, закулисье процесса, ответ на возражение.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Выпускать 3–4 Reels в неделю.</b> Первые две секунды — конкретная боль или цифра, а не «привет, друзья, сегодня поговорим о».</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Каждый пятый пост — с прямым призывом:</b> бесплатный экспресс-аудит, чек-лист, разбор. Остальные четыре просто полезны.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Настроить автоответ в директ по кодовому слову</b> на выдачу лид-магнита — это переводит охваты в контакты.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Вести 3–5 сторис в день в дни запуска:</b> процесс, вопросы, опросы, промежуточный результат.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Делать прогрев перед продажей пакета:</b> 5–7 дней сторис по схеме боль → типичная ошибка → ваш метод → доказательство → оффер с дедлайном.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Отвечать в комментариях и директе в течение часа</b> и заводить каждую заявку в CRM, а не держать в голове.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Раз в неделю смотреть сохранения, охват и переходы по ссылке.</b> Оставляйте форматы, которые дают сохранения — это признак пользы, а не развлечения.</span></label></li>
+        </ul>
+      </section>
+
+      <section class="phase" id="pC" data-title="Трек C · Telegram" data-act="Каналы">
+        <div class="phase-head">
+          <div class="phase-index">C</div>
+          <div>
+            <h3>Telegram — превращает в тёплых</h3>
+            <p class="phase-when">Недели 5–9 · глубина и удержание</p>
+          </div>
+          <div class="phase-count mono" data-count></div>
+        </div>
+        <p class="dod"><span class="dod-label">Готов к запуску, когда</span> Канал оформлен и наполнен, закреп объясняет навигацию, бот выдаёт лид-магнит и собирает контакты, источники подписок размечены.</p>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span class="txt"><b>Оформить канал:</b> имя с нишей, описание с оффером и ссылкой на сайт, аватар из того же визуального набора, что и Instagram.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Сделать закреплённый пост-навигацию:</b> кто вы, что здесь будет, какие есть материалы, как заказать.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Определить рубрики под формат:</b> короткие разборы, чек-листы, кейсы с цифрами, «что бы я сделала на месте бренда X».</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Написать 10–15 постов до анонса канала,</b> чтобы первые подписчики увидели глубину, а не три записи.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Подключить бота или приветственное сообщение</b> для выдачи лид-магнита и сбора контакта.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Завести отдельный чат для уведомлений</b> о заявках с сайта и из директа — одна лента входящих.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Связать каналы:</b> тизер в Reels и сторис → полный разбор в Telegram → заявка на сайте. Каждый канал делает свою часть работы.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Договориться о взаимных упоминаниях</b> с 5–10 смежными каналами: веб-студии, продакшены, CRM-интеграторы, дизайнеры.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Раз в месяц проводить открытый разбор или эфир,</b> а нарезку выкладывать в Reels — один час работы даёт контент на две недели.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Размечать источники подписок</b> через ссылки вида t.me/канал?start=источник и отслеживать, какой канал даёт заявки, а не просто подписчиков.</span></label></li>
+        </ul>
+      </section>
+
+      <!-- ============ ЧАСТЬ 3 ============ -->
+      <div class="act" id="act3">
+        <span class="act-num">Часть 3 · Недели 6–16</span>
+        <h2>Продажи и первые деньги</h2>
+        <p>Каналы дают внимание, но деньги приносит система: список компаний, регулярные касания, воронка с этапами и пилот, который заканчивается кейсом и продлением.</p>
+      </div>
+
+      <section class="phase" id="p06" data-title="Каналы привлечения первых клиентов" data-act="Продажи">
+        <div class="phase-head">
+          <div class="phase-index">06</div>
+          <div>
+            <h3>Первые клиенты</h3>
+            <p class="phase-when">Недели 6–10</p>
+          </div>
+          <div class="phase-count mono" data-count></div>
+        </div>
+        <p class="dod"><span class="dod-label">Результат этапа</span> Стабильные 3–5 тёплых диалогов в неделю из трёх независимых источников: аутрич, партнёрства, контент.</p>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span class="txt"><b>Собрать список 100–200 компаний по ICP:</b> сайт, лицо принимающее решение, контакт и одна конкретная проблема, которую вы у них заметили.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Писать персонализированно.</b> Первая строка — про их бизнес, а не про вас. Оффер — короткий пилот или бесплатный разбор, а не «предлагаем сотрудничество».</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Держать правило трёх касаний:</b> письмо → сообщение в соцсети → повторное письмо через 5–7 дней. Большинство ответов приходит со второго и третьего.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Выстроить партнёрства и субподряд</b> с веб-студиями, продакшенами, CRM-интеграторами и фрилансерами смежных направлений — обмен лидами.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Зафиксировать реферальный процент письменно,</b> а не «по-дружески». Устные договорённости о деньгах ломают отношения.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Ходить в нетворкинг:</b> бизнес-завтраки, конференции, локальные встречи. Цель измеримая — 3–5 тёплых контактов в неделю.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Замкнуть контент на лид-магнит,</b> а лид-магнит — на короткий диагностический созвон. Контент без следующего шага не продаёт.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Реанимировать старые связи:</b> написать бывшим коллегам и клиентам с конкретным оффером, а не с сообщением «я теперь работаю на себя».</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Считать воронку касаний еженедельно:</b> сколько написали → сколько ответили → сколько созвонов. Падение видно сразу, а не через месяц.</span></label></li>
+        </ul>
+      </section>
+
+      <section class="phase" id="p07" data-title="Воронка продаж и стандарты" data-act="Продажи">
+        <div class="phase-head">
+          <div class="phase-index">07</div>
+          <div>
+            <h3>Воронка продаж и стандарты</h3>
+            <p class="phase-when">Недели 6–12</p>
+          </div>
+          <div class="phase-count mono" data-count></div>
+        </div>
+        <p class="dod"><span class="dod-label">Результат этапа</span> Воронка в CRM, скрипт созвона, шаблон КП и еженедельная сводка метрик, по которой видно, где именно теряются деньги.</p>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span class="txt"><b>Описать этапы воронки:</b> лид → квалификация → диагностика → КП или пилот → договор → ретейнер.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Задать критерии квалификации:</b> бюджет, срок, доступ к ЛПР, наличие реальной проблемы. Не проходит — вежливый отказ, а не бесконечный «прогрев».</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Написать скрипт первого созвона:</b> 70% времени — ваши вопросы, 30% — ваши слова. Чек-лист вопросов держите перед глазами.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Никогда не заканчивать разговор без назначенной даты</b> следующего шага. «Я подумаю и напишу» — это потерянная сделка.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Отправлять КП в течение 24 часов после созвона:</b> три пакета, сроки, условия, один рекомендованный вариант.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Снимать метрики каждую неделю:</b> лиды, конверсия по этапам, средний чек, длина цикла сделки, CAC, LTV.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Проверять здоровье модели:</b> LTV к CAC не ниже 3, окупаемость CAC не дольше 3 месяцев. Иначе рост только увеличивает убыток.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Держать цель на 3–6 месяцев:</b> минимум три платящих клиента на ретейнере и положительная маржа.</span></label></li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <caption>Панель метрик — цель и факт, обновляется еженедельно</caption>
+            <thead><tr><th scope="col">Метрика</th><th scope="col">Как считаете</th><th scope="col">Цель на 3 мес.</th><th scope="col">Факт</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Лиды в месяц</th><td>все входящие из всех каналов</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">Лид → созвон</th><td>доля лидов, дошедших до диагностики</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">Созвон → КП</th><td>доля квалифицированных</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">КП → договор</th><td>итоговая конверсия в продажу</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">Средний чек ретейнера</th><td>выручка / число клиентов</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">Цикл сделки</th><td>дней от лида до оплаты</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">CAC</th><td>расходы на привлечение / клиенты</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">LTV</th><td>чек × срок жизни клиента</td><td class="fill">—</td><td class="fill">—</td></tr>
+              <tr><th scope="row">LTV / CAC</th><td>здоровье модели</td><td>≥ 3</td><td class="fill">—</td></tr>
+              <tr><th scope="row">Маржа</th><td>(выручка − себестоимость) / выручка</td><td>≈ 40%</td><td class="fill">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="phase" id="p08" data-title="Пилот и масштабирование" data-act="Продажи">
+        <div class="phase-head">
+          <div class="phase-index">08</div>
+          <div>
+            <h3>Пилот и масштабирование</h3>
+            <p class="phase-when">Недели 8–16</p>
+          </div>
+          <div class="phase-count mono" data-count></div>
+        </div>
+        <p class="dod"><span class="dod-label">Результат этапа</span> Два-три завершённых пилота с измеренным ROI, отзывы, оформленные кейсы и записанные процессы, которые можно передать другому человеку.</p>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span class="txt"><b>Взять 1–3 пилотных клиента на 6–8 недель</b> по фиксированному пакету и фиксированной цене.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Зафиксировать входные метрики до старта.</b> Без замера «до» вы не сможете доказать результат — ни клиенту, ни следующему покупателю.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Отправлять еженедельный отчёт по одному шаблону:</b> сделано / цифры / следующий шаг. Регулярность отчётов продлевает контракты не хуже результата.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Говорить о продлении на шестой неделе,</b> а не на последней. К концу пилота решение уже должно быть принято.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Просить отзыв сразу после сдачи результата,</b> пока эмоция свежая. Через месяц вы получите три вежливые строки.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Оформить кейс:</b> контекст, задача, что сделали, цифры, срок, цитата клиента. По одному шаблону для всех кейсов.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Записать SOP на каждый повторяющийся процесс:</b> онбординг клиента, отчётность, запуск кампании, сдача стратегии.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Делегировать первым то, что делаете чаще всего</b> и что дешевле передать: монтаж, оформление, сбор отчётов.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Поднять цену для новых клиентов после третьего успешного кейса.</b> Кейсы — это единственный аргумент, который работает без скидок.</span></label></li>
+        </ul>
+      </section>
+
+      <!-- ============ КОНТРОЛЬНЫЕ ТОЧКИ ============ -->
+      <div class="closing" id="gates">
+        <h2>Контрольные точки</h2>
+        <p>Двенадцать состояний «готово». Если очередная точка не пройдена, следующая не считается — на неё уйдут деньги и время без отдачи.</p>
+        <ol class="gates">
+          <li>Гипотеза сформулирована: чью именно проблему вы решаете.</li>
+          <li>Ниша выбрана, портрет идеального клиента описан.</li>
+          <li>Проведены 10–15 CustDev-интервью и опрос с 50+ ответами.</li>
+          <li>Рынок оценён, 10–15 конкурентов разобраны в таблице.</li>
+          <li>УТП и позиционирование сформулированы в одну строку.</li>
+          <li>Три пакета продуктизированы, включая бренд-стратегию с чётким выходом.</li>
+          <li>Финмодель посчитана, подушка на 3–4 месяца отложена.</li>
+          <li>Форма собственности выбрана, счёт открыт, договор и счета готовы.</li>
+          <li>Сайт, Instagram и Telegram запущены и содержат кейсы.</li>
+          <li>Аутрич, партнёрства и контент-план работают одновременно.</li>
+          <li>Воронка, скрипты и метрики внедрены в CRM.</li>
+          <li>Проведены 2–3 пилота, ROI зафиксирован, кейсы собраны.</li>
+        </ol>
+      </div>
+
+      <footer>
+        <span>Прогресс хранится локально в этом браузере</span>
+        <span>Пересматривайте чек-лист раз в неделю</span>
+        <span>Печать: Ctrl / ⌘ + P</span>
+      </footer>
+
+    </main>
+  </div>
+</div>
+
+<script>
+(function () {
+  var STORE = 'launch-checklist-v1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.checks input[type="checkbox"]'));
+  var phases = Array.prototype.slice.call(document.querySelectorAll('.phase'));
+  var saved = {};
+
+  try { saved = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { saved = {}; }
+
+  boxes.forEach(function (box, i) {
+    var phase = box.closest('.phase');
+    box.dataset.key = phase.id + '-' + i;
+    if (saved[box.dataset.key]) box.checked = true;
+  });
+
+  function save() {
+    var out = {};
+    boxes.forEach(function (b) { if (b.checked) out[b.dataset.key] = 1; });
+    try { localStorage.setItem(STORE, JSON.stringify(out)); } catch (e) { /* приватный режим — просто не сохраняем */ }
+  }
+
+  /* --- навигация в сайдбаре --- */
+  var nav = document.getElementById('nav');
+  var lastAct = null;
+  var links = {};
+  phases.forEach(function (p) {
+    if (p.dataset.act !== lastAct) {
+      lastAct = p.dataset.act;
+      var h = document.createElement('div');
+      h.className = 'nav-act';
+      h.textContent = lastAct;
+      nav.appendChild(h);
+    }
+    var a = document.createElement('a');
+    a.className = 'nav-link';
+    a.href = '#' + p.id;
+    a.innerHTML = '<span>' + p.dataset.title.replace(/^Трек [ABC] · /, '') + '</span><span class="n"></span>';
+    nav.appendChild(a);
+    links[p.id] = a;
+  });
+
+  function render() {
+    var doneAll = 0;
+    phases.forEach(function (p) {
+      var items = Array.prototype.slice.call(p.querySelectorAll('.checks input'));
+      var done = 0;
+      items.forEach(function (b) {
+        var li = b.closest('li');
+        if (b.checked) { done++; li.classList.add('done'); } else { li.classList.remove('done'); }
+      });
+      doneAll += done;
+      var label = done + '/' + items.length;
+      var counter = p.querySelector('[data-count]');
+      counter.textContent = label;
+      counter.classList.toggle('is-done', done === items.length);
+      var link = links[p.id];
+      link.querySelector('.n').textContent = label;
+      link.classList.toggle('is-done', done === items.length);
+    });
+    var pct = boxes.length ? Math.round((doneAll / boxes.length) * 100) : 0;
+    document.getElementById('pct').innerHTML = pct + '<span>%</span>';
+    document.getElementById('ratio').textContent = doneAll + ' из ' + boxes.length + ' выполнено';
+    document.getElementById('bar').style.width = pct + '%';
+  }
+
+  document.getElementById('totalCount').textContent = boxes.length;
+
+  boxes.forEach(function (b) {
+    b.addEventListener('change', function () { save(); render(); });
+  });
+
+  var toggle = document.getElementById('toggleDone');
+  toggle.addEventListener('click', function () {
+    var on = document.body.classList.toggle('hide-done');
+    toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+    toggle.textContent = on ? 'Показать выполненные' : 'Скрыть выполненные';
+  });
+
+  document.getElementById('reset').addEventListener('click', function () {
+    if (!window.confirm('Снять все отметки и начать заново?')) return;
+    boxes.forEach(function (b) { b.checked = false; });
+    save();
+    render();
+  });
+
+  /* --- подсветка текущего раздела --- */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          Object.keys(links).forEach(function (k) { links[k].classList.remove('is-active'); });
+          links[e.target.id].classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-10% 0px -70% 0px' });
+    phases.forEach(function (p) { io.observe(p); });
+  }
+
+  render();
+})();
+</script>
