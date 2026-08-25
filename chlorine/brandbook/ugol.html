@@ -59,10 +59,6 @@
     background:var(--cream);
     color:var(--char);
   }
-  .sheet--red{
-    background:var(--red);
-    color:var(--cream);
-  }
   .sheet__inner{
     width:var(--page);
     margin:0 auto;
@@ -91,7 +87,6 @@
     font-size:17px;
     flex:none;
   }
-  .sheet--red .badge{background:var(--cream);color:var(--red);}
 
   .head{
     display:flex;
@@ -106,7 +101,6 @@
     text-transform:uppercase;
     color:var(--red);
   }
-  .sheet--dark .head__label{color:var(--red);}
 
   h2{
     font-family:var(--display);
@@ -153,9 +147,9 @@
   .wordmark{
     font-family:var(--display);
     font-weight:800;
-    font-size:clamp(72px,19vw,208px);
-    line-height:.82;
-    letter-spacing:-.02em;
+    font-size:clamp(58px,15.5vw,168px);
+    line-height:.84;
+    letter-spacing:-.025em;
   }
   .wordmark__sub{
     display:inline-block;
@@ -226,7 +220,7 @@
     color:var(--red);
   }
 
-  /* ---------- Как пользоваться ---------- */
+  /* ---------- Шаги и колонки ---------- */
 
   .steps{
     display:grid;
@@ -471,12 +465,12 @@
   </div>
 
   <div class="sheet__inner">
-    <div class="wordmark">УГЛЬ</div>
+    <div class="wordmark">УГОЛЬ</div>
     <div class="wordmark__sub">ГРИЛЬ-КАФЕ</div>
   </div>
 
   <div class="sheet__inner cover__foot">
-    <p class="cover__claim">Как принимать решения о бренде, не спрашивая основателя</p>
+    <p class="cover__claim">Решения о бренде принимает управляющий</p>
     <span class="eyebrow muted">7 точек · один город</span>
   </div>
 </section>
@@ -487,25 +481,25 @@
     <div class="head">
       <span class="head__label">Прежде чем открыть дальше</span>
     </div>
-    <h2>Этот документ отвечает на вопросы, а не рассказывает о бренде</h2>
-    <p class="lede">Он написан для тех, кто принимает решения каждый день: управляющего сетью и администраторов точек. Читать целиком не нужно — нужно находить нужное место и действовать.</p>
+    <h2>Документ отвечает на рабочие вопросы</h2>
+    <p class="lede">Он для тех, кто решает каждый день: управляющего сетью и администраторов точек. Откройте нужный раздел и действуйте.</p>
 
     <div class="steps">
       <div class="step">
         <span class="step__n">01</span>
-        <p>Найдите раздел с вашим вопросом в оглавлении.</p>
+        <p>Найдите свой вопрос в оглавлении.</p>
       </div>
       <div class="step">
         <span class="step__n">02</span>
-        <p>Прочтите правило. Каждое умещается на один экран целиком.</p>
+        <p>Прочтите правило. Каждое умещается на один экран.</p>
       </div>
       <div class="step">
         <span class="step__n">03</span>
-        <p>Примите решение и запишите его, если оно новое.</p>
+        <p>Примите решение. Новое — запишите.</p>
       </div>
       <div class="step">
         <span class="step__n">04</span>
-        <p>Правила нет — см. раздел 10. Звонить основателю не нужно.</p>
+        <p>Правила пока нет — откройте раздел 10.</p>
       </div>
     </div>
   </div>
@@ -528,7 +522,7 @@
       <li class="toc__item"><span class="toc__num">07</span><span class="toc__name">Запуск новой точки</span><span class="toc__state">Позже</span></li>
       <li class="toc__item"><span class="toc__num">08</span><span class="toc__name">Что можно менять на точке</span><span class="toc__state">Позже</span></li>
       <li class="toc__item"><span class="toc__num">09</span><span class="toc__name">Работа с подрядчиками</span><span class="toc__state">Позже</span></li>
-      <li class="toc__item"><span class="toc__num">10</span><span class="toc__name">Если правила нет</span><span class="toc__state">Позже</span></li>
+      <li class="toc__item"><span class="toc__num">10</span><span class="toc__name">Как добавить правило</span><span class="toc__state">Позже</span></li>
     </ul>
   </div>
 </section>
@@ -540,17 +534,17 @@
       <span class="badge">01</span>
       <span class="head__label">О бренде</span>
     </div>
-    <h2>Мясо на живом огне, без церемоний</h2>
-    <p class="lede">«Угль» — гриль-кафе, где еду готовят на открытом огне и подают быстро. Не стейк-хаус с белыми скатертями и не фастфуд: сюда приходят пообедать в будний день и поужинать в пятницу, не переодеваясь.</p>
+    <h2>Мясо на живом огне</h2>
+    <p class="lede">«Уголь» — гриль-кафе. Еду готовят на открытом огне и подают быстро. Сюда приходят пообедать в будний день и поужинать в пятницу.</p>
 
     <div class="steps">
       <div class="step">
         <span class="step__n">Для кого</span>
-        <p>Те, кто работает и живёт рядом. Гость возвращается раз в неделю, а не раз в год.</p>
+        <p>Те, кто работает и живёт рядом. Гость возвращается раз в неделю.</p>
       </div>
       <div class="step">
         <span class="step__n">Чем отличаемся</span>
-        <p>Огонь виден из зала. Готовим при госте, а не за стеной.</p>
+        <p>Огонь виден из зала. Готовим при госте.</p>
       </div>
       <div class="step">
         <span class="step__n">Сегмент</span>
@@ -571,13 +565,13 @@
       <span class="badge">04</span>
       <span class="head__label">Визуальный язык · Цвет</span>
     </div>
-    <h2>Три цвета. Четвёртого нет</h2>
-    <p class="lede">Ограничение — главное правило системы. Как только появляется четвёртый цвет, точки начинают расходиться, и вернуть их обратно уже дорого.</p>
+    <h2>Вся система — три цвета</h2>
+    <p class="lede">Ограничение держит систему вместе. Появляется четвёртый цвет — точки расходятся, и свести их обратно дорого.</p>
 
     <div class="swatches">
       <div class="swatch swatch--char">
         <div class="swatch__hex">#060403</div>
-        <div class="swatch__use">Обложки, разделители, фон под фотографии. Не чистый чёрный — тёплый, с примесью красного.</div>
+        <div class="swatch__use">Обложки, разделители, фон под фотографии. Тёплый, с примесью красного.</div>
       </div>
       <div class="swatch swatch--cream">
         <div class="swatch__hex">#F2E9DA</div>
@@ -585,7 +579,7 @@
       </div>
       <div class="swatch swatch--red">
         <div class="swatch__hex">#950101</div>
-        <div class="swatch__use">Акцент и запрет. Выделяет одно главное на экране — не больше.</div>
+        <div class="swatch__use">Акцент и запрет. Выделяет одно главное на экране.</div>
       </div>
     </div>
 
@@ -600,8 +594,8 @@
       </div>
     </div>
 
-    <h3 style="margin-top:34px;">Красный работает только как акцент</h3>
-    <p>Если на макете красным залито больше четверти площади, он перестаёт выделять и начинает кричать. Исключение — обложка и разделители: там красный может быть фоном целиком.</p>
+    <h3 style="margin-top:34px;">Красный работает как акцент</h3>
+    <p>Красным заливается до четверти площади макета. Больше — и он перестаёт выделять. Исключение: обложка и разделители, там красный может быть фоном целиком.</p>
   </div>
 </section>
 
@@ -617,12 +611,12 @@
     <div class="specimen">
       <div class="specimen__name">Unbounded <em>заголовки, знак, цифры</em></div>
       <div class="specimen__display">Мясо на углях<br>с открытого огня</div>
-      <p class="specimen__text muted">Начертания 600–900. В мелком кегле не используется: ниже 16 пикселей теряет читаемость.</p>
+      <p class="specimen__text muted">Начертания 600–900. Кегль от 16 пикселей и крупнее.</p>
     </div>
 
     <div class="specimen">
       <div class="specimen__name">Onest <em>основной текст, подписи, интерфейс</em></div>
-      <p class="specimen__text" style="font-size:18px;">Каждое правило умещается на один экран. Если правило не помещается — значит, это два правила, и его нужно разделить.</p>
+      <p class="specimen__text" style="font-size:18px;">Каждое правило умещается на один экран. Длиннее — значит, это два правила, разделите их.</p>
       <p class="specimen__text muted" style="margin-top:10px;">Начертания 400–700. Основной текст — 400, выделения — 600.</p>
     </div>
 
@@ -634,7 +628,7 @@
       <li><b>12 px</b><span>Подписи и метки — Onest 600, разрядка 0.18em</span></li>
     </ul>
 
-    <p class="muted" style="margin-top:20px;font-size:13.5px;">Обе гарнитуры свободны для коммерческого использования и содержат кириллицу. Файлы вшиты в этот документ — он открывается без интернета.</p>
+    <p class="muted" style="margin-top:20px;font-size:13.5px;">Обе гарнитуры содержат кириллицу и свободны для коммерческого использования. Файлы вшиты в документ, он открывается офлайн.</p>
   </div>
 </section>
 
@@ -650,7 +644,7 @@
 
     <div class="answer">
       <span class="answer__tag">Ответ</span>
-      <p>Да. До 20%, на срок до трёх дней. Решает управляющий, согласование не требуется.</p>
+      <p>Да. До 20%, на срок до трёх дней. Решает управляющий.</p>
     </div>
 
     <div class="rules">
@@ -659,8 +653,8 @@
         Скидка на бизнес-ланч до 20%. Локальный праздник, годовщина точки, погодная акция. Комплимент от кухни постоянному гостю.
       </div>
       <div class="rule rule--no">
-        <span class="rule__tag">Нельзя без основателя</span>
-        Скидка на стейки и позиции с огня. Акция дольше недели. Всё, что меняет цену в меню, а не даёт скидку к ней.
+        <span class="rule__tag">Решает основатель</span>
+        Скидка на стейки и позиции с огня. Акция дольше недели. Всё, что меняет цену в меню.
       </div>
     </div>
 
@@ -675,12 +669,12 @@
       </div>
       <div class="who__cell">
         <div class="who__role">Основатель</div>
-        <div class="who__what">Подключается только к тому, что в правой колонке выше.</div>
+        <div class="who__what">Решает то, что в красной колонке выше.</div>
       </div>
     </div>
 
     <h3 style="margin-top:34px;">Почему именно 20%</h3>
-    <p>Ниже этого порога скидка не влияет на выбор гостя, выше — начинает съедать маржу бизнес-ланча, у которого она и так наименьшая. Порог пересматривается раз в год вместе с ценами.</p>
+    <p>До этого порога скидка окупается потоком гостей. Выше — съедает маржу бизнес-ланча, самую тонкую в меню. Порог пересматривается раз в год вместе с ценами.</p>
   </div>
 </section>
 
