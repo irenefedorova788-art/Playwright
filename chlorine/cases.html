@@ -1,0 +1,616 @@
+<meta charset="utf-8">
+<title>Угль и Полынь</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  :root{
+    --paper:#F2F3EE;
+    --surface:#FFFFFF;
+    --ink:#16211C;
+    --ink-soft:#4B5750;
+    --ink-faint:#7C877F;
+    --line:#DADFD6;
+    --accent:#2E8C82;
+    --accent-deep:#1C5B54;
+    --accent-tint:#E4EFEC;
+    --case1:#B5502E;
+    --case1-tint:#F3E4DC;
+    --case1-deep:#7C3A20;
+    --case2:#7A3A57;
+    --case2-tint:#EFE2E9;
+    --case2-deep:#54263C;
+    --case3:#8A6A2E;
+    --case3-tint:#EFE7D4;
+    --case3-deep:#5C4A1E;
+    --note-bg:#EAE6D9;
+    --note-line:#D2CBB4;
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --paper:#13160F;
+      --surface:#1B2019;
+      --ink:#ECEDE6;
+      --ink-soft:#B7BEB4;
+      --ink-faint:#82897E;
+      --line:#333A30;
+      --accent:#4FB3A6;
+      --accent-deep:#7FCFC3;
+      --accent-tint:#1E2C29;
+      --case1:#D97A54;
+      --case1-tint:#2C231D;
+      --case1-deep:#EFA484;
+      --case2:#C784A2;
+      --case2-tint:#291F26;
+      --case2-deep:#E3A9C1;
+      --case3:#D6B45E;
+      --case3-tint:#28230F;
+      --case3-deep:#EBCF8E;
+      --note-bg:#242219;
+      --note-line:#3B3728;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#13160F;
+    --surface:#1B2019;
+    --ink:#ECEDE6;
+    --ink-soft:#B7BEB4;
+    --ink-faint:#82897E;
+    --line:#333A30;
+    --accent:#4FB3A6;
+    --accent-deep:#7FCFC3;
+    --accent-tint:#1E2C29;
+    --case1:#D97A54;
+    --case1-tint:#2C231D;
+    --case1-deep:#EFA484;
+    --case2:#C784A2;
+    --case2-tint:#291F26;
+    --case2-deep:#E3A9C1;
+    --case3:#D6B45E;
+    --case3-tint:#28230F;
+    --case3-deep:#EBCF8E;
+    --note-bg:#242219;
+    --note-line:#3B3728;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Work Sans", -apple-system, "Segoe UI", sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--accent-tint); color:var(--accent-deep); }
+
+  a{ color:var(--accent-deep); }
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:56px 24px 120px;
+  }
+
+  h1,h2,h3,h4{
+    font-family:"Fraunces", Georgia, serif;
+    text-wrap:balance;
+    margin:0;
+    color:var(--ink);
+  }
+
+  .masthead{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    padding-bottom:40px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:40px;
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:12px;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+  }
+  .masthead h1{
+    font-size:clamp(32px, 5vw, 46px);
+    font-weight:600;
+    letter-spacing:-.01em;
+  }
+  .masthead .lede{
+    max-width:62ch;
+    color:var(--ink-soft);
+    font-size:16.5px;
+  }
+
+  .note{
+    background:var(--note-bg);
+    border:1px solid var(--note-line);
+    border-radius:3px;
+    padding:16px 20px;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    max-width:70ch;
+  }
+  .note strong{ color:var(--ink); }
+
+  nav.toc{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  nav.toc a{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:12px;
+    letter-spacing:.03em;
+    text-decoration:none;
+    color:var(--ink-soft);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:6px 14px;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  nav.toc a:hover{ border-color:var(--accent); color:var(--accent-deep); }
+
+  .case{
+    margin-bottom:88px;
+    scroll-margin-top:24px;
+  }
+  .case-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+  }
+  .case-index{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .case-tagline{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+  }
+
+  /* --- site-card mockup --- */
+  .site-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 1px 2px rgba(0,0,0,.03);
+  }
+  .site-card .cover{
+    padding:44px 28px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    gap:14px;
+    min-height:180px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover.case1{
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 2px, transparent 2px 26px),
+      linear-gradient(160deg, var(--case1) 0%, var(--case1-deep) 100%);
+  }
+  .cover.case2{
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 2px, transparent 2px 26px),
+      linear-gradient(160deg, var(--case2) 0%, var(--case2-deep) 100%);
+  }
+  .cover.case3{
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 2px, transparent 2px 26px),
+      linear-gradient(160deg, var(--case3) 0%, var(--case3-deep) 100%);
+  }
+  .cover .brandmark{
+    font-family:"Fraunces", serif;
+    font-weight:600;
+    font-size:clamp(30px, 4.4vw, 44px);
+    color:#FBF7F2;
+    letter-spacing:-.01em;
+  }
+  .cover .chips{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .chip{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:11.5px;
+    letter-spacing:.02em;
+    padding:4px 10px;
+    border-radius:20px;
+    background:rgba(255,255,255,.16);
+    color:#FBF7F2;
+    border:1px solid rgba(255,255,255,.28);
+  }
+
+  .site-card .body{
+    padding:28px 28px 32px;
+  }
+  .site-card p{
+    margin:0 0 14px;
+    color:var(--ink-soft);
+    font-size:15.5px;
+    max-width:66ch;
+  }
+  .site-card p:last-of-type{ margin-bottom:20px; }
+  .site-card p strong{ color:var(--ink); font-weight:600; }
+
+  .bullets{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+  }
+  .bullets li{
+    display:flex;
+    gap:10px;
+    font-size:14.5px;
+    color:var(--ink);
+  }
+  .bullets li::before{
+    content:"";
+    flex:none;
+    width:6px; height:6px;
+    border-radius:50%;
+    margin-top:7px;
+    background:var(--accent);
+  }
+  .case1 ~ .body .bullets li::before,
+  .body.c1 .bullets li::before{ background:var(--case1); }
+  .body.c2 .bullets li::before{ background:var(--case2); }
+  .body.c3 .bullets li::before{ background:var(--case3); }
+
+  .stats{
+    display:flex;
+    gap:22px;
+    flex-wrap:wrap;
+    margin-top:22px;
+    padding-top:20px;
+    border-top:1px dashed var(--line);
+  }
+  .stat b{
+    display:block;
+    font-family:"IBM Plex Mono", monospace;
+    font-size:18px;
+    font-variant-numeric:tabular-nums;
+    color:var(--ink);
+  }
+  .stat span{
+    font-size:11.5px;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+
+  /* --- doc sections (guidebook / work breakdown) --- */
+  .doc-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+    margin-top:32px;
+  }
+  @media (max-width:760px){
+    .doc-grid{ grid-template-columns:1fr; }
+  }
+  .doc-block h3{
+    font-size:19px;
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .doc-block .sub{
+    font-size:13px;
+    color:var(--ink-faint);
+    margin-bottom:18px;
+  }
+
+  ol.guide{
+    list-style:none;
+    counter-reset:g;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+  }
+  ol.guide li{
+    counter-increment:g;
+    display:grid;
+    grid-template-columns:26px 1fr;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  ol.guide li:last-child{ border-bottom:none; }
+  ol.guide li::before{
+    content:counter(g, decimal-leading-zero);
+    font-family:"IBM Plex Mono", monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    padding-top:1px;
+  }
+  ol.guide li .t{ font-weight:600; color:var(--ink); display:block; margin-bottom:3px; }
+  ol.guide li .d{ color:var(--ink-soft); }
+  ol.guide li .skip{
+    display:inline-block;
+    margin-top:5px;
+    font-size:12px;
+    font-style:italic;
+    color:var(--ink-faint);
+  }
+
+  .cat-list{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .cat{
+    padding:14px 16px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:5px;
+  }
+  .cat h4{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:11.5px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+    margin-bottom:7px;
+  }
+  .cat p{
+    margin:0;
+    font-size:13.8px;
+    color:var(--ink-soft);
+  }
+
+  footer{
+    margin-top:64px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-size:13px;
+    color:var(--ink-faint);
+  }
+
+  @media print{
+    *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    @page{ margin:14mm 12mm; }
+    .wrap{ padding:0 0 12px; max-width:none; }
+    nav.toc{ display:none; }
+    .case{ margin-bottom:36px; break-inside:avoid-page; }
+    .site-card{ break-inside:avoid-page; }
+    .doc-block{ break-inside:avoid-page; }
+  }
+</style>
+
+<div class="wrap">
+
+  <div class="masthead">
+    <span class="eyebrow">Chlorine — раздел «Работы», черновик</span>
+    <h1>Три примера кейсов до первого клиента</h1>
+    <p class="lede">Реальных завершённых проектов пока нет, поэтому ниже — три иллюстративных кейса на разных форматах заведений из ICP Chlorine: растущей ресторанной сети 3–9 точек. Цель — показать потенциальному клиенту формат и глубину работы, пока не готовы кейсы на настоящих данных.</p>
+    <div class="note">
+      <strong>Это концепт-кейсы, не реальные проекты.</strong> «Угль», «Полынь» и «Зёрна» — вымышленные сети, цифры и цитаты иллюстративные. Когда придут данные по настоящей компании, структура ниже (карточка / гайдбук / проделанная работа) заполняется её фактами один в один — менять придётся только содержание, не формат.
+    </div>
+    <nav class="toc">
+      <a href="#ugol">01 — Угль, сеть гриль-кафе</a>
+      <a href="#polyn">02 — Полынь, сеть гастробаров</a>
+      <a href="#zerna">03 — Зёрна, сеть кофеен</a>
+    </nav>
+  </div>
+
+  <!-- CASE 1 — УГОЛЬ -->
+  <section class="case" id="ugol">
+    <div class="case-head">
+      <span class="case-index">Кейс 01 / Гриль-кафе</span>
+      <span class="case-tagline">4 → 7 точек · один город</span>
+    </div>
+
+    <article class="site-card">
+      <div class="cover case1">
+        <div class="chips">
+          <span class="chip">Гриль-кафе, сеть</span>
+          <span class="chip">Было 4 точки → сейчас 7</span>
+        </div>
+        <div class="brandmark">Угль</div>
+      </div>
+      <div class="body c1">
+        <p>«Угль» — сеть гриль-кафе: к началу работы четыре точки в одном городе и план открыть ещё три за год. С каждым открытием основатель лично утверждал цвета вывески, тексты меню и инструктаж официантов — иначе решения на точках не принимались. К четвёртому открытию подача блюд, форма акций и даже манера общения официантов с гостями заметно разошлись между точками. Подрядчики — дизайнеры, smm, печатники — каждый раз получали бриф заново, будто сеть открывается впервые.</p>
+        <p>Chlorine провёл аудит четырёх работающих точек и зафиксировал, где именно бренд разъехался — от шрифта на вывеске до формулировок в описании блюд. На основе аудита собрали правила: что управляющий утверждает сам, а что требует согласования, и по каким критериям. Три новые точки открылись по этим правилам и общему плейбуку запуска — без участия основателя в дизайн-решениях каждой из них. <strong>Следующая точка перестала начинаться с нуля</strong>: управляющий сам ведёт подрядчиков по готовым брифам, а расхождения первых четырёх кафе устранены.</p>
+        <ul class="bullets">
+          <li>Launch playbook новой точки — этапы, роли, сроки, чек-лист запуска</li>
+          <li>Правила принятия решений по меню, акциям и локальным активностям</li>
+          <li>Аудит четырёх точек с картой расхождений в подаче и коммуникации</li>
+          <li>Шаблоны брифов для дизайнеров, smm и печати</li>
+          <li>Управляющий сам согласовывает вывески и локальные акции</li>
+        </ul>
+        <div class="stats">
+          <div class="stat"><b>10 недель</b><span>Длительность</span></div>
+          <div class="stat"><b>4 → 7</b><span>Точек в сети</span></div>
+          <div class="stat"><b>3 из 3</b><span>Открыты без основателя</span></div>
+        </div>
+      </div>
+    </article>
+
+    <div class="doc-grid">
+      <div class="doc-block">
+        <h3>Структура гайдбука «Угля»</h3>
+        <div class="sub">Оглавление рабочего документа, переданного управляющему сетью</div>
+        <ol class="guide">
+          <li><span class="t">О бренде</span><span class="d">Миссия и позиционирование среди гриль-кафе города: для кого сеть и чем отличается от конкурентов.</span></li>
+          <li><span class="t">Аудитория и сценарии</span><span class="d">Два ключевых сценария — бизнес-ланч и вечерний визит — и что гость ждёт от каждого.<div class="skip">В проект вошло кратко, как часть аудита; отдельного исследования аудитории не было.</div></span></li>
+          <li><span class="t">Архитектура точек</span><span class="d">Единая сеть без суб-брендов: все точки работают по одной модели.</span></li>
+          <li><span class="t">Визуальный язык</span><span class="d">Логотип, цвета, фотостиль блюд, примеры верного и неверного использования на вывесках и в меню.</span></li>
+          <li><span class="t">Тон и язык коммуникации</span><span class="d">Как «Угль» говорит в меню и соцсетях.<div class="skip">Не входило в проект — можно добавить отдельным этапом.</div></span></li>
+          <li><span class="t">Правила принятия решений</span><span class="d">Что управляющий утверждает сам, что требует согласования: акции, сезонные позиции, локальные активности.</span></li>
+          <li><span class="t">Launch playbook новой точки</span><span class="d">Этапы от подписания аренды до открытия, роли, чек-лист, сроки.</span></li>
+          <li><span class="t">Локальная адаптация</span><span class="d">Что точка может менять под свой район (например, состав бизнес-ланча), что остаётся неизменным.</span></li>
+          <li><span class="t">Работа с подрядчиками</span><span class="d">Брифы для дизайнеров, smm и печати, критерии приёмки работы.</span></li>
+          <li><span class="t">Handover и развитие</span><span class="d">Документы и правила переданы управляющему; закреплено, кто отвечает за проверку соответствия бренду на новых точках.</span></li>
+        </ol>
+      </div>
+
+      <div class="doc-block">
+        <h3>Проделанная работа</h3>
+        <div class="sub">По категориям — что сделано и как используется сейчас</div>
+        <div class="cat-list">
+          <div class="cat"><h4>Исследование и диагностика</h4><p>Аудит четырёх точек: фотофиксация вывесок, меню и промо, интервью с управляющим и двумя администраторами. Артефакт — карта расхождений по 12 пунктам; управляющий использует её как чек-лист при проверке новых точек.</p></div>
+          <div class="cat"><h4>Стратегия и позиционирование</h4><p>Отличие «Угля» от других гриль-кафе города сформулировано не как отдельный манифест, а как основание для правил принятия решений — используется при оценке новых акций и коллабораций.</p></div>
+          <div class="cat"><h4>Визуальная идентичность</h4><p>Логотип и цвета не менялись. Подготовлен лист «верно / неверно» с примерами реальных вывесок и меню сети — дизайнеры используют его при подготовке материалов для новых точек.</p></div>
+          <div class="cat"><h4>Система работы</h4><p>Launch playbook, правила принятия решений по меню и акциям, шаблоны брифов для подрядчиков. По этому playbook открылись все три новые точки.</p></div>
+          <div class="cat"><h4>Работа с командой</h4><p>Воркшоп с управляющим и администраторами четырёх точек: разбор реальных ситуаций — запуск акции, замена вывески, сезонное меню — на правилах из гайдбука.</p></div>
+          <div class="cat"><h4>Handover и передача</h4><p>Playbook, правила и брифы собраны в одном документе. Финальную проверку соответствия бренду на новой точке теперь делает управляющий, а не основатель.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE 2 — ПОЛЫНЬ -->
+  <section class="case" id="polyn">
+    <div class="case-head">
+      <span class="case-index">Кейс 02 / Винный гастробар</span>
+      <span class="case-tagline">3 → 5 точек · три партнёра-управляющих</span>
+    </div>
+
+    <article class="site-card">
+      <div class="cover case2">
+        <div class="chips">
+          <span class="chip">Винный гастробар, сеть</span>
+          <span class="chip">Было 3 точки → сейчас 5</span>
+        </div>
+        <div class="brandmark">Полынь</div>
+      </div>
+      <div class="body c2">
+        <p>«Полынь» — сеть винных гастробаров, три точки, у каждой свой управляющий-партнёр с собственным взглядом на карту вин, музыку и подачу блюд. Общий брендбук существовал, но в спорах между партнёрами не помогал — каждый трактовал его по-своему. Сезонное обновление меню превращалось в долгое обсуждение на три голоса и на каждой точке в итоге выходило разным. К моменту обращения партнёры готовили четвёртую точку и не понимали, как открыть её без нового круга согласований.</p>
+        <p>Chlorine разобрал, в каких именно решениях партнёры расходятся, и перевёл эти споры в конкретные правила — что можно менять сезонно, а что остаётся неизменным на всех точках. Для обновления меню и локальных коллабораций сделали единый шаблон согласования: вместо обсуждения «нравится / не нравится» — проверка по пунктам. Четвёртая и пятая точки открылись по этим правилам, а <strong>каждое следующее открытие перестало начинаться с нового спора о бренде</strong>.</p>
+        <ul class="bullets">
+          <li>Правила принятия решений по сезонным меню и локальным коллаборациям</li>
+          <li>Единый шаблон согласования новых позиций и активностей</li>
+          <li>Разбор разногласий между партнёрами, переведённых в конкретные критерии</li>
+          <li>Launch playbook для двух новых точек сети</li>
+          <li>Закреплённая роль: кто принимает финальное решение при разногласиях</li>
+        </ul>
+        <div class="stats">
+          <div class="stat"><b>8 недель</b><span>Длительность</span></div>
+          <div class="stat"><b>3 → 5</b><span>Точек в сети</span></div>
+          <div class="stat"><b>8 пунктов</b><span>Зафиксированных правил</span></div>
+        </div>
+      </div>
+    </article>
+
+    <div class="doc-grid">
+      <div class="doc-block">
+        <h3>Структура гайдбука «Полыни»</h3>
+        <div class="sub">Оглавление рабочего документа, переданного всем партнёрам</div>
+        <ol class="guide">
+          <li><span class="t">О бренде</span><span class="d">Позиционирование как винного гастробара, ценности и то, что объединяет три точки при разных управляющих.</span></li>
+          <li><span class="t">Аудитория и сценарии</span><span class="d">Кто гость «Полыни» и с каким запросом приходит — винный вечер, ужин, дегустация.<div class="skip">Описано кратко в рамках диагностики, отдельного исследования не было.</div></span></li>
+          <li><span class="t">Архитектура точек</span><span class="d">Как соотносятся точки при разных партнёрах-управляющих: что общее, а что локальное.</span></li>
+          <li><span class="t">Визуальный язык</span><span class="d">Логотип, цвета, фотостиль.<div class="skip">Не входило в проект — визуальная идентичность уже была и не пересматривалась.</div></span></li>
+          <li><span class="t">Тон и язык коммуникации</span><span class="d">Как «Полынь» описывает вино и блюда — общий словарь для карты и соцсетей.</span></li>
+          <li><span class="t">Правила принятия решений</span><span class="d">Что можно менять сезонно (меню, коллаборации), что остаётся неизменным на всех точках.</span></li>
+          <li><span class="t">Launch playbook новой точки</span><span class="d">Этапы открытия для 4-й и 5-й точек, роли партнёров, чек-лист.</span></li>
+          <li><span class="t">Локальная адаптация</span><span class="d">Что каждый партнёр-управляющий решает самостоятельно на своей точке.</span></li>
+          <li><span class="t">Работа с подрядчиками</span><span class="d">—<div class="skip">Не входило в проект — сеть не работает с внешними подрядчиками на постоянной основе.</div></span></li>
+          <li><span class="t">Handover и развитие</span><span class="d">Правила и шаблон согласования переданы всем трём партнёрам; закреплено, кто принимает финальное решение при разногласиях.</span></li>
+        </ol>
+      </div>
+
+      <div class="doc-block">
+        <h3>Проделанная работа</h3>
+        <div class="sub">По категориям — что сделано и как используется сейчас</div>
+        <div class="cat-list">
+          <div class="cat"><h4>Исследование и диагностика</h4><p>Отдельные интервью с тремя партнёрами и разбор трёх последних споров о сезонном меню. Артефакт — список из 8 решений, где партнёры расходились, с причиной, почему старый брендбук не помогал.</p></div>
+          <div class="cat"><h4>Стратегия и позиционирование</h4><p>Заново не пересматривали — существующее позиционирование «Полыни» стало основанием для правил, что можно менять локально, а что нет.</p></div>
+          <div class="cat"><h4>Визуальная идентичность</h4><p>В проект не входило: логотип, цвета и фотостиль сети остались без изменений.</p></div>
+          <div class="cat"><h4>Система работы</h4><p>Правила принятия решений по сезонным меню и коллаборациям, единый шаблон согласования, launch playbook для двух новых точек.</p></div>
+          <div class="cat"><h4>Работа с командой</h4><p>Совместная сессия с тремя партнёрами: каждое правило проверяли на реальном примере из истории споров сети. Партнёры сейчас сами используют шаблон согласования на встречах по обновлению меню.</p></div>
+          <div class="cat"><h4>Handover и передача</h4><p>Правила, шаблон согласования и playbook переданы всем партнёрам в одном документе; закреплено, кто принимает финальное решение при разногласиях.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE 3 — ЗЁРНА -->
+  <section class="case" id="zerna">
+    <div class="case-head">
+      <span class="case-index">Кейс 03 / Сеть кофеен</span>
+      <span class="case-tagline">5 → 9 точек · выход в другие города по франшизе</span>
+    </div>
+
+    <article class="site-card">
+      <div class="cover case3">
+        <div class="chips">
+          <span class="chip">Кофейня, сеть</span>
+          <span class="chip">Было 5 точек → сейчас 9</span>
+        </div>
+        <div class="brandmark">Зёрна</div>
+      </div>
+      <div class="body c3">
+        <p>«Зёрна» — сеть кофеен: пять собственных точек в одном городе и первые франчайзи-партнёры в двух других. Проблема была не в дизайне, а в расстоянии: партнёр в другом городе видел бренд по фотографиям и брифу, а не так, как его понимал основатель. Рецептура эспрессо, скрипт бариста на кассе, оформление стаканов и подача сезонных напитков в новых городах начали отличаться от оригинальных точек, а лично проверять каждое открытие основатель не успевал.</p>
+        <p>Chlorine зафиксировал, что в сети нельзя менять ни при каких обстоятельствах (рецептуру, форму стакана, скрипт на кассе), а что франчайзи-партнёр решает сам на месте (локальные десерты, часть декора). Под это собрали чек-лист удалённого аудита новой точки и обучающую программу для бариста и управляющих, которую партнёр проводит сам, без визита основателя. <strong>Открытие в новом городе перестало быть отдельным проектом с нуля</strong>: третий и четвёртый франчайзи прошли те же шаги, что и первый.</p>
+        <ul class="bullets">
+          <li>Правила принятия решений для франчайзи-партнёров — что закреплено, что локально</li>
+          <li>Чек-лист удалённого аудита новой точки перед открытием</li>
+          <li>Обучающая программа для бариста и управляющих без личного визита основателя</li>
+          <li>Launch playbook для точки в новом городе</li>
+          <li>Шаблоны для запуска сезонных напитков и соцсетей на местах</li>
+        </ul>
+        <div class="stats">
+          <div class="stat"><b>6 недель</b><span>Длительность</span></div>
+          <div class="stat"><b>5 → 9</b><span>Точек в сети</span></div>
+          <div class="stat"><b>4 города</b><span>Без личного визита основателя</span></div>
+        </div>
+      </div>
+    </article>
+
+    <div class="doc-grid">
+      <div class="doc-block">
+        <h3>Структура гайдбука «Зёрен»</h3>
+        <div class="sub">Оглавление рабочего документа для франчайзи-партнёров</div>
+        <ol class="guide">
+          <li><span class="t">О бренде</span><span class="d">Миссия и то, что «Зёрна» продают помимо кофе: свой ритуал утра, кому подходит партнёрство по франшизе.</span></li>
+          <li><span class="t">Аудитория и сценарии</span><span class="d">Сценарии «кофе по пути» и «кофе на месте», по чему гость узнаёт «Зёрна» в незнакомом городе.</span></li>
+          <li><span class="t">Архитектура точек</span><span class="d">Как соотносятся собственные и франчайзинговые точки, что закреплено на уровне сети.</span></li>
+          <li><span class="t">Визуальный язык</span><span class="d">Логотип, цвета, интерьерные акценты, фотостиль для сторис. Примеры верного и неверного использования на новых точках.</span></li>
+          <li><span class="t">Тон и язык коммуникации</span><span class="d">Как бариста обращается к гостю, как подписаны стаканы и меню.</span></li>
+          <li><span class="t">Правила принятия решений</span><span class="d">Что франчайзи-партнёр решает сам (локальные десерты, часть декора), что закреплено на уровне сети (рецептура, форма стакана, скрипт на кассе).</span></li>
+          <li><span class="t">Launch playbook новой точки</span><span class="d">Этапы запуска в новом городе без личного визита основателя, роли, сроки.</span></li>
+          <li><span class="t">Локальная адаптация</span><span class="d">Что меняется под город (продукты у локальных поставщиков), что нет.</span></li>
+          <li><span class="t">Работа с партнёрами и подрядчиками</span><span class="d">Как ставить задачи франчайзи, дизайнерам вывесок и полиграфии; удалённый контроль качества.</span></li>
+          <li><span class="t">Handover и развитие</span><span class="d">Обучение бариста и управляющих, чек-лист удалённого аудита, кто в сети отвечает за проверку новых городов.</span></li>
+        </ol>
+      </div>
+
+      <div class="doc-block">
+        <h3>Проделанная работа</h3>
+        <div class="sub">По категориям — что сделано и как используется сейчас</div>
+        <div class="cat-list">
+          <div class="cat"><h4>Исследование и диагностика</h4><p>Интервью с основателем и двумя франчайзи-кандидатами, разбор трёх похожих случаев открытия точек в других городах у сопоставимых сетей. Артефакт — список из 10 точек риска при удалённом партнёрстве.</p></div>
+          <div class="cat"><h4>Стратегия и позиционирование</h4><p>Заново не пересматривали — существующее позиционирование стало основанием для того, что франчайзи не может менять.</p></div>
+          <div class="cat"><h4>Визуальная идентичность</h4><p>Собран референс-лист интерьерных акцентов и фотостиля для новых точек без полной переработки айдентики.</p></div>
+          <div class="cat"><h4>Система работы</h4><p>Правила принятия решений для франчайзи, launch playbook для новых городов, чек-лист удалённого аудита перед открытием.</p></div>
+          <div class="cat"><h4>Работа с командой</h4><p>Обучающая программа для бариста и управляющих новых точек — видео и чек-лист, которые партнёр проводит сам, без визита основателя.</p></div>
+          <div class="cat"><h4>Handover и передача</h4><p>Чек-лист аудита и обучающие материалы переданы основателю и первому франчайзи-партнёру; закреплено, кто в сети проверяет соответствие бренду перед открытием новой точки.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Черновик для внутреннего рассмотрения. После получения данных по реальной компании структура сохраняется, содержание карточки / гайдбука / работы заменяется на фактическое.
+  </footer>
+
+</div>
