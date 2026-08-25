@@ -1,0 +1,693 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Брендбук «Угля»</title>
+
+<style>
+  /* Кириллица и латиница лежат раздельно — браузер берёт нужный файл
+     по диапазону символов. tools/embed.py вшивает их в готовую страницу. */
+  @font-face{font-family:"Unbounded";src:url("fonts/Unbounded-cyrillic.woff2")format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Unbounded";src:url("fonts/Unbounded-latin.woff2")format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"Onest";src:url("fonts/Onest-cyrillic.woff2")format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Onest";src:url("fonts/Onest-latin.woff2")format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+
+  :root{
+    /* Снято замером с референсов. Менять только здесь. */
+    --char:#060403;
+    --cream:#F2E9DA;
+    --red:#950101;
+
+    --display:"Unbounded","Trebuchet MS",sans-serif;
+    --text:"Onest","Segoe UI",sans-serif;
+
+    --page:min(1000px, 100% - 48px);
+  }
+
+  *{box-sizing:border-box;margin:0;}
+
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+
+  body{
+    background:var(--char);
+    color:var(--cream);
+    font-family:var(--text);
+    font-weight:400;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Зерно поверх всего — приём из референсов, склеивает плашки и фото. */
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:20;
+    pointer-events:none;
+    opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  ::selection{background:var(--red);color:var(--cream);}
+
+  /* ---------- Лист ---------- */
+
+  .sheet{
+    padding:88px 0;
+    position:relative;
+  }
+  .sheet--cream{
+    background:var(--cream);
+    color:var(--char);
+  }
+  .sheet--red{
+    background:var(--red);
+    color:var(--cream);
+  }
+  .sheet__inner{
+    width:var(--page);
+    margin:0 auto;
+  }
+
+  /* ---------- Служебные элементы ---------- */
+
+  .eyebrow{
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+  }
+
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:var(--red);
+    color:var(--cream);
+    font-family:var(--display);
+    font-weight:800;
+    font-size:17px;
+    flex:none;
+  }
+  .sheet--red .badge{background:var(--cream);color:var(--red);}
+
+  .head{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:14px;
+  }
+  .head__label{
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--red);
+  }
+  .sheet--dark .head__label{color:var(--red);}
+
+  h2{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(28px,4.4vw,44px);
+    line-height:1.06;
+    letter-spacing:-.015em;
+    text-wrap:balance;
+    margin-bottom:22px;
+  }
+  h3{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:19px;
+    line-height:1.2;
+    margin-bottom:10px;
+  }
+
+  .lede{
+    font-size:clamp(17px,2.2vw,20px);
+    line-height:1.45;
+    max-width:60ch;
+  }
+  p{max-width:62ch;}
+  p + p{margin-top:14px;}
+
+  .muted{opacity:.66;}
+
+  /* ---------- Обложка ---------- */
+
+  .cover{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:52px 0;
+  }
+  .cover__top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+  }
+  .wordmark{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(72px,19vw,208px);
+    line-height:.82;
+    letter-spacing:-.02em;
+  }
+  .wordmark__sub{
+    display:inline-block;
+    margin-top:20px;
+    background:var(--red);
+    color:var(--cream);
+    padding:5px 14px;
+    font-family:var(--text);
+    font-size:clamp(12px,1.5vw,15px);
+    font-weight:700;
+    letter-spacing:.3em;
+  }
+  .cover__claim{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(18px,2.7vw,27px);
+    line-height:1.25;
+    max-width:19ch;
+    text-wrap:balance;
+  }
+  .cover__foot{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    flex-wrap:wrap;
+    border-top:1px solid rgba(242,233,218,.22);
+    padding-top:18px;
+  }
+
+  /* ---------- Оглавление ---------- */
+
+  .toc{
+    list-style:none;
+    padding:0;
+    margin:26px 0 0;
+    border-top:1px solid rgba(6,4,3,.16);
+  }
+  .toc__item{
+    display:grid;
+    grid-template-columns:46px 1fr auto;
+    gap:16px;
+    align-items:baseline;
+    padding:15px 0;
+    border-bottom:1px solid rgba(6,4,3,.16);
+  }
+  .toc__num{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:14px;
+    color:var(--red);
+  }
+  .toc__name{
+    font-size:16.5px;
+    font-weight:500;
+  }
+  .toc__name a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(149,1,1,.4);}
+  .toc__name a:hover,.toc__name a:focus-visible{color:var(--red);border-bottom-color:var(--red);}
+  .toc__state{
+    font-size:12px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    font-weight:600;
+    opacity:.5;
+  }
+  .toc__state--ready{
+    opacity:1;
+    color:var(--red);
+  }
+
+  /* ---------- Как пользоваться ---------- */
+
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+    margin-top:34px;
+  }
+  .step{
+    border-top:2px solid var(--red);
+    padding-top:14px;
+  }
+  .step__n{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:13px;
+    color:var(--red);
+    display:block;
+    margin-bottom:7px;
+  }
+  .step p{font-size:15px;}
+
+  /* ---------- Цвет ---------- */
+
+  .swatches{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:0;
+    margin:30px 0 34px;
+    border:1px solid rgba(6,4,3,.2);
+  }
+  .swatch{
+    padding:30px 20px 22px;
+    min-height:190px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+  }
+  .swatch--char{background:var(--char);color:var(--cream);}
+  .swatch--cream{background:var(--cream);color:var(--char);box-shadow:inset 0 0 0 1px rgba(6,4,3,.14);}
+  .swatch--red{background:var(--red);color:var(--cream);}
+  .swatch__hex{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:19px;
+    margin-bottom:5px;
+  }
+  .swatch__use{font-size:13.5px;line-height:1.4;opacity:.8;}
+
+  .rules{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:16px;
+    margin-top:8px;
+  }
+  .rule{
+    padding:16px 18px;
+    font-size:14.5px;
+    line-height:1.45;
+  }
+  .rule--yes{
+    background:transparent;
+    border:1.5px solid var(--red);
+    color:inherit;
+  }
+  .rule--no{
+    background:var(--red);
+    color:var(--cream);
+  }
+  .rule__tag{
+    display:block;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    margin-bottom:7px;
+  }
+  .rule--yes .rule__tag{color:var(--red);}
+
+  /* ---------- Шрифт ---------- */
+
+  .specimen{
+    border:1px solid rgba(6,4,3,.2);
+    padding:26px 24px;
+    margin:28px 0 18px;
+  }
+  .specimen__name{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:14px;
+    flex-wrap:wrap;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin-bottom:16px;
+  }
+  .specimen__name em{
+    font-style:normal;
+    letter-spacing:.02em;
+    text-transform:none;
+    font-weight:500;
+    opacity:.6;
+    color:inherit;
+  }
+  .specimen__display{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(30px,5vw,52px);
+    line-height:1.02;
+    letter-spacing:-.02em;
+    margin-bottom:12px;
+  }
+  .specimen__text{
+    font-size:16px;
+    line-height:1.5;
+    max-width:56ch;
+  }
+
+  .scale{
+    list-style:none;
+    padding:0;
+    margin-top:22px;
+    border-top:1px solid rgba(6,4,3,.16);
+  }
+  .scale li{
+    display:grid;
+    grid-template-columns:104px 1fr;
+    gap:16px;
+    align-items:baseline;
+    padding:11px 0;
+    border-bottom:1px solid rgba(6,4,3,.16);
+    font-size:13px;
+  }
+  .scale b{
+    font-family:var(--display);
+    font-weight:700;
+    color:var(--red);
+    font-size:12.5px;
+  }
+
+  /* ---------- Правило ---------- */
+
+  .question{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(23px,3.4vw,34px);
+    line-height:1.14;
+    letter-spacing:-.01em;
+    max-width:20ch;
+    text-wrap:balance;
+    margin-bottom:24px;
+  }
+  .answer{
+    background:var(--char);
+    color:var(--cream);
+    padding:22px 24px;
+    margin-bottom:26px;
+  }
+  .answer__tag{
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--red);
+    display:block;
+    margin-bottom:8px;
+  }
+  .answer p{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(17px,2.3vw,21px);
+    line-height:1.3;
+    max-width:34ch;
+  }
+
+  .who{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:0;
+    margin-top:28px;
+    border:1px solid rgba(6,4,3,.2);
+  }
+  .who__cell{
+    padding:16px 18px;
+    border-right:1px solid rgba(6,4,3,.2);
+  }
+  .who__cell:last-child{border-right:none;}
+  .who__role{
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin-bottom:6px;
+  }
+  .who__what{font-size:14.5px;line-height:1.4;}
+
+  /* ---------- Подвал ---------- */
+
+  .foot{
+    padding:36px 0 56px;
+    font-size:13px;
+  }
+  .foot__inner{
+    width:var(--page);
+    margin:0 auto;
+    border-top:1px solid rgba(242,233,218,.22);
+    padding-top:18px;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+    opacity:.62;
+  }
+
+  .pending{
+    display:inline-block;
+    background:rgba(149,1,1,.14);
+    border:1px dashed var(--red);
+    color:var(--red);
+    font-size:12px;
+    font-weight:600;
+    padding:2px 8px;
+  }
+
+  @media (max-width:640px){
+    .sheet{padding:60px 0;}
+    .toc__item{grid-template-columns:34px 1fr;}
+    .toc__state{grid-column:2;}
+    .who__cell{border-right:none;border-bottom:1px solid rgba(6,4,3,.2);}
+    .who__cell:last-child{border-bottom:none;}
+  }
+</style>
+
+<!-- ======================= ОБЛОЖКА ======================= -->
+<section class="sheet cover">
+  <div class="sheet__inner cover__top">
+    <span class="eyebrow">Рабочий документ · Версия 1.0</span>
+    <span class="eyebrow">Chlorine</span>
+  </div>
+
+  <div class="sheet__inner">
+    <div class="wordmark">УГЛЬ</div>
+    <div class="wordmark__sub">ГРИЛЬ-КАФЕ</div>
+  </div>
+
+  <div class="sheet__inner cover__foot">
+    <p class="cover__claim">Как принимать решения о бренде, не спрашивая основателя</p>
+    <span class="eyebrow muted">7 точек · один город</span>
+  </div>
+</section>
+
+<!-- ==================== КАК ПОЛЬЗОВАТЬСЯ ==================== -->
+<section class="sheet sheet--cream">
+  <div class="sheet__inner">
+    <div class="head">
+      <span class="head__label">Прежде чем открыть дальше</span>
+    </div>
+    <h2>Этот документ отвечает на вопросы, а не рассказывает о бренде</h2>
+    <p class="lede">Он написан для тех, кто принимает решения каждый день: управляющего сетью и администраторов точек. Читать целиком не нужно — нужно находить нужное место и действовать.</p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step__n">01</span>
+        <p>Найдите раздел с вашим вопросом в оглавлении.</p>
+      </div>
+      <div class="step">
+        <span class="step__n">02</span>
+        <p>Прочтите правило. Каждое умещается на один экран целиком.</p>
+      </div>
+      <div class="step">
+        <span class="step__n">03</span>
+        <p>Примите решение и запишите его, если оно новое.</p>
+      </div>
+      <div class="step">
+        <span class="step__n">04</span>
+        <p>Правила нет — см. раздел 10. Звонить основателю не нужно.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ОГЛАВЛЕНИЕ ======================= -->
+<section class="sheet sheet--cream" style="padding-top:0;">
+  <div class="sheet__inner">
+    <div class="head">
+      <span class="head__label">Содержание</span>
+    </div>
+
+    <ul class="toc">
+      <li class="toc__item"><span class="toc__num">01</span><span class="toc__name"><a href="#brand">О бренде</a></span><span class="toc__state toc__state--ready">В этом черновике</span></li>
+      <li class="toc__item"><span class="toc__num">02</span><span class="toc__name">Аудитория и сценарии</span><span class="toc__state">Позже</span></li>
+      <li class="toc__item"><span class="toc__num">03</span><span class="toc__name">Архитектура точек</span><span class="toc__state">Позже</span></li>
+      <li class="toc__item"><span class="toc__num">04</span><span class="toc__name"><a href="#color">Визуальный язык</a></span><span class="toc__state toc__state--ready">В этом черновике</span></li>
+      <li class="toc__item"><span class="toc__num">05</span><span class="toc__name">Тон и язык общения</span><span class="toc__state">Позже</span></li>
+      <li class="toc__item"><span class="toc__num">06</span><span class="toc__name"><a href="#rule">Правила решений</a></span><span class="toc__state toc__state--ready">В этом черновике</span></li>
+      <li class="toc__item"><span class="toc__num">07</span><span class="toc__name">Запуск новой точки</span><span class="toc__state">Позже</span></li>
+      <li class="toc__item"><span class="toc__num">08</span><span class="toc__name">Что можно менять на точке</span><span class="toc__state">Позже</span></li>
+      <li class="toc__item"><span class="toc__num">09</span><span class="toc__name">Работа с подрядчиками</span><span class="toc__state">Позже</span></li>
+      <li class="toc__item"><span class="toc__num">10</span><span class="toc__name">Если правила нет</span><span class="toc__state">Позже</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 01 О БРЕНДЕ ======================= -->
+<section class="sheet" id="brand">
+  <div class="sheet__inner">
+    <div class="head">
+      <span class="badge">01</span>
+      <span class="head__label">О бренде</span>
+    </div>
+    <h2>Мясо на живом огне, без церемоний</h2>
+    <p class="lede">«Угль» — гриль-кафе, где еду готовят на открытом огне и подают быстро. Не стейк-хаус с белыми скатертями и не фастфуд: сюда приходят пообедать в будний день и поужинать в пятницу, не переодеваясь.</p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step__n">Для кого</span>
+        <p>Те, кто работает и живёт рядом. Гость возвращается раз в неделю, а не раз в год.</p>
+      </div>
+      <div class="step">
+        <span class="step__n">Чем отличаемся</span>
+        <p>Огонь виден из зала. Готовим при госте, а не за стеной.</p>
+      </div>
+      <div class="step">
+        <span class="step__n">Сегмент</span>
+        <p><span class="pending">Данные уточняются</span></p>
+      </div>
+      <div class="step">
+        <span class="step__n">География</span>
+        <p><span class="pending">Данные уточняются</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 04 ЦВЕТ ======================= -->
+<section class="sheet sheet--cream" id="color">
+  <div class="sheet__inner">
+    <div class="head">
+      <span class="badge">04</span>
+      <span class="head__label">Визуальный язык · Цвет</span>
+    </div>
+    <h2>Три цвета. Четвёртого нет</h2>
+    <p class="lede">Ограничение — главное правило системы. Как только появляется четвёртый цвет, точки начинают расходиться, и вернуть их обратно уже дорого.</p>
+
+    <div class="swatches">
+      <div class="swatch swatch--char">
+        <div class="swatch__hex">#060403</div>
+        <div class="swatch__use">Обложки, разделители, фон под фотографии. Не чистый чёрный — тёплый, с примесью красного.</div>
+      </div>
+      <div class="swatch swatch--cream">
+        <div class="swatch__hex">#F2E9DA</div>
+        <div class="swatch__use">Фон страниц с правилами, меню, текст на тёмном. Основной цвет для чтения.</div>
+      </div>
+      <div class="swatch swatch--red">
+        <div class="swatch__hex">#950101</div>
+        <div class="swatch__use">Акцент и запрет. Выделяет одно главное на экране — не больше.</div>
+      </div>
+    </div>
+
+    <div class="rules">
+      <div class="rule rule--yes">
+        <span class="rule__tag">Можно</span>
+        Осветлять кремовый и затемнять чёрный прозрачностью — для второстепенного текста и тонких линий.
+      </div>
+      <div class="rule rule--no">
+        <span class="rule__tag">Нельзя</span>
+        Вводить четвёртый цвет, осветлять красный до розового, использовать градиенты и тени.
+      </div>
+    </div>
+
+    <h3 style="margin-top:34px;">Красный работает только как акцент</h3>
+    <p>Если на макете красным залито больше четверти площади, он перестаёт выделять и начинает кричать. Исключение — обложка и разделители: там красный может быть фоном целиком.</p>
+  </div>
+</section>
+
+<!-- ======================= 04 ШРИФТ ======================= -->
+<section class="sheet sheet--cream" style="padding-top:0;">
+  <div class="sheet__inner">
+    <div class="head">
+      <span class="badge">04</span>
+      <span class="head__label">Визуальный язык · Шрифт</span>
+    </div>
+    <h2>Две гарнитуры на всё</h2>
+
+    <div class="specimen">
+      <div class="specimen__name">Unbounded <em>заголовки, знак, цифры</em></div>
+      <div class="specimen__display">Мясо на углях<br>с открытого огня</div>
+      <p class="specimen__text muted">Начертания 600–900. В мелком кегле не используется: ниже 16 пикселей теряет читаемость.</p>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen__name">Onest <em>основной текст, подписи, интерфейс</em></div>
+      <p class="specimen__text" style="font-size:18px;">Каждое правило умещается на один экран. Если правило не помещается — значит, это два правила, и его нужно разделить.</p>
+      <p class="specimen__text muted" style="margin-top:10px;">Начертания 400–700. Основной текст — 400, выделения — 600.</p>
+    </div>
+
+    <ul class="scale">
+      <li><b>52 / 44 px</b><span>Заголовок раздела — Unbounded 800</span></li>
+      <li><b>34 / 28 px</b><span>Вопрос или правило — Unbounded 800</span></li>
+      <li><b>20 / 18 px</b><span>Вводный абзац — Onest 400</span></li>
+      <li><b>16 px</b><span>Основной текст — Onest 400</span></li>
+      <li><b>12 px</b><span>Подписи и метки — Onest 600, разрядка 0.18em</span></li>
+    </ul>
+
+    <p class="muted" style="margin-top:20px;font-size:13.5px;">Обе гарнитуры свободны для коммерческого использования и содержат кириллицу. Файлы вшиты в этот документ — он открывается без интернета.</p>
+  </div>
+</section>
+
+<!-- ======================= 06 ПРАВИЛО ======================= -->
+<section class="sheet sheet--cream" id="rule" style="padding-top:0;">
+  <div class="sheet__inner">
+    <div class="head">
+      <span class="badge">06</span>
+      <span class="head__label">Правила решений · Скидки и акции</span>
+    </div>
+
+    <div class="question">Гость просит скидку на бизнес-ланч ко дню города. Можно?</div>
+
+    <div class="answer">
+      <span class="answer__tag">Ответ</span>
+      <p>Да. До 20%, на срок до трёх дней. Решает управляющий, согласование не требуется.</p>
+    </div>
+
+    <div class="rules">
+      <div class="rule rule--yes">
+        <span class="rule__tag">Можно без согласования</span>
+        Скидка на бизнес-ланч до 20%. Локальный праздник, годовщина точки, погодная акция. Комплимент от кухни постоянному гостю.
+      </div>
+      <div class="rule rule--no">
+        <span class="rule__tag">Нельзя без основателя</span>
+        Скидка на стейки и позиции с огня. Акция дольше недели. Всё, что меняет цену в меню, а не даёт скидку к ней.
+      </div>
+    </div>
+
+    <div class="who">
+      <div class="who__cell">
+        <div class="who__role">Администратор</div>
+        <div class="who__what">Предлагает акцию, готовит материалы по шаблону.</div>
+      </div>
+      <div class="who__cell">
+        <div class="who__role">Управляющий</div>
+        <div class="who__what">Решает и отвечает за результат. Записывает решение.</div>
+      </div>
+      <div class="who__cell">
+        <div class="who__role">Основатель</div>
+        <div class="who__what">Подключается только к тому, что в правой колонке выше.</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:34px;">Почему именно 20%</h3>
+    <p>Ниже этого порога скидка не влияет на выбор гостя, выше — начинает съедать маржу бизнес-ланча, у которого она и так наименьшая. Порог пересматривается раз в год вместе с ценами.</p>
+  </div>
+</section>
+
+<!-- ======================= ПОДВАЛ ======================= -->
+<footer class="foot">
+  <div class="foot__inner">
+    <span>Брендбук «Угля» · Черновик первого разворота</span>
+    <span>Chlorine · Следующая точка не начинается с нуля</span>
+  </div>
+</footer>
