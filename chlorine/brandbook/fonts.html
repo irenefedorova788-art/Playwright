@@ -1,0 +1,185 @@
+<meta charset="utf-8">
+<title>Шрифты «Угля»</title>
+<style>
+  /* Кириллица и латиница лежат отдельными файлами — браузер сам берёт
+     нужный по диапазону символов. */
+  @font-face{font-family:"Oswald";src:url("fonts/Oswald-cyrillic.woff2")format("woff2");font-weight:200 700;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Oswald";src:url("fonts/Oswald-latin.woff2")format("woff2");font-weight:200 700;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"Unbounded";src:url("fonts/Unbounded-cyrillic.woff2")format("woff2");font-weight:200 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Unbounded";src:url("fonts/Unbounded-latin.woff2")format("woff2");font-weight:200 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"RussoOne";src:url("fonts/RussoOne-cyrillic.woff2")format("woff2");font-weight:400;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"RussoOne";src:url("fonts/RussoOne-latin.woff2")format("woff2");font-weight:400;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"AlumniSans";src:url("fonts/AlumniSans-cyrillic.woff2")format("woff2");font-weight:100 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"AlumniSans";src:url("fonts/AlumniSans-latin.woff2")format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"RobotoCondensed";src:url("fonts/RobotoCondensed-cyrillic.woff2")format("woff2");font-weight:100 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"RobotoCondensed";src:url("fonts/RobotoCondensed-latin.woff2")format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"GolosText";src:url("fonts/GolosText-cyrillic.woff2")format("woff2");font-weight:400 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"GolosText";src:url("fonts/GolosText-latin.woff2")format("woff2");font-weight:400 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"Onest";src:url("fonts/Onest-cyrillic.woff2")format("woff2");font-weight:100 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Onest";src:url("fonts/Onest-latin.woff2")format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"InterTight";src:url("fonts/InterTight-cyrillic.woff2")format("woff2");font-weight:100 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"InterTight";src:url("fonts/InterTight-latin.woff2")format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+
+  :root{
+    --red:#950101;
+    --cream:#F2E9DA;
+    --dark:#060403;
+  }
+
+  *{box-sizing:border-box;margin:0;}
+  body{
+    background:var(--dark);
+    color:var(--cream);
+    font-family:"GolosText",sans-serif;
+    padding:56px 48px 72px;
+  }
+
+  header{
+    border-bottom:2px solid var(--red);
+    padding-bottom:20px;
+    margin-bottom:44px;
+  }
+  header h1{
+    font-family:"Onest",sans-serif;
+    font-weight:800;
+    font-size:26px;
+    letter-spacing:-.01em;
+  }
+  header p{
+    margin-top:8px;
+    font-size:14px;
+    color:rgba(242,233,218,.6);
+    max-width:70ch;
+  }
+
+  .swatches{display:flex;gap:0;margin:28px 0 48px;border:1px solid rgba(242,233,218,.18);}
+  .sw{flex:1;padding:16px 14px;font-size:11.5px;letter-spacing:.06em;}
+  .sw b{display:block;font-size:13px;margin-bottom:3px;font-weight:600;}
+  .sw.red{background:var(--red);color:var(--cream);}
+  .sw.cream{background:var(--cream);color:var(--dark);}
+  .sw.dark{background:var(--dark);color:var(--cream);border-left:1px solid rgba(242,233,218,.18);}
+
+  .card{
+    border:1px solid rgba(242,233,218,.16);
+    padding:26px 28px 30px;
+    margin-bottom:22px;
+  }
+  .label{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:12px;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+    color:var(--red);
+    background:var(--cream);
+    margin:-26px -28px 24px;
+    padding:8px 28px;
+    font-weight:700;
+  }
+  .label span{color:rgba(6,4,3,.55);letter-spacing:.02em;text-transform:none;font-weight:500;}
+
+  .mark{
+    font-size:88px;
+    line-height:.92;
+    letter-spacing:-.01em;
+    margin-bottom:6px;
+  }
+  .sub{
+    font-size:13px;
+    letter-spacing:.22em;
+    color:var(--red);
+    background:var(--cream);
+    display:inline-block;
+    padding:3px 10px;
+    font-weight:700;
+    margin-bottom:20px;
+  }
+  .line{
+    font-size:27px;
+    line-height:1.15;
+    margin-bottom:14px;
+    max-width:24ch;
+  }
+  .body{
+    font-size:14.5px;
+    line-height:1.5;
+    color:rgba(242,233,218,.72);
+    max-width:62ch;
+  }
+  .body b{color:var(--cream);font-weight:600;}
+
+  .oswald .mark,.oswald .line{font-family:"Oswald";font-weight:700;}
+  .unbounded .mark,.unbounded .line{font-family:"Unbounded";font-weight:800;}
+  .russo .mark,.russo .line{font-family:"RussoOne";}
+  .alumni .mark,.alumni .line{font-family:"AlumniSans";font-weight:900;}
+  .robotoc .mark,.robotoc .line{font-family:"RobotoCondensed";font-weight:800;}
+
+  .golos .body{font-family:"GolosText";}
+  .onest .body{font-family:"Onest";}
+  .inter .body{font-family:"InterTight";}
+
+  footer{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid rgba(242,233,218,.16);
+    font-size:13px;
+    color:rgba(242,233,218,.55);
+    max-width:74ch;
+  }
+</style>
+
+<header>
+  <h1>Шрифты «Угля» — кандидаты с кириллицей</h1>
+  <p>Все пять проверены: кириллица есть, лицензия свободная для коммерческого использования. Anton, Archivo Black и Bebas Neue в список не попали — у них кириллицы нет вовсе. Палитра снята с референсов Piano замером.</p>
+</header>
+
+<div class="swatches">
+  <div class="sw red"><b>#950101</b>красный</div>
+  <div class="sw cream"><b>#F2E9DA</b>кремовый</div>
+  <div class="sw dark"><b>#060403</b>почти чёрный</div>
+</div>
+
+<div class="card oswald golos">
+  <div class="label">Oswald <span>+ Golos Text</span></div>
+  <div class="mark">УГЛЬ</div>
+  <div class="sub">ГРИЛЬ-КАФЕ</div>
+  <div class="line">Мясо на углях с открытого огня</div>
+  <div class="body"><b>Узкий, вывесочный.</b> Читается издалека и экономит место на фасаде — для сети с разными по размеру вывесками это практично. Характер сдержанный, без игры.</div>
+</div>
+
+<div class="card unbounded onest">
+  <div class="label">Unbounded <span>+ Onest</span></div>
+  <div class="mark">УГЛЬ</div>
+  <div class="sub">ГРИЛЬ-КАФЕ</div>
+  <div class="line">Мясо на углях с открытого огня</div>
+  <div class="body"><b>Плотный, геометричный.</b> Ближе всего к тяжёлому гротеску из референсов Piano. Заметный и современный, но на длинных словах становится тесно.</div>
+</div>
+
+<div class="card alumni onest">
+  <div class="label">Alumni Sans <span>+ Onest</span></div>
+  <div class="mark">УГЛЬ</div>
+  <div class="sub">ГРИЛЬ-КАФЕ</div>
+  <div class="line">Мясо на углях с открытого огня</div>
+  <div class="body"><b>Очень узкий, жёсткий.</b> Самый «мясной» из списка — характер спортивно-индустриальный. Хорош в крупном кегле, в мелком теряет читаемость.</div>
+</div>
+
+<div class="card robotoc inter">
+  <div class="label">Roboto Condensed <span>+ Inter Tight</span></div>
+  <div class="mark">УГЛЬ</div>
+  <div class="sub">ГРИЛЬ-КАФЕ</div>
+  <div class="line">Мясо на углях с открытого огня</div>
+  <div class="body"><b>Нейтральный рабочий вариант.</b> Не спорит ни с чем и безотказно читается на любом носителе. Своего характера почти нет — это плюс для документа и минус для вывески.</div>
+</div>
+
+<div class="card russo golos">
+  <div class="label">Russo One <span>+ Golos Text</span></div>
+  <div class="mark">УГЛЬ</div>
+  <div class="sub">ГРИЛЬ-КАФЕ</div>
+  <div class="line">Мясо на углях с открытого огня</div>
+  <div class="body"><b>Тяжёлый, техничный.</b> Одно начертание — для системы это ограничение: не будет ни лёгкого, ни сверхжирного. Часто встречается у российских брендов, узнаётся как штамп.</div>
+</div>
+
+<footer>
+  Логотип собирается из выбранной гарнитуры и дорабатывается вручную — межбуквенные интервалы в наборе и в знаке настраиваются по-разному. Текстовая пара указана рядом с каждым вариантом, её можно менять отдельно от заголовочной.
+</footer>
