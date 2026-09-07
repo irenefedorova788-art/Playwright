@@ -1,0 +1,572 @@
+<meta charset="utf-8">
+<title>SUNLIGHT МЦЗ — разбор бренда</title>
+<style>
+  @font-face{font-family:"Onest";src:url("../../brandbook/fonts/Onest-cyrillic.woff2")format("woff2");font-weight:100 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Onest";src:url("../../brandbook/fonts/Onest-latin.woff2")format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"Golos";src:url("../../brandbook/fonts/GolosText-cyrillic.woff2")format("woff2");font-weight:400 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Golos";src:url("../../brandbook/fonts/GolosText-latin.woff2")format("woff2");font-weight:400 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+
+  :root{
+    --paper:#FFFFFF;
+    --ground:#F4F3F0;
+    --ink:#16181C;
+    --muted:#767B84;
+    --line:#E3E4E7;
+    --fill:#8A6412;
+    --fill-bg:#FBF7EE;
+
+    --display:"Onest","Segoe UI",sans-serif;
+    --text:"Golos","Segoe UI",sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;}
+  body{
+    background:#8E9095;
+    font-family:var(--text);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Каркас слайда ---------- */
+
+  .slide{
+    width:1600px;
+    height:900px;
+    background:var(--paper);
+    margin:0 auto 26px;
+    padding:56px 72px 48px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    overflow:hidden;
+  }
+  .slide--ground{background:var(--ground);}
+
+  .bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-family:var(--display);
+    font-size:14px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#B4B8BE;
+    font-weight:600;
+    margin-bottom:56px;
+    flex:none;
+  }
+  .bar nav{display:flex;gap:22px;}
+  .bar .on{color:var(--ink);}
+  .bar .brand{letter-spacing:.2em;color:#B4B8BE;}
+
+  .body{
+    flex:1;
+    display:grid;
+    grid-template-columns:340px 1fr;
+    gap:64px;
+    min-height:0;
+  }
+  .body--wide{grid-template-columns:1fr;}
+
+  .label{
+    font-family:var(--display);
+    font-size:26px;
+    font-weight:700;
+    line-height:1.14;
+    letter-spacing:-.01em;
+  }
+  .label small{
+    display:block;
+    margin-top:14px;
+    font-family:var(--text);
+    font-size:15px;
+    font-weight:400;
+    line-height:1.45;
+    color:var(--muted);
+    letter-spacing:0;
+  }
+
+  .num{
+    position:absolute;
+    right:72px;
+    bottom:44px;
+    font-family:var(--display);
+    font-size:13px;
+    color:#C2C6CC;
+    font-weight:600;
+  }
+
+  /* ---------- Содержимое ---------- */
+
+  .cols{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:34px;
+    align-content:start;
+  }
+  .cols--2{grid-template-columns:1fr 1fr;}
+  .cols--3{grid-template-columns:repeat(3,1fr);}
+
+  .q{
+    font-family:var(--display);
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:10px;
+    line-height:1.25;
+  }
+  .q i{
+    font-style:normal;
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:.1em;
+    color:#B4B8BE;
+    margin-bottom:6px;
+  }
+  .hint{
+    font-size:15px;
+    line-height:1.5;
+    color:var(--muted);
+    max-width:46ch;
+  }
+  .hint + .hint{margin-top:9px;}
+
+  .fill{
+    border:1px dashed #D2C39A;
+    background:var(--fill-bg);
+    color:var(--fill);
+    font-size:13.5px;
+    line-height:1.45;
+    padding:13px 15px;
+    margin-top:12px;
+    border-radius:2px;
+  }
+  .fill b{font-weight:700;display:block;margin-bottom:3px;font-family:var(--display);font-size:12px;letter-spacing:.09em;text-transform:uppercase;}
+
+  .big{
+    font-family:var(--display);
+    font-size:44px;
+    font-weight:700;
+    line-height:1.16;
+    letter-spacing:-.02em;
+    max-width:22ch;
+  }
+
+  .box{
+    border:1px dashed #D2C39A;
+    background:var(--fill-bg);
+    border-radius:2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:var(--fill);
+    font-size:14px;
+    padding:20px;
+    line-height:1.45;
+    min-height:150px;
+  }
+  .grid-img{
+    display:grid;
+    gap:16px;
+    margin-top:20px;
+  }
+  .grid-img--2{grid-template-columns:1fr 1fr;}
+  .grid-img--3{grid-template-columns:repeat(3,1fr);}
+  .grid-img--5{grid-template-columns:repeat(5,1fr);}
+
+  ul.list{list-style:none;padding:0;}
+  ul.list li{
+    display:grid;
+    grid-template-columns:30px 1fr;
+    gap:12px;
+    padding:9px 0;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+    line-height:1.4;
+  }
+  ul.list li b{font-family:var(--display);font-size:12.5px;color:#B4B8BE;font-weight:700;padding-top:2px;}
+
+  /* ---------- Обложка и разделители ---------- */
+
+  .cover{justify-content:space-between;}
+  .cover h1{
+    font-family:var(--display);
+    font-size:104px;
+    font-weight:800;
+    line-height:.98;
+    letter-spacing:-.035em;
+    max-width:15ch;
+  }
+  .cover .meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-top:1px solid var(--line);
+    padding-top:22px;
+    font-size:15px;
+    color:var(--muted);
+  }
+
+  .divider{justify-content:center;}
+  .divider .kicker{
+    font-family:var(--display);
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.2em;
+    color:#B0AFA8;
+    margin-bottom:22px;
+  }
+  .divider h2{
+    font-family:var(--display);
+    font-size:76px;
+    font-weight:800;
+    line-height:1.02;
+    letter-spacing:-.03em;
+    max-width:17ch;
+  }
+  .divider p{
+    margin-top:24px;
+    font-size:17px;
+    line-height:1.5;
+    color:#6A6A63;
+    max-width:56ch;
+  }
+
+  .toc{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0 72px;
+    align-content:start;
+  }
+  .toc div{
+    display:grid;
+    grid-template-columns:44px 1fr auto;
+    gap:14px;
+    padding:11px 0;
+    border-bottom:1px solid var(--line);
+    font-size:16px;
+    align-items:baseline;
+  }
+  .toc b{font-family:var(--display);font-size:13px;color:#B4B8BE;font-weight:700;}
+  .toc span{color:var(--muted);font-size:13.5px;}
+
+  @media print{
+    @page{size:1600px 900px;margin:0;}
+    body{background:#fff;}
+    .slide{margin:0;page-break-after:always;break-after:page;}
+    .slide:last-child{page-break-after:auto;break-after:auto;}
+  }
+</style>
+<style>
+  :root{ --sun:#C8102E; }
+
+  .timeline{list-style:none;padding:0;margin-top:6px;}
+  .timeline li{
+    display:grid;grid-template-columns:120px 1fr;gap:20px;
+    padding:13px 0;border-bottom:1px solid var(--line);
+    font-size:15px;line-height:1.42;
+  }
+  .timeline b{font-family:var(--display);font-size:13px;color:var(--sun);font-weight:700;padding-top:2px;}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);}
+  .split > div{padding:22px 24px;}
+  .split > div:first-child{border-right:1px solid var(--line);}
+  .split h4{
+    font-family:var(--display);font-size:12px;font-weight:700;
+    letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;
+  }
+  .split.a > div:first-child h4{color:var(--sun);}
+  .split.a > div:last-child h4{color:var(--ink);}
+  .split.b h4{color:#2E7D57;}
+  .split p{font-size:15px;line-height:1.5;margin-bottom:9px;}
+  .split p:last-child{margin-bottom:0;}
+
+  .stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:28px;margin-top:8px;}
+  .stat b{
+    display:block;font-family:var(--display);font-size:40px;font-weight:800;
+    letter-spacing:-.03em;line-height:1;margin-bottom:8px;
+  }
+  .stat span{font-size:14px;color:var(--muted);line-height:1.4;display:block;}
+  .stat .down{color:var(--sun);}
+
+  .claim{
+    font-family:var(--display);font-size:36px;font-weight:700;
+    line-height:1.2;letter-spacing:-.02em;max-width:24ch;
+  }
+  .note{
+    border-left:2px solid var(--sun);padding-left:16px;
+    font-size:15px;line-height:1.5;color:var(--muted);max-width:56ch;margin-top:20px;
+  }
+
+  table.cmp{border-collapse:collapse;width:100%;font-size:15px;}
+  table.cmp th{
+    text-align:left;font-family:var(--display);font-size:12px;font-weight:700;
+    letter-spacing:.12em;text-transform:uppercase;color:#B4B8BE;
+    padding:0 16px 12px 0;border-bottom:1px solid var(--line);
+  }
+  table.cmp td{padding:13px 16px 13px 0;border-bottom:1px solid var(--line);line-height:1.4;vertical-align:top;}
+  table.cmp td:first-child{color:var(--muted);width:38%;}
+
+  .srcs{font-size:13px;line-height:1.7;color:var(--muted);columns:2;column-gap:56px;}
+  .srcs a{color:var(--muted);}
+</style>
+
+<section class="slide cover">
+  <div class="bar"><nav><span class="on">Разбор бренда</span></nav><span class="brand">Chlorine</span></div>
+  <h1 style="font-size:88px;">SUNLIGHT<br>МЦЗ</h1>
+  <div class="meta">
+    <span>Разбор перед ребрендингом · сентябрь 2026</span>
+    <span>Chlorine</span>
+  </div>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Зачем этот<br>документ<small>Мы прочитали вашу вакансию бренд-менеджера МЦЗ и собрали разбор по открытым данным. Без брифа и без доступа к вашей аналитике.</small></div>
+    <div>
+      <div class="claim">В описании вакансии есть противоречие. Мы считаем его главной задачей бренда на ближайший год.</div>
+      <div class="note">Дальше — что мы увидели в цифрах и в публичном поле, почему сейчас это решается иначе, чем пять лет назад, и как мы предлагаем к этому подойти.</div>
+    </div>
+  </div>
+  <span class="num">02</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Противоречие<br>в задаче<small>Обе колонки — дословные требования из одного описания вакансии.</small></div>
+    <div>
+      <div class="split a">
+        <div>
+          <h4>Разогнать спрос</h4>
+          <p>«Работать с эффектом FOMO и увеличением трафика»</p>
+          <p>«Создавать акции и поводы, которые вызывают ажиотаж и обсуждение»</p>
+        </div>
+        <div>
+          <h4>Построить доверие</h4>
+          <p>«Формирование доверия к категории»</p>
+          <p>«Работать с барьерами и возражениями»</p>
+          <p>«Улучшать карточки товара: аргументы доверия»</p>
+        </div>
+      </div>
+      <div class="note">Срочность и доверие работают друг против друга: каждая кампания на ажиотаже расходует запас доверия, который следующая кампания пытается восполнить. Выбор между ними и есть предмет работы.</div>
+    </div>
+  </div>
+  <span class="num">03</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Что видит<br>рынок<small>Публичная хронология по открытым источникам. Список источников в конце документа.</small></div>
+    <div>
+      <ul class="timeline">
+        <li><b>3+ года</b>Реклама о закрытии магазинов и распродаже при работающих магазинах</li>
+        <li><b>ФАС</b>Проверки в Москве, Волгограде, Челябинской области по жалобам граждан</li>
+        <li><b>Штрафы</b>₽400 тыс. за рассылки о «ликвидации», ₽200 тыс. за недостоверную рекламу</li>
+        <li><b>Мем</b>«Вечная ликвидация» ушла в интернет-фольклор</li>
+        <li><b>2023</b>Объявлен ребрендинг в бирюзовый. Через день признан первоапрельской шуткой</li>
+        <li><b>2026</b>Суд отклонил иск Richemont на ₽25 млн о сходстве с коллекцией Cartier Love</li>
+      </ul>
+    </div>
+  </div>
+  <span class="num">04</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body body--wide" style="align-content:center;">
+    <div>
+      <div class="claim" style="font-size:44px;max-width:26ch;">Бренд с репутацией «объявляет то, чего нет» выбрал для шутки ровно этот приём — объявил ребрендинг, которого нет.</div>
+      <div class="note" style="max-width:62ch;">Это переводит вопрос из плоскости прошлого в плоскость метода. Механика не осталась в истории, она встроена в то, как бренд разговаривает с рынком сегодня. Ребрендинг, который начнётся с этой же точки, рынок прочитает так же.</div>
+    </div>
+  </div>
+  <span class="num">05</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Цена<br>вопроса<small>Машина немедленных продаж работала и давала рост. В 2025 динамика развернулась.</small></div>
+    <div>
+      <div class="stat">
+        <div><b>₽113 млрд</b><span>Выручка 2024, рост 45% к предыдущему году</span></div>
+        <div><b class="down">↓ 2025</b><span>Выручка снизилась при росте чистой прибыли на 6%</span></div>
+        <div><b>₽92,7 млрд</b><span>Розничное подразделение по итогам 2025</span></div>
+      </div>
+      <div class="note">Прибыль растёт, оборот падает. Так выглядит бизнес, который начал снимать маржу вместо наращивания потока. Инструмент, дававший рост десять лет, перестал давать его сейчас.</div>
+    </div>
+  </div>
+  <span class="num">06</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Требование<br>времени<small>Золото сменило функцию. Это происходит прямо сейчас и видно в ваших собственных цифрах.</small></div>
+    <div>
+      <div class="stat">
+        <div><b>×3</b><span>Рост заказов слитков за январь–июль 2026 к прошлому году</span></div>
+        <div><b>₽74 тыс.</b><span>Средний чек по слиткам в июле 2026 против ₽30 тыс. годом ранее</span></div>
+        <div><b>2025</b><span>Запуск продажи слитков с обратным выкупом по цене ниже банковской</span></div>
+      </div>
+      <div class="note">Покупатель приходит за золотом как за сбережением. Обратный выкуп, который вы запустили сами, — это обещание сохранности, а не украшения.</div>
+    </div>
+  </div>
+  <span class="num">07</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Что меняется<br>в логике покупки<small>Одна и та же цепь 585 покупается по двум разным сценариям. Механики продажи у них противоположные.</small></div>
+    <div>
+      <table class="cmp">
+        <tr><th></th><th>Украшение</th><th>Сбережение</th></tr>
+        <tr><td>Что движет решением</td><td>Желание, повод, эмоция</td><td>Расчёт и сохранность</td></tr>
+        <tr><td>Как читается скидка</td><td>Выгода, стимул купить сейчас</td><td>Сигнал, что вещь дешевеет</td></tr>
+        <tr><td>Как читается срочность</td><td>Азарт</td><td>Давление и повод насторожиться</td></tr>
+        <tr><td>Что нужно доказать</td><td>Что красиво</td><td>Пробу, вес, цену за грамм, возврат</td></tr>
+        <tr><td>Горизонт отношений</td><td>Одна покупка</td><td>Годы и повторный контакт</td></tr>
+      </table>
+    </div>
+  </div>
+  <span class="num">08</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Почему это бьёт<br>именно по МЦЗ<small>Вакансия говорит: «упаковывать ценность золота для массового клиента». Это и есть точка удара.</small></div>
+    <div>
+      <div class="claim" style="font-size:32px;max-width:28ch;">Цепь машинного плетения 585 — самый «граммовый» товар в ассортименте.</div>
+      <div class="note" style="max-width:60ch;">В кольце с камнем покупатель платит за дизайн и не считает граммы. В цепи он считает: вес, проба, цена за грамм. Здесь логика сбережения выражена сильнее всего, а значит, и вред от механики скидок максимальный. МЦЗ — самый уязвимый бренд портфеля к старому подходу и самый выигрышный к новому.</div>
+    </div>
+  </div>
+  <span class="num">09</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Заметность<br>и доверие<small>Это две разные величины, и у бренда они разошлись.</small></div>
+    <div>
+      <div class="split b">
+        <div>
+          <h4 style="color:#2E7D57;">Что уже есть</h4>
+          <p>Знание бренда близко к предельному для категории. 1000+ магазинов, 30 лет, присутствие в каждом городе.</p>
+          <p>Спонтанное припоминание высокое: бренд всплывает в голове сам.</p>
+        </div>
+        <div>
+          <h4 style="color:#C8102E;">Чем оно наполнено</h4>
+          <p>Припоминание работает через мем о ликвидации, а не через продукт или качество.</p>
+          <p>Известность высокая, содержание известности отрицательное.</p>
+        </div>
+      </div>
+      <div class="note">Задача ребрендинга здесь — не стать заметнее. Заметность уже оплачена. Задача — сменить то, что эта заметность несёт. Это дешевле, чем строить узнаваемость с нуля, и труднее, чем нарисовать новый логотип.</div>
+    </div>
+  </div>
+  <span class="num">10</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Что сохранить<br>при ребрендинге<small>Ребрендинг легко уносит активы узнаваемости вместе с проблемой. Их нужно назвать до начала работы.</small></div>
+    <div>
+      <table class="cmp">
+        <tr><th>Актив</th><th>Решение</th></tr>
+        <tr><td>Красный цвет</td><td>Сохранить. Он оплачен десятилетиями и работает на полке</td></tr>
+        <tr><td>Название и имя МЦЗ</td><td>Сохранить. Отсылка к заводу и производству — прямой аргумент доверия</td></tr>
+        <tr><td>Плотность сети</td><td>Усилить. Физическое присутствие — то, чего нет у маркетплейсов</td></tr>
+        <tr><td>Механика «ликвидации»</td><td>Прекратить. Она и есть источник проблемы</td></tr>
+        <tr><td>Обратный выкуп слитков</td><td>Развернуть в центр коммуникации. Это доказуемое обещание</td></tr>
+      </table>
+    </div>
+  </div>
+  <span class="num">11</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body body--wide" style="align-content:center;">
+    <div>
+      <div class="claim" style="font-size:42px;max-width:24ch;">Перевести спрос со срочности на доказательство, сохранив оборот по дороге.</div>
+      <div class="note" style="max-width:62ch;">Резкий отказ от скидочной механики обрушит поток. Задача решается как миграция: доля выручки, приходящая по доверию, растёт квартал за кварталом, доля по срочности планово сокращается. Это операционная работа с измеримыми долями, а не смена логотипа.</div>
+    </div>
+  </div>
+  <span class="num">12</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Что нужно<br>сделать<small>Порядок работы. Первые два блока дают ответ на вопрос, стоит ли делать остальное.</small></div>
+    <div>
+      <ul class="timeline">
+        <li><b>01</b>Диагностика: замер текущего доверия, разбор возражений, аудит точек контакта</li>
+        <li><b>02</b>Карта рынка: где сеть стоит по продукту и отдельно по характеру</li>
+        <li><b>03</b>Позиционирование МЦЗ под сценарий сбережения</li>
+        <li><b>04</b>Правила принятия решений: какие поводы допустимы, какие расходуют доверие</li>
+        <li><b>05</b>Аргументы доверия: проба, вес, цена за грамм, выкуп — в витрине и в карточке</li>
+        <li><b>06</b>Единый тон во всех каналах и регламент контроля</li>
+        <li><b>07</b>Передача: обучение команды и метрика, по которой видно движение</li>
+      </ul>
+    </div>
+  </div>
+  <span class="num">13</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Как это ложится<br>на вашу задачу<small>Слева — требования из описания вакансии, справа — блок нашей работы.</small></div>
+    <div>
+      <table class="cmp">
+        <tr><th>Ваше требование</th><th>Наш блок</th></tr>
+        <tr><td>Формировать позиционирование, упаковывать ценность золота</td><td>Блоки 02–03</td></tr>
+        <tr><td>Разработка и доработка бренд-бука</td><td>Блоки 03–06</td></tr>
+        <tr><td>Формирование доверия, работа с возражениями</td><td>Блоки 01, 05</td></tr>
+        <tr><td>Единый стиль и tone of voice во всех точках контакта</td><td>Блок 06</td></tr>
+        <tr><td>Визуальная коммуникация: витрины, навигация, POS</td><td>Блок 05</td></tr>
+        <tr><td>Оценка результата, влияние на выручку</td><td>Блок 07</td></tr>
+      </table>
+    </div>
+  </div>
+  <span class="num">14</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Дальше<small>Этот разбор собран по открытым данным за один день, без доступа к вашей аналитике.</small></div>
+    <div>
+      <div class="claim" style="font-size:34px;max-width:26ch;">С вашими цифрами по возвратам, повторным покупкам и структуре трафика картина станет точнее.</div>
+      <div class="note" style="max-width:58ch;">Готовы показать первый блок диагностики на встрече и обсудить формат работы — проектом или на сопровождении. Вакансия закрывает ставку внутри команды; мы предлагаем закрыть задачу.</div>
+    </div>
+  </div>
+  <span class="num">15</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Разбор</span></nav><span class="brand">SUNLIGHT · МЦЗ</span></div>
+  <div class="body">
+    <div class="label">Источники<small>Все данные из открытых публикаций.</small></div>
+    <div class="srcs">
+      Коммерсантъ — штраф за недостоверную рекламу о ликвидации<br>
+      vc.ru — штраф ФАС в Волгограде ₽400 тыс.<br>
+      vc.ru — проверки ФАС по спаму и сообщениям о закрытии<br>
+      Sostav — «закрытие сети» как интернет-мем<br>
+      Retail.ru — объявление о глобальном ребрендинге, март 2023<br>
+      Sostav — признание, что ребрендинг был шуткой<br>
+      TAdviser — выручка 2024 ₽113 млрд, рост 45%<br>
+      Рамблер — итоги 2025: прибыль +6% при снижении выручки<br>
+      РБК — запуск продажи слитков в магазинах<br>
+      Oborot.ru — обратный выкуп слитков, цена ниже банковской<br>
+      sunlight.net/mcz — описание бренда МЦЗ
+    </div>
+  </div>
+  <span class="num">16</span>
+</section>
