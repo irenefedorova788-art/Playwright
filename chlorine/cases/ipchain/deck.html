@@ -1,0 +1,520 @@
+<meta charset="utf-8">
+<title>IPChain — предложение по бренду</title>
+<style>
+  @font-face{font-family:"Onest";src:url("../../brandbook/fonts/Onest-cyrillic.woff2")format("woff2");font-weight:100 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Onest";src:url("../../brandbook/fonts/Onest-latin.woff2")format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"Golos";src:url("../../brandbook/fonts/GolosText-cyrillic.woff2")format("woff2");font-weight:400 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Golos";src:url("../../brandbook/fonts/GolosText-latin.woff2")format("woff2");font-weight:400 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+
+  :root{
+    --paper:#FFFFFF;
+    --ground:#F4F3F0;
+    --ink:#16181C;
+    --muted:#767B84;
+    --line:#E3E4E7;
+    --fill:#1D4E6F;
+    --fill-bg:#F0F4F7;
+
+    --display:"Onest","Segoe UI",sans-serif;
+    --text:"Golos","Segoe UI",sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;}
+  body{
+    background:#8E9095;
+    font-family:var(--text);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Каркас слайда ---------- */
+
+  .slide{
+    width:1600px;
+    height:900px;
+    background:var(--paper);
+    margin:0 auto 26px;
+    padding:56px 72px 48px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    overflow:hidden;
+  }
+  .slide--ground{background:var(--ground);}
+
+  .bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-family:var(--display);
+    font-size:14px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#B4B8BE;
+    font-weight:600;
+    margin-bottom:56px;
+    flex:none;
+  }
+  .bar nav{display:flex;gap:22px;}
+  .bar .on{color:var(--ink);}
+  .bar .brand{letter-spacing:.2em;color:#B4B8BE;}
+
+  .body{
+    flex:1;
+    display:grid;
+    grid-template-columns:340px 1fr;
+    gap:64px;
+    min-height:0;
+  }
+  .body--wide{grid-template-columns:1fr;}
+
+  .label{
+    font-family:var(--display);
+    font-size:26px;
+    font-weight:700;
+    line-height:1.14;
+    letter-spacing:-.01em;
+  }
+  .label small{
+    display:block;
+    margin-top:14px;
+    font-family:var(--text);
+    font-size:15px;
+    font-weight:400;
+    line-height:1.45;
+    color:var(--muted);
+    letter-spacing:0;
+  }
+
+  .num{
+    position:absolute;
+    right:72px;
+    bottom:44px;
+    font-family:var(--display);
+    font-size:13px;
+    color:#C2C6CC;
+    font-weight:600;
+  }
+
+  /* ---------- Содержимое ---------- */
+
+  .cols{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:34px;
+    align-content:start;
+  }
+  .cols--2{grid-template-columns:1fr 1fr;}
+  .cols--3{grid-template-columns:repeat(3,1fr);}
+
+  .q{
+    font-family:var(--display);
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:10px;
+    line-height:1.25;
+  }
+  .q i{
+    font-style:normal;
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:.1em;
+    color:#B4B8BE;
+    margin-bottom:6px;
+  }
+  .hint{
+    font-size:15px;
+    line-height:1.5;
+    color:var(--muted);
+    max-width:46ch;
+  }
+  .hint + .hint{margin-top:9px;}
+
+  .fill{
+    border:1px dashed #D2C39A;
+    background:var(--fill-bg);
+    color:var(--fill);
+    font-size:13.5px;
+    line-height:1.45;
+    padding:13px 15px;
+    margin-top:12px;
+    border-radius:2px;
+  }
+  .fill b{font-weight:700;display:block;margin-bottom:3px;font-family:var(--display);font-size:12px;letter-spacing:.09em;text-transform:uppercase;}
+
+  .big{
+    font-family:var(--display);
+    font-size:44px;
+    font-weight:700;
+    line-height:1.16;
+    letter-spacing:-.02em;
+    max-width:22ch;
+  }
+
+  .box{
+    border:1px dashed #D2C39A;
+    background:var(--fill-bg);
+    border-radius:2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:var(--fill);
+    font-size:14px;
+    padding:20px;
+    line-height:1.45;
+    min-height:150px;
+  }
+  .grid-img{
+    display:grid;
+    gap:16px;
+    margin-top:20px;
+  }
+  .grid-img--2{grid-template-columns:1fr 1fr;}
+  .grid-img--3{grid-template-columns:repeat(3,1fr);}
+  .grid-img--5{grid-template-columns:repeat(5,1fr);}
+
+  ul.list{list-style:none;padding:0;}
+  ul.list li{
+    display:grid;
+    grid-template-columns:30px 1fr;
+    gap:12px;
+    padding:9px 0;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+    line-height:1.4;
+  }
+  ul.list li b{font-family:var(--display);font-size:12.5px;color:#B4B8BE;font-weight:700;padding-top:2px;}
+
+  /* ---------- Обложка и разделители ---------- */
+
+  .cover{justify-content:space-between;}
+  .cover h1{
+    font-family:var(--display);
+    font-size:104px;
+    font-weight:800;
+    line-height:.98;
+    letter-spacing:-.035em;
+    max-width:15ch;
+  }
+  .cover .meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-top:1px solid var(--line);
+    padding-top:22px;
+    font-size:15px;
+    color:var(--muted);
+  }
+
+  .divider{justify-content:center;}
+  .divider .kicker{
+    font-family:var(--display);
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.2em;
+    color:#B0AFA8;
+    margin-bottom:22px;
+  }
+  .divider h2{
+    font-family:var(--display);
+    font-size:76px;
+    font-weight:800;
+    line-height:1.02;
+    letter-spacing:-.03em;
+    max-width:17ch;
+  }
+  .divider p{
+    margin-top:24px;
+    font-size:17px;
+    line-height:1.5;
+    color:#6A6A63;
+    max-width:56ch;
+  }
+
+  .toc{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0 72px;
+    align-content:start;
+  }
+  .toc div{
+    display:grid;
+    grid-template-columns:44px 1fr auto;
+    gap:14px;
+    padding:11px 0;
+    border-bottom:1px solid var(--line);
+    font-size:16px;
+    align-items:baseline;
+  }
+  .toc b{font-family:var(--display);font-size:13px;color:#B4B8BE;font-weight:700;}
+  .toc span{color:var(--muted);font-size:13.5px;}
+
+  @media print{
+    @page{size:1600px 900px;margin:0;}
+    body{background:#fff;}
+    .slide{margin:0;page-break-after:always;break-after:page;}
+    .slide:last-child{page-break-after:auto;break-after:auto;}
+  }
+</style>
+<style>
+  .accent{color:var(--fill);}
+  .lead{
+    font-family:var(--display);font-size:38px;font-weight:700;
+    line-height:1.2;letter-spacing:-.02em;max-width:24ch;
+  }
+  .note{
+    border-left:2px solid var(--fill);padding-left:16px;
+    font-size:15px;line-height:1.5;color:var(--muted);max-width:56ch;margin-top:22px;
+  }
+  table.cmp{border-collapse:collapse;width:100%;font-size:15px;}
+  table.cmp th{
+    text-align:left;font-family:var(--display);font-size:12px;font-weight:700;
+    letter-spacing:.12em;text-transform:uppercase;color:#B4B8BE;
+    padding:0 18px 12px 0;border-bottom:1px solid var(--line);
+  }
+  table.cmp td{padding:13px 18px 13px 0;border-bottom:1px solid var(--line);line-height:1.42;vertical-align:top;}
+  table.cmp td:first-child{color:var(--muted);width:30%;}
+  .num-list{list-style:none;padding:0;}
+  .num-list li{
+    display:grid;grid-template-columns:34px 1fr;gap:14px;
+    padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.45;
+  }
+  .num-list li b{font-family:var(--display);font-size:12.5px;color:var(--fill);font-weight:700;padding-top:2px;}
+  .num-list li i{font-style:normal;display:block;color:var(--muted);font-size:14px;margin-top:3px;}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);}
+  .two > div{padding:24px 26px;}
+  .two > div:first-child{border-right:1px solid var(--line);}
+  .two h4{
+    font-family:var(--display);font-size:12px;font-weight:700;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--fill);margin-bottom:14px;
+  }
+  .two p{font-size:15px;line-height:1.5;margin-bottom:9px;}
+  .two p:last-child{margin-bottom:0;}
+  .two ul{margin:0;padding-left:18px;font-size:15px;line-height:1.55;}
+</style>
+
+<section class="slide cover">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">Chlorine</span></div>
+  <h1 style="font-size:82px;">Бренд<br>IPChain</h1>
+  <div class="meta"><span>Предложение по работе над брендом · 2026</span><span>Chlorine</span></div>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body">
+    <div class="label">Как мы<br>читаем задачу<small>С этого начинается любая наша работа: что человек покупает на самом деле.</small></div>
+    <div>
+      <div class="lead">Формально вы продаёте сделки с интеллектуальной собственностью. По существу — уверенность, что нематериальное принадлежит тебе и это можно доказать.</div>
+      <div class="note">Фотограф, музыкант и изобретатель приходят с одним страхом: результат работы легко присвоить, а доказать авторство трудно. Реестры, технология и архитектура — способ снять этот страх. Сегодня в коммуникации вперёд вынесен способ, а сама уверенность осталась внутри.</div>
+    </div>
+  </div>
+  <span class="num">02</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body">
+    <div class="label">Три задачи<br>бренда<small>Порядок здесь рабочий: каждая следующая опирается на решение предыдущей.</small></div>
+    <div>
+      <ul class="num-list">
+        <li><b>01</b>Архитектура<i>Одна коммуникация обращена к автору бита и к патентному юристу одновременно</i></li>
+        <li><b>02</b>Язык<i>Внутренняя схема продукта вынесена в клиентский текст</i></li>
+        <li><b>03</b>Аргумент<i>Технология названа раньше, чем доказуемость, которую она даёт</i></li>
+      </ul>
+      <div class="note">Все три решаются документами, которые остаются у команды и работают без нас.</div>
+    </div>
+  </div>
+  <span class="num">03</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body">
+    <div class="label"><span class="accent">01</span> Архитектура<br>Две витрины<small>Аудитории с разной суммой сделки, разным решающим и разным страхом.</small></div>
+    <div>
+      <table class="cmp">
+        <tr><th></th><th>Автор</th><th>Патент и бизнес</th></tr>
+        <tr><td>Кто решает</td><td>Сам, за вечер</td><td>Юрист, финансист, руководство</td></tr>
+        <tr><td>Чего боится</td><td>Что заберут и не докажешь</td><td>Что сделка развалится в суде</td></tr>
+        <tr><td>Что убеждает</td><td>Простота и скорость</td><td>Правовая прочность и репутация</td></tr>
+        <tr><td>Язык</td><td>Человеческий</td><td>Профессиональный</td></tr>
+      </table>
+      <div class="note">Усреднённая интонация проваливает обе стороны: автору сложно, юристу легковесно. Решение — разные витрины при общей инфраструктуре под ними.</div>
+    </div>
+  </div>
+  <span class="num">04</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body">
+    <div class="label"><span class="accent">02</span> Язык<br>От схемы к человеку<small>Слева — как категория говорит обычно. Справа — то же самое словами клиента.</small></div>
+    <div>
+      <table class="cmp">
+        <tr><th>Язык схемы</th><th>Язык клиента</th></tr>
+        <tr><td>Платформенное решение для транзакций прав</td><td>Продайте право на свою работу и получите деньги</td></tr>
+        <tr><td>Инфраструктура доверия на распределённом реестре</td><td>Запись о вашем авторстве, которую примет суд</td></tr>
+        <tr><td>Фиксация фактов жизненного цикла объекта</td><td>Видно, кто создал, кто купил и что было дальше</td></tr>
+        <tr><td>Сервис оценки роялти</td><td>Сколько вам должны платить за использование</td></tr>
+      </table>
+      <div class="note">Правая колонка продаёт, левая описывает. Наша работа — перевести весь бренд в правую и закрепить правилами, чтобы он там остался.</div>
+    </div>
+  </div>
+  <span class="num">05</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body">
+    <div class="label"><span class="accent">03</span> Аргумент<br>Доказуемость<small>Что стоит на первом месте в разговоре с клиентом.</small></div>
+    <div>
+      <div class="lead">Технология отвечает на вопрос «как это устроено». Клиент задаёт другой: «что у меня будет на руках, если дойдёт до спора».</div>
+      <div class="note">Второй вопрос и есть продажа. Ответ на него — доказуемость: запись, которую принимает контрагент и суд. Технология остаётся внутри как объяснение для тех, кто спросит.</div>
+    </div>
+  </div>
+  <span class="num">06</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body">
+    <div class="label">Что сейчас<br>работает<small>Категория повзрослела, и вместе с ней сменился аргумент.</small></div>
+    <div>
+      <div class="two">
+        <div>
+          <h4>Раньше продавало</h4>
+          <p>Обещание технологии. Слово «блокчейн» само означало будущее.</p>
+          <p>Масштаб замысла: сколько объектов охватим, какой рынок раскроем.</p>
+        </div>
+        <div>
+          <h4>Сейчас продаёт</h4>
+          <p>Доказуемость: что именно остаётся на руках у клиента.</p>
+          <p>Работающие сделки, живые имена участников, понятная юрисдикция.</p>
+        </div>
+      </div>
+      <div class="note">У вас для этого редкий актив: институциональные учредители, соглашение с ведомством и восемь лет истории. В категории, где доверие стало дефицитом, это то, чего у молодых игроков нет.</div>
+    </div>
+  </div>
+  <span class="num">07</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body body--wide" style="align-content:center;">
+    <div>
+      <div class="lead" style="font-size:46px;max-width:22ch;">Инфраструктура, которая делает права на нематериальное доказуемыми — и потому продаваемыми.</div>
+      <div class="note" style="max-width:60ch;">Рабочая гипотеза позиционирования. Проверяется на интервью с командой и уточняется до того, как под неё начнёт собираться визуальная часть.</div>
+    </div>
+  </div>
+  <span class="num">08</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body">
+    <div class="label">Три опоры<small>На них держится позиционирование и из них выводится всё остальное.</small></div>
+    <div>
+      <ul class="num-list">
+        <li><b>01</b>Доказуемость<i>Фиксация факта, которую принимает контрагент и суд</i></li>
+        <li><b>02</b>Институт<i>Годы работы, учредители-институты, соглашение с ведомством</i></li>
+        <li><b>03</b>Сделка<i>Реестр существует ради того, чтобы права меняли владельца</i></li>
+      </ul>
+      <div class="note">Дальше опоры кормят всё: тон общения, структуру сайта, темы контента, визуальные приёмы и логику витрин.</div>
+    </div>
+  </div>
+  <span class="num">09</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body">
+    <div class="label">Что входит<br>в работу<small>Первые два блока дают ответ, стоит ли делать остальное.</small></div>
+    <div>
+      <ul class="num-list">
+        <li><b>01</b>Диагностика<i>Интервью с командой, разбор возражений, аудит точек контакта и текущих текстов</i></li>
+        <li><b>02</b>Карта рынка<i>Где вы стоите по продукту и отдельно по характеру, где свободное место</i></li>
+        <li><b>03</b>Платформа бренда<i>Миссия, ценности, характер, позиционирование, УТП, главная идея, месседж</i></li>
+        <li><b>04</b>Язык<i>Tone of voice, словарь, правила и примеры для каждой витрины</i></li>
+        <li><b>05</b>Визуальный язык<i>Мудборд, направление, работа с айдентикой и брендбуком</i></li>
+        <li><b>06</b>Система работы<i>Правила решений, шаблоны брифов, регламент контроля единого стиля</i></li>
+        <li><b>07</b>Передача<i>Обучение команды и метрики, по которым видно движение</i></li>
+      </ul>
+    </div>
+  </div>
+  <span class="num">10</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body">
+    <div class="label">Что остаётся<br>у команды<small>Документы, которые работают после окончания проекта.</small></div>
+    <div>
+      <div class="two">
+        <div>
+          <h4>Смыслы и язык</h4>
+          <ul>
+            <li>Платформа бренда</li>
+            <li>Правила тона с примерами</li>
+            <li>Словарь: как называть продукты и услуги</li>
+            <li>Библиотека формулировок под обе витрины</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Работа и контроль</h4>
+          <ul>
+            <li>Брендбук как рабочий документ</li>
+            <li>Правила принятия решений</li>
+            <li>Шаблоны брифов подрядчикам</li>
+            <li>Чек-лист проверки единого стиля</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">Каждый документ проектируется под ежедневное использование: открыл, нашёл правило, принял решение.</div>
+    </div>
+  </div>
+  <span class="num">11</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body">
+    <div class="label">Порядок<br>работы<small>Два правила порядка экономят цикл правок.</small></div>
+    <div>
+      <ul class="num-list">
+        <li><b>01</b>Интервью и сбор материалов</li>
+        <li><b>02</b>Карта рынка и формулировка свободного места</li>
+        <li><b>03</b>Встреча по картам: подтверждаем направление</li>
+        <li><b>04</b>Смыслы пакетом на согласование</li>
+        <li><b>05</b>Язык и правила тона</li>
+        <li><b>06</b>Мудборд отдельной встречей, до визуального направления</li>
+        <li><b>07</b>Визуальный язык и брендбук</li>
+        <li><b>08</b>Передача и обучение</li>
+      </ul>
+      <div class="note">Смыслы согласуются до визуальной части: спор о цвете обычно оказывается спором о позиционировании. Мудборд идёт до направления: атмосферу принимают раньше, чем начинается разговор о шрифте.</div>
+    </div>
+  </div>
+  <span class="num">12</span>
+</section>
+
+<section class="slide ">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="body">
+    <div class="label">С чего<br>начинаем<small>Первый шаг короткий и даёт материал для решения по остальному.</small></div>
+    <div>
+      <div class="lead" style="font-size:32px;max-width:26ch;">Диагностика: интервью с командой, аудит текущих текстов и точек контакта, карта рынка.</div>
+      <div class="note">На выходе — понятная картина того, где бренд сейчас и какое место свободно. Дальше решаем вместе, какой объём работы имеет смысл.</div>
+    </div>
+  </div>
+  <span class="num">13</span>
+</section>
+
+<section class="slide slide--ground" style="justify-content:center;">
+  <div class="bar"><nav><span class="on">Предложение</span></nav><span class="brand">IPChain</span></div>
+  <div class="sheet__inner" style="width:auto;">
+    <div class="lead" style="font-size:44px;max-width:20ch;">Готовы обсудить объём и начать с диагностики.</div>
+    <div class="note" style="max-width:52ch;">Chlorine · бренд как рабочая система, которая остаётся у команды</div>
+  </div>
+  <span class="num">14</span>
+</section>
