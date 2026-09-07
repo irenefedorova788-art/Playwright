@@ -1,0 +1,1074 @@
+<meta charset="utf-8">
+<title>Шаблон бренд-платформы</title>
+
+<style>
+  @font-face{font-family:"Onest";src:url("../brandbook/fonts/Onest-cyrillic.woff2")format("woff2");font-weight:100 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Onest";src:url("../brandbook/fonts/Onest-latin.woff2")format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"Golos";src:url("../brandbook/fonts/GolosText-cyrillic.woff2")format("woff2");font-weight:400 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Golos";src:url("../brandbook/fonts/GolosText-latin.woff2")format("woff2");font-weight:400 900;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+
+  :root{
+    --paper:#FFFFFF;
+    --ground:#F4F3F0;
+    --ink:#16181C;
+    --muted:#767B84;
+    --line:#E3E4E7;
+    --fill:#8A6412;
+    --fill-bg:#FBF7EE;
+
+    --display:"Onest","Segoe UI",sans-serif;
+    --text:"Golos","Segoe UI",sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;}
+  body{
+    background:#8E9095;
+    font-family:var(--text);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Каркас слайда ---------- */
+
+  .slide{
+    width:1600px;
+    height:900px;
+    background:var(--paper);
+    margin:0 auto 26px;
+    padding:56px 72px 48px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    overflow:hidden;
+  }
+  .slide--ground{background:var(--ground);}
+
+  .bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-family:var(--display);
+    font-size:14px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#B4B8BE;
+    font-weight:600;
+    margin-bottom:56px;
+    flex:none;
+  }
+  .bar nav{display:flex;gap:22px;}
+  .bar .on{color:var(--ink);}
+  .bar .brand{letter-spacing:.2em;color:#B4B8BE;}
+
+  .body{
+    flex:1;
+    display:grid;
+    grid-template-columns:340px 1fr;
+    gap:64px;
+    min-height:0;
+  }
+  .body--wide{grid-template-columns:1fr;}
+
+  .label{
+    font-family:var(--display);
+    font-size:26px;
+    font-weight:700;
+    line-height:1.14;
+    letter-spacing:-.01em;
+  }
+  .label small{
+    display:block;
+    margin-top:14px;
+    font-family:var(--text);
+    font-size:15px;
+    font-weight:400;
+    line-height:1.45;
+    color:var(--muted);
+    letter-spacing:0;
+  }
+
+  .num{
+    position:absolute;
+    right:72px;
+    bottom:44px;
+    font-family:var(--display);
+    font-size:13px;
+    color:#C2C6CC;
+    font-weight:600;
+  }
+
+  /* ---------- Содержимое ---------- */
+
+  .cols{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:34px;
+    align-content:start;
+  }
+  .cols--2{grid-template-columns:1fr 1fr;}
+  .cols--3{grid-template-columns:repeat(3,1fr);}
+
+  .q{
+    font-family:var(--display);
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:10px;
+    line-height:1.25;
+  }
+  .q i{
+    font-style:normal;
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:.1em;
+    color:#B4B8BE;
+    margin-bottom:6px;
+  }
+  .hint{
+    font-size:15px;
+    line-height:1.5;
+    color:var(--muted);
+    max-width:46ch;
+  }
+  .hint + .hint{margin-top:9px;}
+
+  .fill{
+    border:1px dashed #D2C39A;
+    background:var(--fill-bg);
+    color:var(--fill);
+    font-size:13.5px;
+    line-height:1.45;
+    padding:13px 15px;
+    margin-top:12px;
+    border-radius:2px;
+  }
+  .fill b{font-weight:700;display:block;margin-bottom:3px;font-family:var(--display);font-size:12px;letter-spacing:.09em;text-transform:uppercase;}
+
+  .big{
+    font-family:var(--display);
+    font-size:44px;
+    font-weight:700;
+    line-height:1.16;
+    letter-spacing:-.02em;
+    max-width:22ch;
+  }
+
+  .box{
+    border:1px dashed #D2C39A;
+    background:var(--fill-bg);
+    border-radius:2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:var(--fill);
+    font-size:14px;
+    padding:20px;
+    line-height:1.45;
+    min-height:150px;
+  }
+  .grid-img{
+    display:grid;
+    gap:16px;
+    margin-top:20px;
+  }
+  .grid-img--2{grid-template-columns:1fr 1fr;}
+  .grid-img--3{grid-template-columns:repeat(3,1fr);}
+  .grid-img--5{grid-template-columns:repeat(5,1fr);}
+
+  ul.list{list-style:none;padding:0;}
+  ul.list li{
+    display:grid;
+    grid-template-columns:30px 1fr;
+    gap:12px;
+    padding:9px 0;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+    line-height:1.4;
+  }
+  ul.list li b{font-family:var(--display);font-size:12.5px;color:#B4B8BE;font-weight:700;padding-top:2px;}
+
+  /* ---------- Обложка и разделители ---------- */
+
+  .cover{justify-content:space-between;}
+  .cover h1{
+    font-family:var(--display);
+    font-size:104px;
+    font-weight:800;
+    line-height:.98;
+    letter-spacing:-.035em;
+    max-width:15ch;
+  }
+  .cover .meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-top:1px solid var(--line);
+    padding-top:22px;
+    font-size:15px;
+    color:var(--muted);
+  }
+
+  .divider{justify-content:center;}
+  .divider .kicker{
+    font-family:var(--display);
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.2em;
+    color:#B0AFA8;
+    margin-bottom:22px;
+  }
+  .divider h2{
+    font-family:var(--display);
+    font-size:76px;
+    font-weight:800;
+    line-height:1.02;
+    letter-spacing:-.03em;
+    max-width:17ch;
+  }
+  .divider p{
+    margin-top:24px;
+    font-size:17px;
+    line-height:1.5;
+    color:#6A6A63;
+    max-width:56ch;
+  }
+
+  .toc{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0 72px;
+    align-content:start;
+  }
+  .toc div{
+    display:grid;
+    grid-template-columns:44px 1fr auto;
+    gap:14px;
+    padding:11px 0;
+    border-bottom:1px solid var(--line);
+    font-size:16px;
+    align-items:baseline;
+  }
+  .toc b{font-family:var(--display);font-size:13px;color:#B4B8BE;font-weight:700;}
+  .toc span{color:var(--muted);font-size:13.5px;}
+
+  @media print{
+    @page{size:1600px 900px;margin:0;}
+    body{background:#fff;}
+    .slide{margin:0;page-break-after:always;break-after:page;}
+    .slide:last-child{page-break-after:auto;break-after:auto;}
+  }
+</style>
+
+<!-- 01 ОБЛОЖКА -->
+<section class="slide cover">
+  <div class="bar"><nav><span class="on">Шаблон</span></nav><span class="brand">Бренд</span></div>
+  <h1>Бренд<br>платформа</h1>
+  <div class="meta">
+    <span>Год · Название бренда · Категория</span>
+    <span>Автор проекта</span>
+  </div>
+</section>
+
+<!-- 02 СОДЕРЖАНИЕ -->
+<section class="slide">
+  <div class="bar"><nav><span class="on">Содержание</span></nav><span class="brand">Бренд</span></div>
+  <div class="body body--wide">
+    <div class="toc">
+      <div><b>01</b><span style="color:var(--ink)">О бренде и продукт</span><span>04</span></div>
+      <div><b>08</b><span style="color:var(--ink)">Бренд-персона</span><span>46</span></div>
+      <div><b>02</b><span style="color:var(--ink)">Целевая аудитория</span><span>09</span></div>
+      <div><b>09</b><span style="color:var(--ink)">Архетипы</span><span>50</span></div>
+      <div><b>03</b><span style="color:var(--ink)">Трендвотчинг</span><span>13</span></div>
+      <div><b>10</b><span style="color:var(--ink)">Tone of voice</span><span>56</span></div>
+      <div><b>04</b><span style="color:var(--ink)">Карта рынка</span><span>26</span></div>
+      <div><b>11</b><span style="color:var(--ink)">Характер и ключевые слова</span><span>59</span></div>
+      <div><b>05</b><span style="color:var(--ink)">Ценности и миссия</span><span>33</span></div>
+      <div><b>12</b><span style="color:var(--ink)">Визуальный стиль</span><span>62</span></div>
+      <div><b>06</b><span style="color:var(--ink)">Позиционирование</span><span>36</span></div>
+      <div><b>13</b><span style="color:var(--ink)">Логотип и знак</span><span>74</span></div>
+      <div><b>07</b><span style="color:var(--ink)">Месседж</span><span>40</span></div>
+      <div><b>14</b><span style="color:var(--ink)">Работа с брендом</span><span>82</span></div>
+    </div>
+  </div>
+  <span class="num">02</span>
+</section>
+
+<!-- 03 РАЗДЕЛИТЕЛЬ CORE -->
+<section class="slide slide--ground divider">
+  <div class="bar"><nav><span class="on">Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div>
+    <div class="kicker">Блок 01</div>
+    <h2>Продукт и аудитория</h2>
+    <p>Материал для всего остального. Собирается на одном интервью с владельцем: что продаём, кому, рядом с кем и почему берут.</p>
+  </div>
+  <span class="num">03</span>
+</section>
+
+<!-- 04 ПРОДУКТ + ЦА (01–03) -->
+<section class="slide">
+  <div class="bar"><nav><span class="on">Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Продукт<br>и аудитория<small>Три опорных вопроса. Ответы записываются словами клиента.</small></div>
+    <div class="cols cols--3">
+      <div>
+        <div class="q"><i>(01)</i>Что? Продукт или услуга</div>
+        <div class="hint">Что продаём и какими линейками. Отдельно — что берут чаще всего.</div>
+        <div class="fill"><b>Заполнить</b>Перечень продуктов и услуг</div>
+      </div>
+      <div>
+        <div class="q"><i>(02)</i>Для кого?</div>
+        <div class="hint">С каким запросом человек приходит и что пробовал до нас.</div>
+        <div class="fill"><b>Заполнить</b>Запрос гостя и прошлый опыт</div>
+      </div>
+      <div>
+        <div class="q"><i>(03)</i>Где? Среда и конкуренты</div>
+        <div class="hint">Крупные игроки, местные компании, чем каждый заявляет отличие.</div>
+        <div class="fill"><b>Заполнить</b>Окружение и ключевой актив бренда</div>
+      </div>
+      <div class="box" style="grid-column:1/-1;min-height:240px;">Ряд кадров: продукт, среда, гость</div>
+    </div>
+  </div>
+  <span class="num">04</span>
+</section>
+
+<!-- 05 ПРОДУКТ + ЦА (04–05) -->
+<section class="slide">
+  <div class="bar"><nav><span class="on">Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Продукт<br>и аудитория<small>Переход от функции к ценности.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="q"><i>(04)</i>Назначение продукта</div>
+        <div class="hint">Функция продукта приводит к его ценности. Что клиент покупает на самом деле — ответ лежит в ощущении, продукт остаётся способом его получить.</div>
+        <div class="fill"><b>Заполнить</b>Функция → ценность → ощущение</div>
+      </div>
+      <div>
+        <div class="q"><i>(05)</i>Целевая аудитория</div>
+        <div class="hint">Портрет конкретного человека. Ценности, потребности, боль.</div>
+        <div class="fill"><b>Заполнить</b>Портрет и его боль</div>
+        <div class="grid-img grid-img--2">
+          <div class="box">Кадр из мира гостя</div>
+          <div class="box">Кадр продукта в жизни</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="num">05</span>
+</section>
+
+<!-- 06 ПОЧЕМУ ВЫБИРАЮТ -->
+<section class="slide">
+  <div class="bar"><nav><span class="on">Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Почему клиенты<br>выбирают нас<small>Список собирается словами клиента. Половина причин обычно про отношение и атмосферу, а не про продукт — это ценный материал для характера.</small></div>
+    <div>
+      <ul class="list">
+        <li><b>01</b>Причина выбора</li>
+        <li><b>02</b>Причина выбора</li>
+        <li><b>03</b>Причина выбора</li>
+        <li><b>04</b>Причина выбора</li>
+        <li><b>05</b>Причина выбора</li>
+        <li><b>06</b>Причина выбора</li>
+        <li><b>07</b>Причина выбора</li>
+      </ul>
+      <div class="fill"><b>Ориентир</b>Семь-девять пунктов. Меньше пяти означает, что интервью прошло поверхностно.</div>
+    </div>
+  </div>
+  <span class="num">06</span>
+</section>
+
+<!-- 07 РАЗДЕЛИТЕЛЬ TREND -->
+<section class="slide slide--ground divider">
+  <div class="bar"><nav><span>Core</span><span class="on">Trend</span><span>Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div>
+    <div class="kicker">Блок 02</div>
+    <h2>Тренды<br>и карта рынка</h2>
+    <p>Здесь появляется свободная ниша. Она станет основанием для позиционирования, поэтому раздел идёт до всех смыслов.</p>
+  </div>
+  <span class="num">07</span>
+</section>
+
+<!-- 08 ТРЕНД 1 -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span class="on">Trend</span><span>Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Тренд 01<br><span style="color:var(--muted);font-weight:600;">Название тренда</span><small>Тренд описывается через последствие: что он меняет в поведении покупателя.</small></div>
+    <div>
+      <div class="hint" style="font-size:17px;max-width:60ch;">Что происходит в категории и почему это важно для аудитории бренда.</div>
+      <div class="fill"><b>Заполнить</b>Суть тренда и вывод для бренда одной фразой</div>
+      <div class="grid-img grid-img--2">
+        <div class="box">Иллюстрация тренда</div>
+        <div class="box">Иллюстрация тренда</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">08</span>
+</section>
+
+<!-- 09 ТРЕНД 2 -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span class="on">Trend</span><span>Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Тренд 02<br><span style="color:var(--muted);font-weight:600;">Название тренда</span><small>Всего берётся два-четыре тренда. Больше размывает выводы.</small></div>
+    <div>
+      <div class="hint" style="font-size:17px;max-width:60ch;">Что происходит в категории и почему это важно для аудитории бренда.</div>
+      <div class="fill"><b>Заполнить</b>Суть тренда и вывод для бренда одной фразой</div>
+      <div class="grid-img grid-img--2">
+        <div class="box">Иллюстрация тренда</div>
+        <div class="box">Иллюстрация тренда</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">09</span>
+</section>
+
+<!-- 10 КОНКУРЕНТНОЕ ПОЛЕ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span class="on">Trend</span><span>Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Конкурентное<br>поле<small>Три вопроса: как выглядят конкуренты, хотим ли мы быть похожими, что отличает нас.</small></div>
+    <div>
+      <div class="grid-img grid-img--3" style="margin-top:0;">
+        <div class="box">Скриншот соцсетей<br>конкурента</div>
+        <div class="box">Скриншот соцсетей<br>конкурента</div>
+        <div class="box">Скриншот соцсетей<br>конкурента</div>
+      </div>
+      <div class="cols cols--3" style="margin-top:18px;">
+        <div class="hint">Чем заявляет отличие</div>
+        <div class="hint">Чем заявляет отличие</div>
+        <div class="hint">Чем заявляет отличие</div>
+      </div>
+      <div class="fill"><b>Заполнить</b>Под каждым конкурентом — одна строка о том, на чём он строит обещание</div>
+    </div>
+  </div>
+  <span class="num">10</span>
+</section>
+
+<!-- 11 КАРТА ПОЗИЦИОНИРОВАНИЯ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span class="on">Trend</span><span>Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Карта<br>позиционирования<small>Оси по сути продукта. Берутся из реальных различий категории, а не из общих слов.</small></div>
+    <div>
+      <div class="box" style="min-height:330px;">Поле 2×2 с конкурентами<br>Оси, например: домашнее — профессиональное × натуральное — научное</div>
+      <div class="fill"><b>Вывод</b>Свободная ниша одной фразой. Эта фраза дальше переезжает на страницу позиционирования и работает проверкой для каждого решения.</div>
+    </div>
+  </div>
+  <span class="num">11</span>
+</section>
+
+<!-- 12 КАРТА ПО ХАРАКТЕРУ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span class="on">Trend</span><span>Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Карта рынка<br>по характеру<small>Вторая карта про подачу и тон. Бренд может стоять в тесноте по продукту и занимать пустое место по характеру.</small></div>
+    <div>
+      <div class="box" style="min-height:330px;">Поле 2×2 с конкурентами<br>Оси, например: яркий — минималистичный × натуральный — научный</div>
+      <div class="fill"><b>Вывод</b>Свободное место по характеру. Отсюда начинается визуальное направление.</div>
+    </div>
+  </div>
+  <span class="num">12</span>
+</section>
+
+<!-- 13 РАЗДЕЛИТЕЛЬ MIND -->
+<section class="slide slide--ground divider">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span class="on">Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div>
+    <div class="kicker">Блок 03</div>
+    <h2>Смыслы</h2>
+    <p>Ценности, миссия, философия, позиционирование, главная идея и месседж. Всё опирается на нишу с предыдущего блока.</p>
+  </div>
+  <span class="num">13</span>
+</section>
+
+<!-- 14 ЦЕННОСТИ И УТП -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span class="on">Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Ценности<br>и УТП<small>Сначала длинный список словами, затем сокращение до рабочего набора.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="q">Роль бренда</div>
+        <div class="hint">Фокус на ценностях и большой цели.</div>
+        <div class="q" style="margin-top:24px;">Ценности</div>
+        <div class="fill"><b>Заполнить</b>Двадцать-тридцать слов через слэш, затем выделить восемь ключевых</div>
+      </div>
+      <div>
+        <div class="q">УТП</div>
+        <div class="hint">Обещание с проверяемым результатом. Формулировки вроде «результат виден после первого применения» проходят, абстрактные — отсекаются.</div>
+        <div class="fill"><b>Заполнить</b>Одно предложение с измеримым фактом</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">14</span>
+</section>
+
+<!-- 15 МИССИЯ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span class="on">Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Миссия<small>Большая цель за пределами продаж.</small></div>
+    <div>
+      <div class="big" style="color:#B4B8BE;">Одно предложение о том, что бренд меняет в жизни человека</div>
+      <div class="fill" style="max-width:60ch;"><b>Заполнить</b>Миссия набирается крупно и стоит на слайде одна. Соседство с текстом ослабляет её.</div>
+      <div class="grid-img grid-img--2">
+        <div class="box">Кадр, задающий настроение</div>
+        <div class="box">Кадр, задающий настроение</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">15</span>
+</section>
+
+<!-- 16 ФИЛОСОФИЯ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span class="on">Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Философия<br>бренда<small>Во что верим и как из-за этого поступаем.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="hint" style="font-size:16px;">Убеждения бренда: ради чего работаем и что готовы делать иначе, чем принято в категории.</div>
+        <div class="fill"><b>Заполнить</b>Два абзаца от первого лица множественного числа</div>
+      </div>
+      <div class="grid-img grid-img--2" style="margin-top:0;">
+        <div class="box">Кадр</div>
+        <div class="box">Кадр</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">16</span>
+</section>
+
+<!-- 17 ПОЗИЦИОНИРОВАНИЕ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span class="on">Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Позиционирование<br>бренда<small>Строится на нише с карты рынка. Ниша повторяется внизу слайда как основание.</small></div>
+    <div>
+      <div class="hint" style="font-size:17px;max-width:56ch;">Как бренд позиционирует себя: что делает, для кого и на чём стоит его отличие.</div>
+      <div class="fill"><b>Заполнить</b>Два абзаца. Первый — определение бренда, второй — обещание продукта.</div>
+      <div class="grid-img grid-img--2">
+        <div class="box">Кадр</div>
+        <div class="box">Кадр</div>
+      </div>
+      <div class="fill" style="margin-top:16px;"><b>Внизу слайда</b>Главная свободная ниша: формулировка с карты рынка дословно</div>
+    </div>
+  </div>
+  <span class="num">17</span>
+</section>
+
+<!-- 18 ГЛАВНАЯ ИДЕЯ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span class="on">Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Главная идея<br>бренда<small>Концепция, которая показывает аудитории главные преимущества продукта и собирает единый образ.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="hint">Чем наполнен продукт, с чем должен ассоциироваться бренд, в чём УТП, какой он по ощущению.</div>
+        <div class="fill"><b>Заполнить</b>Четыре тезиса: наполнение, ассоциация, УТП, характер продукта</div>
+      </div>
+      <div class="box" style="min-height:260px;">Ключевой визуальный образ идеи</div>
+    </div>
+  </div>
+  <span class="num">18</span>
+</section>
+
+<!-- 19 ОПОРЫ ГЛАВНОЙ ИДЕИ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span class="on">Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Опоры<br>главной идеи<small>Идея раскладывается на две-три метафоры. Дальше они кормят съёмку, упаковку и знак.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="q">Опора 01 · метафора</div>
+        <div class="hint">Что она означает и какое свойство продукта объясняет.</div>
+        <div class="fill"><b>Заполнить</b>Название опоры и абзац раскрытия</div>
+      </div>
+      <div>
+        <div class="q">Опора 02 · метафора</div>
+        <div class="hint">Что она означает и какое свойство продукта объясняет.</div>
+        <div class="fill"><b>Заполнить</b>Название опоры и абзац раскрытия</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">19</span>
+</section>
+
+<!-- 20 ФОРМУЛА МЕССЕДЖА -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span class="on">Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Ценности + миссия<br>= месседж<small>Кульминация смыслов, разобранных ранее.</small></div>
+    <div>
+      <div class="hint" style="font-size:17px;max-width:58ch;">Месседж отвечает на вопрос: что бренд хочет сказать своей аудитории в каждой точке контакта с клиентом.</div>
+      <div class="fill"><b>Правило</b>Главная идея, которая транслируется через одно сообщение. Метафора приветствуется.</div>
+      <div class="grid-img grid-img--2">
+        <div class="box">Кадр</div>
+        <div class="box">Кадр</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">20</span>
+</section>
+
+<!-- 21 МЕССЕДЖ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span class="on">Mind</span><span>Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body body--wide" style="justify-items:center;text-align:center;align-content:center;">
+    <div>
+      <div class="big" style="font-size:52px;max-width:26ch;margin:0 auto;color:#B4B8BE;">Месседж бренда одной фразой</div>
+      <div class="hint" style="margin:22px auto 0;text-align:center;">Подзаголовок: обещание простыми словами</div>
+      <div class="fill" style="max-width:52ch;margin:26px auto 0;text-align:left;"><b>Заполнить</b>Слайд остаётся почти пустым. Месседж работает только когда стоит один.</div>
+    </div>
+  </div>
+  <span class="num">21</span>
+</section>
+
+<!-- 22 РАЗДЕЛИТЕЛЬ SOUL -->
+<section class="slide slide--ground divider">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span class="on">Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div>
+    <div class="kicker">Блок 04</div>
+    <h2>Характер</h2>
+    <p>Персона, архетипы, тон общения и ключевые слова. Блок заканчивается словарём, по которому дальше собирается визуал.</p>
+  </div>
+  <span class="num">22</span>
+</section>
+
+<!-- 23 РАЗБОР НАЗВАНИЯ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span class="on">Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Разбор<br>названия<small>Имя разбирается по частям, включая личную историю владельца. Приём даёт бренду авторство и снабжает историей для коммуникации.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="q">Происхождение</div>
+        <div class="hint">Что означает слово, откуда пришло, какие смыслы за ним стоят.</div>
+        <div class="q" style="margin-top:22px;">Из чего собрано</div>
+        <div class="fill"><b>Заполнить</b>Разбор по слогам или частям. Личная деталь владельца делает бренд авторским.</div>
+      </div>
+      <div class="grid-img grid-img--2" style="margin-top:0;">
+        <div class="box">Кадр</div>
+        <div class="box">Кадр</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">23</span>
+</section>
+
+<!-- 24 БРЕНД-ПЕРСОНА -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span class="on">Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Бренд-персона<small>Конкретный человек с историей и манерой. Описывается живым текстом, а не перечнем прилагательных.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="hint" style="font-size:16px;">Кто она или он: происхождение образа, чем живёт, в каком мире находится, что делает образ современным.</div>
+        <div class="fill"><b>Заполнить</b>Два-три абзаца. Указание для съёмки в конце: какой должна быть атмосфера кадра.</div>
+      </div>
+      <div class="grid-img grid-img--2" style="margin-top:0;">
+        <div class="box">Образ персоны</div>
+        <div class="box">Образ персоны</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">24</span>
+</section>
+
+<!-- 25 АРХЕТИПЫ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span class="on">Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Архетипы<br>бренда<small>Берётся несколько с долями. Ведущий определяет тон общения, остальные дают оттенки.</small></div>
+    <div>
+      <div class="grid-img grid-img--3" style="margin-top:0;">
+        <div class="box">Образ архетипа</div>
+        <div class="box">Образ архетипа</div>
+        <div class="box">Образ архетипа</div>
+      </div>
+      <div class="cols cols--3" style="margin-top:16px;">
+        <div class="q">Архетип · 20%</div>
+        <div class="q">Архетип · 30%</div>
+        <div class="q">Архетип · 50%</div>
+      </div>
+      <div class="fill"><b>Правило</b>Сумма даёт сто процентов. Один архетип на бренд даёт плоскую картину.</div>
+    </div>
+  </div>
+  <span class="num">25</span>
+</section>
+
+<!-- 26 ВЕДУЩИЙ АРХЕТИП -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span class="on">Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Ведущий<br>архетип<small>Раскрывается отдельным слайдом: что он делает в мире и как проникает в продукт.</small></div>
+    <div>
+      <div class="box" style="min-height:300px;">Полноэкранный кадр архетипа<br>с названием и определением поверх</div>
+      <div class="fill"><b>Заполнить</b>Определение архетипа и абзац о том, как он проявляется именно в этом бренде</div>
+    </div>
+  </div>
+  <span class="num">26</span>
+</section>
+
+<!-- 27 TONE OF VOICE -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span class="on">Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Tone of voice<small>Выводится из ведущего архетипа. Формулировка прямо ссылается на него.</small></div>
+    <div>
+      <div class="box" style="min-height:250px;">Полноэкранный кадр<br>с формулировкой тона поверх</div>
+      <div class="fill"><b>Заполнить</b>Четыре-пять прилагательных, связанных с архетипом. Пример конструкции: «созвучен характеру и архетипу мага».</div>
+    </div>
+  </div>
+  <span class="num">27</span>
+</section>
+
+<!-- 28 КАК ПРОЯВЛЯЕТСЯ В РЕЧИ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span class="on">Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Как проявляется<br>в бренде<small>Три правила речи, каждое с пояснением, зачем оно.</small></div>
+    <div class="cols cols--3">
+      <div>
+        <div class="q"><i>[1]</i>Правило речи</div>
+        <div class="hint">Пояснение и пример фразы.</div>
+        <div class="fill"><b>Заполнить</b>Правило + пример</div>
+      </div>
+      <div>
+        <div class="q"><i>[2]</i>Правило речи</div>
+        <div class="hint">Пояснение и пример фразы.</div>
+        <div class="fill"><b>Заполнить</b>Правило + пример</div>
+      </div>
+      <div>
+        <div class="q"><i>[3]</i>Правило речи</div>
+        <div class="hint">Пояснение и пример фразы.</div>
+        <div class="fill"><b>Заполнить</b>Правило + пример</div>
+      </div>
+      <div class="box" style="grid-column:1/-1;min-height:230px;">Кадры, поддерживающие тон</div>
+    </div>
+  </div>
+  <span class="num">28</span>
+</section>
+
+<!-- 29 ХАРАКТЕР -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span class="on">Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Характер<br>бренда<small>Портрет человека сплошным текстом: что ценит, как принимает решения, откуда берётся его уверенность.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="hint" style="font-size:16px;">Живой текст задаёт тон точнее, чем перечень прилагательных. Пишется от третьего лица про конкретного человека.</div>
+        <div class="fill"><b>Заполнить</b>Два абзаца портрета</div>
+      </div>
+      <div class="box" style="min-height:250px;">Образ характера</div>
+    </div>
+  </div>
+  <span class="num">29</span>
+</section>
+
+<!-- 30 КЛЮЧЕВЫЕ СЛОВА -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span class="on">Soul</span><span>Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Ключевые<br>слова<small>Мост между смыслами и визуалом. Дальше по ним собирается ДНК и мудборд.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <ul class="list">
+          <li><b>01</b>Слово</li>
+          <li><b>02</b>Слово</li>
+          <li><b>03</b>Слово</li>
+          <li><b>04</b>Слово</li>
+          <li><b>05</b>Слово</li>
+          <li><b>06</b>Слово</li>
+        </ul>
+        <div class="fill"><b>Ориентир</b>Десять-двенадцать слов</div>
+      </div>
+      <div class="grid-img grid-img--2" style="margin-top:0;">
+        <div class="box">Кадр</div>
+        <div class="box">Кадр</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">30</span>
+</section>
+
+<!-- 31 РАЗДЕЛИТЕЛЬ LOOK -->
+<section class="slide slide--ground divider">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span class="on">Look</span></nav><span class="brand">Бренд</span></div>
+  <div>
+    <div class="kicker">Блок 05</div>
+    <h2>Визуальный<br>язык</h2>
+    <p>ДНК, мудборд, приёмы по носителям, логотип и знак. Каждое решение здесь ссылается на предыдущие блоки.</p>
+  </div>
+  <span class="num">31</span>
+</section>
+
+<!-- 32 ДНК -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span class="on">Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body body--wide">
+    <div>
+      <div class="label" style="margin-bottom:26px;">ДНК<small style="max-width:70ch;">Четыре-шесть визуальных тем, каждая со своим рядом кадров. Темы берутся из ключевых слов.</small></div>
+      <div class="cols cols--5" style="grid-template-columns:repeat(5,1fr);">
+        <div><div class="q">Тема</div><div class="box" style="min-height:230px;">Кадры</div></div>
+        <div><div class="q">Тема</div><div class="box" style="min-height:230px;">Кадры</div></div>
+        <div><div class="q">Тема</div><div class="box" style="min-height:230px;">Кадры</div></div>
+        <div><div class="q">Тема</div><div class="box" style="min-height:230px;">Кадры</div></div>
+        <div><div class="q">Тема</div><div class="box" style="min-height:230px;">Кадры</div></div>
+      </div>
+    </div>
+  </div>
+  <span class="num">32</span>
+</section>
+
+<!-- 33 МУДБОРД -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span class="on">Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Мудборд<small>Отвечает на вопрос «что я чувствую», а не «что я вижу». Собирает атмосферу мира бренда, оставляя конкретное направление следующему шагу.</small>
+      <div class="fill"><b>Зачем разделять</b>Клиент принимает атмосферу, ещё не обсуждая шрифт. Это снимает главный спор проекта.</div>
+    </div>
+    <div class="box" style="min-height:100%;">Сетка кадров: всё, что существует в мире бренда</div>
+  </div>
+  <span class="num">33</span>
+</section>
+
+<!-- 34 ВИЗУАЛЬНЫЙ ПРИЁМ 1 -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span class="on">Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Визуальный<br>приём<small>Формулируется как ответ на вопрос: как идею перевести в изображение.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="q">Как транслировать идею визуально?</div>
+        <div class="hint">Подставьте сюда ключевую идею бренда: экспертность, забота, скорость, ремесло.</div>
+        <ul class="list" style="margin-top:16px;">
+          <li><b>01</b>Фото и видео: тематические съёмки</li>
+          <li><b>02</b>Упаковка: текстуры, поверхности, отделка</li>
+          <li><b>03</b>Диджитал: графическое оформление носителей</li>
+        </ul>
+        <div class="fill"><b>Заполнить</b>Ответ раскладывается по носителям, а не остаётся общим словом</div>
+      </div>
+      <div class="grid-img grid-img--2" style="margin-top:0;">
+        <div class="box">Кадр</div><div class="box">Кадр</div>
+        <div class="box">Кадр</div><div class="box">Кадр</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">34</span>
+</section>
+
+<!-- 35 ВИЗУАЛЬНЫЙ ПРИЁМ 2 -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span class="on">Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Визуальный<br>приём<small>Второй приём отвечает на другой вопрос. Каждая ключевая идея получает свой.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="q">Как отразить архетип и бренд-персону?</div>
+        <div class="hint">Приём связывает визуал напрямую с блоком SOUL.</div>
+        <ul class="list" style="margin-top:16px;">
+          <li><b>01</b>Фото и видео: тематические съёмки</li>
+          <li><b>02</b>Упаковка: текстуры и поверхности</li>
+          <li><b>03</b>Типографика: отсылка к истории образа</li>
+        </ul>
+        <div class="fill"><b>Заполнить</b>Ответ по тем же трём носителям</div>
+      </div>
+      <div class="grid-img grid-img--2" style="margin-top:0;">
+        <div class="box">Кадр</div><div class="box">Кадр</div>
+        <div class="box">Кадр</div><div class="box">Кадр</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">35</span>
+</section>
+
+<!-- 36 ЛОГОТИП -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span class="on">Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body body--wide">
+    <div style="display:flex;flex-direction:column;height:100%;">
+      <div class="q" style="font-size:13px;letter-spacing:.14em;color:#B4B8BE;">Логотип</div>
+      <div class="box" style="flex:1;margin:20px 0;">Логотип в размер слайда</div>
+      <div class="cols cols--4" style="grid-template-columns:repeat(4,1fr);gap:26px;">
+        <div><div class="q">Характер бренда</div><div class="hint" style="font-size:13.5px;">Три-четыре слова из блока SOUL</div></div>
+        <div><div class="q">Выбор гарнитуры</div><div class="hint" style="font-size:13.5px;">Почему эта форма букв отвечает архетипу</div></div>
+        <div><div class="q">Работа с формой</div><div class="hint" style="font-size:13.5px;">Какая деталь знака отсылает к главной идее</div></div>
+        <div><div class="q">Практика</div><div class="hint" style="font-size:13.5px;">Читаемость на упаковке и мелких носителях</div></div>
+      </div>
+    </div>
+  </div>
+  <span class="num">36</span>
+</section>
+
+<!-- 37 ЗНАК -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span class="on">Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Знак<small>Знак может быть адаптивным и менять конфигурацию. Логика изменения берётся из опор главной идеи.</small>
+      <div class="fill"><b>Заполнить</b>Одна строка о принципе: что именно повторяет знак</div>
+    </div>
+    <div class="grid-img grid-img--2" style="margin-top:0;">
+      <div class="box" style="min-height:100%;">Знак, вариант 1</div>
+      <div class="box" style="min-height:100%;">Знак, вариант 2</div>
+    </div>
+  </div>
+  <span class="num">37</span>
+</section>
+
+<!-- 38 ПРИМЕНЕНИЕ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span class="on">Look</span></nav><span class="brand">Бренд</span></div>
+  <div class="body body--wide">
+    <div>
+      <div class="label" style="margin-bottom:22px;">Применение<small style="max-width:70ch;">Логотип и знак на реальных носителях: упаковка, вывеска, соцсети, печать.</small></div>
+      <div class="grid-img grid-img--3" style="margin-top:0;">
+        <div class="box" style="min-height:240px;">Носитель</div>
+        <div class="box" style="min-height:240px;">Носитель</div>
+        <div class="box" style="min-height:240px;">Носитель</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">38</span>
+</section>
+
+<!-- 39 РАЗДЕЛИТЕЛЬ ОПЕРАЦИОННЫЙ БЛОК -->
+<section class="slide slide--ground divider">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span>Look</span><span class="on">Work</span></nav><span class="brand">Бренд</span></div>
+  <div>
+    <div class="kicker">Блок 06</div>
+    <h2>Работа<br>с брендом</h2>
+    <p>Здесь платформа превращается в рабочий инструмент. Первые пять блоков объясняют замысел, шестой отвечает за применение — и остаётся у клиента после проекта.</p>
+  </div>
+  <span class="num">39</span>
+</section>
+
+<!-- 40 ПРАВИЛА РЕШЕНИЙ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span>Look</span><span class="on">Work</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Правила<br>решений<small>Разграничение полномочий с критериями. Снимает с владельца роль согласующего.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="q">Решает сотрудник</div>
+        <div class="hint">Перечень с порогами: до какой суммы, на какой срок, в каких пределах.</div>
+        <div class="fill"><b>Заполнить</b>Список решений и границы</div>
+      </div>
+      <div>
+        <div class="q">Решает владелец</div>
+        <div class="hint">Что уходит наверх и почему именно это.</div>
+        <div class="fill"><b>Заполнить</b>Короткий список исключений</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">40</span>
+</section>
+
+<!-- 41 LAUNCH PLAYBOOK -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span>Look</span><span class="on">Work</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Запуск<br>новой точки<small>Этапы, роли, сроки и чек-лист. Документ, по которому открытие проходит без владельца.</small></div>
+    <div>
+      <ul class="list">
+        <li><b>01</b>Этап · роль · срок</li>
+        <li><b>02</b>Этап · роль · срок</li>
+        <li><b>03</b>Этап · роль · срок</li>
+        <li><b>04</b>Этап · роль · срок</li>
+        <li><b>05</b>Этап · роль · срок</li>
+      </ul>
+      <div class="fill"><b>Заполнить</b>От подписания аренды до дня открытия. У каждого этапа один ответственный.</div>
+    </div>
+  </div>
+  <span class="num">41</span>
+</section>
+
+<!-- 42 ЛОКАЛЬНАЯ АДАПТАЦИЯ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span>Look</span><span class="on">Work</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Локальная<br>адаптация<small>Что точка меняет под себя и что остаётся общим для всей сети.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <div class="q">Можно менять</div>
+        <div class="hint">Локальные позиции, часть оформления, сезонные активности.</div>
+        <div class="fill"><b>Заполнить</b>Список с примерами</div>
+      </div>
+      <div>
+        <div class="q">Остаётся неизменным</div>
+        <div class="hint">Логотип, палитра, рецептура, скрипт общения с гостем.</div>
+        <div class="fill"><b>Заполнить</b>Список с примерами</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">42</span>
+</section>
+
+<!-- 43 РАБОТА С ПОДРЯДЧИКАМИ -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span>Look</span><span class="on">Work</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Работа<br>с подрядчиками<small>Шаблоны брифов и критерии приёмки. Подрядчик получает задачу без участия владельца.</small></div>
+    <div class="cols cols--3">
+      <div><div class="q">Дизайн</div><div class="hint">Что указывать в брифе и по каким пунктам принимать работу.</div><div class="fill"><b>Заполнить</b>Бриф и приёмка</div></div>
+      <div><div class="q">Соцсети</div><div class="hint">Что указывать в брифе и по каким пунктам принимать работу.</div><div class="fill"><b>Заполнить</b>Бриф и приёмка</div></div>
+      <div><div class="q">Печать</div><div class="hint">Что указывать в брифе и по каким пунктам принимать работу.</div><div class="fill"><b>Заполнить</b>Бриф и приёмка</div></div>
+    </div>
+  </div>
+  <span class="num">43</span>
+</section>
+
+<!-- 44 HANDOVER -->
+<section class="slide">
+  <div class="bar"><nav><span>Core</span><span>Trend</span><span>Mind</span><span>Soul</span><span>Look</span><span class="on">Work</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Передача<br>и развитие<small>Что остаётся у клиента, кто ведёт бренд дальше и как проходит проверка.</small></div>
+    <div class="cols cols--3">
+      <div><div class="q">Что передаём</div><div class="hint">Документы, шаблоны, файлы, доступы.</div><div class="fill"><b>Заполнить</b>Перечень</div></div>
+      <div><div class="q">Кто отвечает</div><div class="hint">Сотрудник, который ведёт бренд после проекта.</div><div class="fill"><b>Заполнить</b>Роль и полномочия</div></div>
+      <div><div class="q">Как проверяем</div><div class="hint">Чек-лист аудита точки и периодичность.</div><div class="fill"><b>Заполнить</b>Процедура</div></div>
+    </div>
+  </div>
+  <span class="num">44</span>
+</section>
+
+<!-- 45 ПАМЯТКА ПО ПОРЯДКУ -->
+<section class="slide slide--ground">
+  <div class="bar"><nav><span class="on">Памятка</span></nav><span class="brand">Бренд</span></div>
+  <div class="body">
+    <div class="label">Порядок<br>работы<small>Два шага экономят цикл правок.</small></div>
+    <div class="cols cols--2">
+      <div>
+        <ul class="list">
+          <li><b>01</b>Интервью по блоку CORE</li>
+          <li><b>02</b>Сбор материалов и скриншотов конкурентов</li>
+          <li><b>03</b>Трендвотчинг и две карты рынка</li>
+          <li><b>04</b>Встреча по картам: клиент подтверждает нишу</li>
+          <li><b>05</b>Смыслы пакетом на согласование</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="list">
+          <li><b>06</b>Характер, архетипы, TOV, ключевые слова</li>
+          <li><b>07</b>Мудборд отдельной встречей</li>
+          <li><b>08</b>Визуальные приёмы, логотип, знак</li>
+          <li><b>09</b>Операционный блок</li>
+          <li><b>10</b>Передача и обучение сотрудника</li>
+        </ul>
+        <div class="fill"><b>Правило</b>Смыслы согласуются до визуала: спор о цвете логотипа часто оказывается спором о позиционировании. Мудборд идёт до направления.</div>
+      </div>
+    </div>
+  </div>
+  <span class="num">45</span>
+</section>
+
+<!-- 46 ФИНАЛ -->
+<section class="slide cover">
+  <div class="bar"><nav><span class="on">Шаблон</span></nav><span class="brand">Бренд</span></div>
+  <h1 style="font-size:76px;max-width:20ch;">Шаблон<br>бренд-платформы</h1>
+  <div class="meta">
+    <span>46 слайдов · шесть блоков · заполняется под каждый проект</span>
+    <span>Chlorine</span>
+  </div>
+</section>
