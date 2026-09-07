@@ -13,9 +13,12 @@ PDF: файл создаётся, размер выглядит правдопо
 """
 
 import sys
+from signal import SIG_DFL, SIGPIPE, signal
 from pathlib import Path
 
 import pypdfium2 as pdfium
+
+signal(SIGPIPE, SIG_DFL)  # чтобы вывод спокойно переживал head и less
 
 
 def check(path, out_dir=None):
