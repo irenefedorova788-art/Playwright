@@ -1,0 +1,282 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Работы Chlorine</title>
+
+<style>
+  @font-face{font-family:"Onest";src:url("../brandbook/fonts/Onest-cyrillic.woff2")format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Onest";src:url("../brandbook/fonts/Onest-latin.woff2")format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+  @font-face{font-family:"Golos";src:url("../brandbook/fonts/GolosText-cyrillic.woff2")format("woff2");font-weight:400 900;font-display:swap;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+  @font-face{font-family:"Golos";src:url("../brandbook/fonts/GolosText-latin.woff2")format("woff2");font-weight:400 900;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2122;}
+
+  :root{
+    --paper:#F4F4F1;
+    --surface:#FFFFFF;
+    --ink:#14170F;
+    --soft:#5E635A;
+    --faint:#9DA298;
+    --line:#DCDED6;
+    --accent:#2E6B52;
+    --gap:#EFEFEA;
+
+    --display:"Onest","Segoe UI",sans-serif;
+    --text:"Golos","Segoe UI",sans-serif;
+    --page:min(1080px, 100% - 48px);
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --paper:#101209; --surface:#171A12; --ink:#ECEEE4; --soft:#A9AEA2;
+      --faint:#6F7468; --line:#2B2F24; --accent:#6FB893; --gap:#1B1E15;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101209; --surface:#171A12; --ink:#ECEEE4; --soft:#A9AEA2;
+    --faint:#6F7468; --line:#2B2F24; --accent:#6FB893; --gap:#1B1E15;
+  }
+
+  *{box-sizing:border-box;margin:0;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:var(--paper);}
+
+  .wrap{width:var(--page);margin:0 auto;}
+
+  /* ---------- шапка ---------- */
+  header.top{padding:64px 0 48px;border-bottom:1px solid var(--line);margin-bottom:0;}
+  .eyebrow{
+    font-family:var(--display);font-size:12px;font-weight:700;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--accent);
+  }
+  header.top h1{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(34px,6vw,62px);line-height:1.02;letter-spacing:-.03em;
+    margin-top:18px;max-width:16ch;text-wrap:balance;
+  }
+
+  /* ---------- кейс ---------- */
+  .case{padding:84px 0;border-bottom:1px solid var(--line);}
+  .case__head{margin-bottom:56px;}
+  .case__name{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(30px,5vw,52px);line-height:1.04;letter-spacing:-.03em;
+  }
+  .case__meta{
+    margin-top:14px;font-size:15px;color:var(--soft);
+    display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  }
+  .case__meta span + span::before{content:"·";margin-right:10px;color:var(--faint);}
+
+  .block{
+    display:grid;grid-template-columns:230px 1fr;gap:44px;
+    padding:34px 0;border-top:1px solid var(--line);
+  }
+  .block:first-of-type{border-top:none;padding-top:0;}
+  .block__label{
+    font-family:var(--display);font-size:12.5px;font-weight:700;
+    letter-spacing:.17em;text-transform:uppercase;color:var(--faint);
+    padding-top:5px;
+  }
+  .block__label b{display:block;color:var(--accent);margin-bottom:5px;}
+  .block p{font-size:17px;line-height:1.62;max-width:62ch;color:var(--soft);}
+  .block p + p{margin-top:14px;}
+  .block p strong{color:var(--ink);font-weight:600;}
+
+  /* BELIEF — отдельный ритм */
+  .belief{background:var(--gap);}
+  .belief .block{border-top:none;padding:0;}
+  .belief__line{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(34px,7vw,76px);line-height:1.04;letter-spacing:-.035em;
+    color:var(--ink);
+  }
+
+  /* ---------- визуал ---------- */
+  .shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
+  .shot{
+    aspect-ratio:4/5;background:var(--surface);
+    border:1px dashed var(--line);border-radius:3px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--faint);font-size:13.5px;text-align:center;padding:16px;
+  }
+  .shot--wide{aspect-ratio:16/9;grid-column:1/-1;}
+
+  /* ---------- пустой слот ---------- */
+  .todo{
+    border:1px dashed var(--accent);border-radius:3px;
+    padding:18px 20px;background:var(--surface);max-width:62ch;
+  }
+  .todo__tag{
+    font-family:var(--display);font-size:11.5px;font-weight:700;
+    letter-spacing:.15em;text-transform:uppercase;color:var(--accent);
+    display:block;margin-bottom:9px;
+  }
+  .todo p{font-size:15px;color:var(--soft);max-width:none;}
+  .todo ul{margin:9px 0 0;padding-left:19px;font-size:15px;color:var(--soft);line-height:1.6;}
+  .todo li{margin-bottom:5px;}
+
+  .src{font-size:13.5px;color:var(--faint);margin-top:13px;max-width:62ch;}
+
+  footer{padding:44px 0 80px;font-size:13.5px;color:var(--faint);}
+
+  @media (max-width:760px){
+    .block{grid-template-columns:1fr;gap:14px;padding:26px 0;}
+    .case{padding:56px 0;}
+  }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Chlorine · Работы</div>
+    <h1>Как бренд меняется, когда меняется время</h1>
+  </div>
+</header>
+
+<!-- ============ КЕЙС 1 · СОЙКА НАПЕЛА ============ -->
+<section class="case">
+  <div class="wrap">
+    <div class="case__head">
+      <div class="case__name">Сойка Напела</div>
+      <div class="case__meta"><span>Гастрокофейня</span><span>Красная Пресня</span><span>Ребрендинг</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block__label"><b>01</b>Бренд</div>
+      <div>
+        <p>«Сойка Напела» — гастрокофейня на Красной Пресне. Проект прошёл через закрытие в 2020 году и смену первоначального формата. Перед брендом стояла задача перейти от привычного образа кофейни к более цельному гастрономическому проекту.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block__label"><b>02</b>Проблема</div>
+      <div>
+        <p>Проект постепенно терял актуальность и продолжал существовать в рамках концепции, которая уже не соответствовала его развитию. Основная аудитория была преимущественно возрастной, а бренду нужно было привлечь более молодую аудиторию и заново стать для неё актуальным и привлекательным местом.</p>
+        <p><strong>Задача:</strong> оживить бренд, сохранив его узнаваемое название, но полностью переосмыслив то, каким он может быть сегодня.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block__label"><b>03</b>Инсайт</div>
+      <div>
+        <p>В течение дня меняются настроение, планы и люди рядом — вместе с ними меняется и то, зачем человек приходит в «Сойку». Одно место может сопровождать совершенно разные моменты и сближать людей.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="belief" style="padding:64px 0;margin:34px 0;">
+    <div class="wrap">
+      <div class="block" style="align-items:center;">
+        <div class="block__label"><b>04</b>Belief</div>
+        <div class="belief__line">Сейчас самое время.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="block" style="border-top:none;padding-top:0;">
+      <div class="block__label"><b>05</b>Концепт</div>
+      <div>
+        <p>Во время ребрендинга мы убрали образ птицы и ушли от буквального языка старой концепции. Сохранили фразу «сейчас самое время» со старой светодиодной вывески и сделали её основой нового бренда.</p>
+        <p>Акцент сместился с птицы на момент — на то, что происходит здесь и сейчас. Вокруг этой идеи мы пересобрали характер и коммуникацию «Сойки».</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block__label"><b>06</b>Визуал</div>
+      <div>
+        <div class="shots">
+          <div class="shot shot--wide">Ключевой кадр: вывеска или интерьер</div>
+          <div class="shot">Фирменный носитель</div>
+          <div class="shot">Меню или упаковка</div>
+          <div class="shot">Деталь или типографика</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ КЕЙС 2 · ЛЕПИМ И ВАРИМ ============ -->
+<section class="case">
+  <div class="wrap">
+    <div class="case__head">
+      <div class="case__name">Лепим и Варим</div>
+      <div class="case__meta"><span>Сеть пельменных</span><span>Москва и далее</span><span>Данные уточняются</span></div>
+    </div>
+
+    <div class="block">
+      <div class="block__label"><b>01</b>Бренд</div>
+      <div>
+        <p>«Лепим и Варим» — сеть современных пельменных с открытой ручной лепкой. Первая точка открылась 15 ноября 2015 года в Столешниковом переулке: основатель Николай Сердотецкий выбрал самую дорогую улицу Москвы намеренно — пельменная от неизвестных молодых людей в таком месте была вызовом сама по себе.</p>
+        <p>Формат fast casual, открытая кухня, около 15 тысяч пельменей и вареников в день. С 2018 года сеть развивается по франшизе; к лету 2024 года — 67 точек площадью от 12 до 250 м² в России, Беларуси, Казахстане и ОАЭ. Дети до семи лет едят бесплатно.</p>
+        <div class="src">Факты из открытых источников: сайт сети, профиль франшизы, отраслевые публикации. Перед публикацией сверить с клиентом и дополнить тем, что относится к нашей работе.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block__label"><b>02</b>Проблема</div>
+      <div>
+        <div class="todo">
+          <span class="todo__tag">Заполнить</span>
+          <p>С чем пришёл клиент и что переставало работать. По структуре «Сойки» здесь нужны два слоя:</p>
+          <ul>
+            <li>Что происходило с брендом: рост сети, разные города и страны, франчайзи со своим пониманием</li>
+            <li>Формулировка задачи одной строкой — что именно требовалось сделать</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block__label"><b>03</b>Инсайт</div>
+      <div>
+        <div class="todo">
+          <span class="todo__tag">Заполнить</span>
+          <p>Наблюдение о госте, которое меняет взгляд на бренд. У «Сойки» это смена поводов в течение дня. Здесь — что именно вы увидели: почему человек выбирает лепку при нём, что значит пельмень как еда, какую роль играет открытая кухня.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block__label"><b>04</b>Belief</div>
+      <div>
+        <div class="todo">
+          <span class="todo__tag">Заполнить</span>
+          <p>Короткая фраза, на которой держится бренд. У «Сойки» она была найдена на старой вывеске. Здесь может прийти из речи основателя, из разговора на кухне или из самого названия.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block__label"><b>05</b>Концепт</div>
+      <div>
+        <div class="todo">
+          <span class="todo__tag">Заполнить</span>
+          <p>Что сделали и от чего отказались. В «Сойке» убрали птицу и оставили фразу — сильный ход, потому что назван и отказ, и находка. Здесь по той же логике:</p>
+          <ul>
+            <li>Что убрали из старого языка бренда</li>
+            <li>Что сохранили и почему именно это</li>
+            <li>Куда сместился акцент</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block__label"><b>06</b>Визуал</div>
+      <div>
+        <div class="shots">
+          <div class="shot shot--wide">Ключевой кадр</div>
+          <div class="shot">Носитель</div>
+          <div class="shot">Упаковка или меню</div>
+          <div class="shot">Деталь</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Chlorine · следующая точка не начинается с нуля</div>
+</footer>
