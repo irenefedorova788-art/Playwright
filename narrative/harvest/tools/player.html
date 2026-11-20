@@ -3,60 +3,107 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Harvest</title>
+<title>Лили</title>
 <style>
-  :root { --bg:#14120F; --text:#EDE6DA; --muted:#9A9184; --accent:#D9A441; }
+  :root { --bg:#14120F; --text:#EDE6DA; --muted:#8E867A; --accent:#D9A441; }
   * { box-sizing:border-box; margin:0; }
-  body { background:var(--bg); color:var(--text); font:18px/1.6 Georgia, serif; }
-  main { max-width:620px; margin:0 auto; padding:48px 20px 120px; }
-  p { margin:0 0 1em; animation:in .4s ease both; }
+  html, body { height:100%; }
+  body { background:var(--bg); color:var(--text); font:19px/1.6 Georgia, serif;
+         -webkit-user-select:none; user-select:none; cursor:pointer; }
+  main { max-width:620px; min-height:100%; margin:0 auto; padding:56px 22px 140px; }
+  p { margin:0 0 1em; animation:in .45s ease both; }
+  p.todo { color:var(--accent); font-family:system-ui, sans-serif; font-size:15px; }
+  .scene { min-height:70vh; display:flex; align-items:center; justify-content:center;
+           font-size:30px; letter-spacing:.06em; animation:in .8s ease both; }
+  .hint { position:fixed; left:0; right:0; bottom:22px; text-align:center;
+          color:var(--muted); font:14px system-ui, sans-serif; }
   .choices { margin-top:28px; display:flex; flex-direction:column; gap:10px; }
   button { font:inherit; font-size:17px; text-align:left; color:var(--text); background:transparent;
            border:1px solid var(--muted); border-radius:10px; padding:14px 16px; cursor:pointer; }
-  button:hover, button:focus-visible { border-color:var(--accent); color:var(--accent); outline:none; }
   .end { color:var(--muted); font-style:italic; margin-top:32px; }
-  .restart { margin-top:16px; }
   @keyframes in { from { opacity:0; transform:translateY(4px); } }
 </style>
 </head>
 <body>
 <main id="story"></main>
+<div class="hint" id="hint">коснитесь экрана, чтобы продолжить</div>
 <script>/*RUNTIME*/</script>
 <script>
+  // Линейный режим: по касанию показывается одна строка.
+  // Тег "# scene: Название" очищает экран и показывает заголовок сцены.
   const story = new inkjs.Story(/*STORY*/);
   const box = document.getElementById('story');
+  const hint = document.getElementById('hint');
+  let busy = false;
 
-  function step() {
-    while (story.canContinue) {
+  function sceneTag(tags) {
+    const t = (tags || []).find(t => t.trim().startsWith('scene:'));
+    return t ? t.split(':').slice(1).join(':').trim() : null;
+  }
+
+  // Очередь шагов: заголовок сцены или строка текста.
+  const queue = [];
+  function fill() {
+    while (!queue.length && story.canContinue) {
       const line = story.Continue().trim();
-      if (!line) continue;
-      const p = document.createElement('p');
-      p.textContent = line;
-      box.appendChild(p);
+      const scene = sceneTag(story.currentTags);
+      if (scene) queue.push({ scene });
+      if (line) queue.push({ line, fresh: !!scene });
     }
-    if (story.currentChoices.length) {
-      const list = document.createElement('div');
-      list.className = 'choices';
-      story.currentChoices.forEach(choice => {
-        const b = document.createElement('button');
-        b.textContent = choice.text;
-        b.onclick = () => { list.remove(); story.ChooseChoiceIndex(choice.index); step(); };
-        list.appendChild(b);
-      });
-      box.appendChild(list);
-    } else {
-      const end = document.createElement('p');
-      end.className = 'end';
-      end.textContent = 'Конец.';
-      const again = document.createElement('button');
-      again.className = 'restart';
-      again.textContent = 'Начать заново';
-      again.onclick = () => { story.ResetState(); box.innerHTML = ''; step(); };
-      box.append(end, again);
+  }
+
+  function next() {
+    if (busy) return;
+    fill();
+    const step = queue.shift();
+    if (!step) return story.currentChoices.length ? choices() : finish();
+    if (step.scene) {
+      box.innerHTML = '';
+      const s = document.createElement('div');
+      s.className = 'scene';
+      s.textContent = step.scene;
+      box.appendChild(s);
+      window.scrollTo(0, 0);
+      return;
     }
+    if (step.fresh) box.innerHTML = '';
+    show(step.line);
+  }
+
+  function show(line) {
+    const p = document.createElement('p');
+    p.textContent = line;
+    if (line.startsWith('[TODO')) p.className = 'todo';
+    box.appendChild(p);
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
-  step();
+
+  function choices() {
+    busy = true;
+    const list = document.createElement('div');
+    list.className = 'choices';
+    story.currentChoices.forEach(choice => {
+      const b = document.createElement('button');
+      b.textContent = choice.text;
+      b.onclick = e => { e.stopPropagation(); list.remove(); busy = false;
+                         story.ChooseChoiceIndex(choice.index); next(); };
+      list.appendChild(b);
+    });
+    box.appendChild(list);
+  }
+
+  function finish() {
+    busy = true;
+    hint.remove();
+    const end = document.createElement('p');
+    end.className = 'end';
+    end.textContent = 'Конец.';
+    box.appendChild(end);
+  }
+
+  document.addEventListener('click', next);
+  document.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') next(); });
+  next();
 </script>
 </body>
 </html>
