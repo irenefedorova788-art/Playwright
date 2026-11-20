@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harvest</title>
+<style>
+  :root { --bg:#14120F; --text:#EDE6DA; --muted:#9A9184; --accent:#D9A441; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--text); font:18px/1.6 Georgia, serif; }
+  main { max-width:620px; margin:0 auto; padding:48px 20px 120px; }
+  p { margin:0 0 1em; animation:in .4s ease both; }
+  .choices { margin-top:28px; display:flex; flex-direction:column; gap:10px; }
+  button { font:inherit; font-size:17px; text-align:left; color:var(--text); background:transparent;
+           border:1px solid var(--muted); border-radius:10px; padding:14px 16px; cursor:pointer; }
+  button:hover, button:focus-visible { border-color:var(--accent); color:var(--accent); outline:none; }
+  .end { color:var(--muted); font-style:italic; margin-top:32px; }
+  .restart { margin-top:16px; }
+  @keyframes in { from { opacity:0; transform:translateY(4px); } }
+</style>
+</head>
+<body>
+<main id="story"></main>
+<script>/*RUNTIME*/</script>
+<script>
+  const story = new inkjs.Story(/*STORY*/);
+  const box = document.getElementById('story');
+
+  function step() {
+    while (story.canContinue) {
+      const line = story.Continue().trim();
+      if (!line) continue;
+      const p = document.createElement('p');
+      p.textContent = line;
+      box.appendChild(p);
+    }
+    if (story.currentChoices.length) {
+      const list = document.createElement('div');
+      list.className = 'choices';
+      story.currentChoices.forEach(choice => {
+        const b = document.createElement('button');
+        b.textContent = choice.text;
+        b.onclick = () => { list.remove(); story.ChooseChoiceIndex(choice.index); step(); };
+        list.appendChild(b);
+      });
+      box.appendChild(list);
+    } else {
+      const end = document.createElement('p');
+      end.className = 'end';
+      end.textContent = 'Конец.';
+      const again = document.createElement('button');
+      again.className = 'restart';
+      again.textContent = 'Начать заново';
+      again.onclick = () => { story.ResetState(); box.innerHTML = ''; step(); };
+      box.append(end, again);
+    }
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+  step();
+</script>
+</body>
+</html>
